@@ -1,0 +1,2397 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WayneOS // Personal Focus &amp; Study Studio</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+/* ==========================================================================
+   WAYNE-OS // APPLE MINIMALIST DARK EDITION
+   Aesthetic: Pure Apple Minimalism (macOS Sequoia / visionOS / OLED Dark)
+              + Subtle Gotham Noir & 1984 NYC Midnight Atmosphere
+   ========================================================================== */
+
+:root {
+  --bg-obsidian: #030305;
+  --bg-charcoal: #09090c;
+  --glass-surface: rgba(20, 20, 24, 0.54);
+  --glass-surface-elevated: rgba(28, 28, 34, 0.65);
+  --glass-pill: rgba(14, 14, 18, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.075);
+  --glass-border-highlight: rgba(255, 255, 255, 0.16);
+  --amber-bat: #f59e0b;
+  --amber-glow: rgba(245, 158, 11, 0.14);
+  --nyc-crimson: #fb7185;
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-muted: #515154;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  letter-spacing: -0.011em;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* Minimalist Apple Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Animated Skyline Canvas - Subtly Diffused for Apple Minimalism */
+#gotham-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+/* Soft Atmospheric Matte Vignette */
+.noir-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 20%, transparent 25%, rgba(3, 3, 5, 0.82) 92%),
+    linear-gradient(180deg, rgba(3, 3, 5, 0.65) 0%, transparent 30%, transparent 70%, rgba(3, 3, 5, 0.94) 100%);
+}
+
+/* Pure Apple Minimalist Frosted Glass Squircle */
+.apple-glass {
+  background: var(--glass-surface);
+  backdrop-filter: blur(44px) saturate(190%);
+  -webkit-backdrop-filter: blur(44px) saturate(190%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 20px 50px -15px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              opacity 0.35s ease;
+}
+
+.apple-glass:hover {
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+.apple-glass-amber {
+  border-color: rgba(255, 255, 255, 0.11);
+  box-shadow:
+    0 24px 60px -15px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Minimalist Monochrome macOS Window Dots (Reveal color only on card hover) */
+.traffic-lights {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.traffic-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.16);
+  transition: all 0.25s ease;
+}
+
+.apple-glass:hover .dot-red { background: #ff5f56; }
+.apple-glass:hover .dot-yellow { background: #ffbd2e; }
+.apple-glass:hover .dot-green { background: #27c93f; }
+
+/* Apple Dynamic Island - Whisper-Quiet Pill */
+.dynamic-island {
+  background: rgba(8, 8, 10, 0.88);
+  backdrop-filter: blur(36px) saturate(190%);
+  -webkit-backdrop-filter: blur(36px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dynamic-island:hover {
+  transform: scale(1.015);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Segmented Control (Pure iOS / macOS Dark Mode Pill) */
+.segmented-control {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 3px;
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 2px;
+}
+
+.segment-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.segment-btn:hover {
+  color: var(--text-primary);
+}
+
+.segment-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* Ultra-Clean Apple Watch / iOS Lock Screen Timer Typography */
+.timer-digits {
+  font-family: var(--font-sans);
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.055em;
+  color: #ffffff;
+}
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.35s ease;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* Subtle Character Animations */
+@keyframes floatNoir {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes pulseVisor {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+@keyframes saxWave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(0.95); }
+}
+
+.character-avatar-wrap {
+  animation: floatNoir 5s ease-in-out infinite;
+}
+
+.bat-visor-glow {
+  animation: pulseVisor 3.2s ease-in-out infinite;
+}
+
+.eq-bar {
+  display: inline-block;
+  width: 2px;
+  height: 10px;
+  border-radius: 2px;
+  background: #f5f5f7;
+  opacity: 0.7;
+  animation: saxWave 1.1s ease-in-out infinite;
+}
+.eq-bar:nth-child(2) { animation-delay: 0.2s; background: var(--amber-bat); }
+.eq-bar:nth-child(3) { animation-delay: 0.4s; }
+.eq-bar:nth-child(4) { animation-delay: 0.15s; background: var(--amber-bat); }
+
+/* Spotlight Maximum Focus Mode (Apple Zen Focus) */
+body.spotlight-active .secondary-panel {
+  opacity: 0.08;
+  filter: blur(6px);
+  pointer-events: none;
+  transform: scale(0.985);
+}
+
+body.spotlight-active .secondary-panel:hover {
+  opacity: 0.85;
+  filter: none;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+body.spotlight-active #timer-hero-card {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.92);
+}
+
+/* Minimalist Apple Inputs & Pill Buttons */
+.noir-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.noir-input:focus {
+  background: rgba(255, 255, 255, 0.065);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+}
+
+/* Signature Apple Alabaster Pill CTA Button */
+.btn-primary-noir {
+  background: #f5f5f7;
+  color: #050507;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary-noir:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(255, 255, 255, 0.14);
+}
+
+.btn-primary-noir:active {
+  transform: translateY(0px) scale(0.985);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Minimalist Apple Filter Pills */
+.chip-btn {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 0.73rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chip-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.chip-btn.active {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* Custom Minimalist Range Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f5f5f7;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Toast Notification */
+#noir-toast {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+</style>
+</head>
+<body class="min-h-screen text-zinc-100 antialiased">
+
+  <!-- Animated Gotham + 1980s NYC Midnight Skyline Canvas -->
+  <canvas id="gotham-canvas"></canvas>
+  <div class="noir-vignette"></div>
+
+  <!-- Main Workspace Wrapper -->
+  <div class="relative z-10 flex flex-col min-h-screen pb-28">
+
+    <!-- Ultra-Minimal Apple Status Header + Dynamic Island -->
+    <header class="sticky top-0 z-30 px-6 py-3.5 bg-black/35 backdrop-blur-3xl border-b border-white/[0.06]">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <!-- Left: Minimalist Apple Branding & Navigation -->
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-white text-black flex items-center justify-center font-semibold text-[11px] tracking-tighter">
+              W
+            </span>
+            <span class="font-medium tracking-tight text-sm text-zinc-100">WayneOS</span>
+          </div>
+
+          <nav class="hidden md:flex items-center gap-1 text-xs">
+            <button type="button" data-nav-tab="studio" class="segment-btn active">Focus Studio</button>
+            <button type="button" data-nav-tab="sessions" class="segment-btn">Session Tracker</button>
+          </nav>
+        </div>
+
+        <!-- Center: Apple Dynamic Island Live Activity -->
+        <div class="dynamic-island px-4 py-1.5 flex items-center gap-3">
+          <span id="island-live-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span id="island-status-text" class="text-xs font-normal text-zinc-300 truncate max-w-[160px] sm:max-w-[220px]">
+            Deep Work &amp; Study
+          </span>
+          <span class="text-zinc-700">·</span>
+          <span id="island-timer-pill" class="text-xs font-mono font-medium text-white">25:00</span>
+          <div class="hidden sm:flex items-end gap-0.5 h-2.5 ml-0.5" aria-hidden="true">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+          </div>
+        </div>
+
+        <!-- Right: Minimalist Scene & Focus Toggles + Clock -->
+        <div class="flex items-center gap-2">
+          <button type="button" id="toggle-batsignal-btn" class="btn-glass text-xs py-1.5 px-3 hidden sm:inline-flex text-zinc-300">
+            Bat-Signal: ON
+          </button>
+          <button type="button" id="toggle-spotlight-btn" class="btn-glass text-xs py-1.5 px-3.5 text-zinc-200">
+            Knightfall Max Focus
+          </button>
+          <span id="macos-live-clock" class="text-xs text-zinc-400 font-normal ml-2">Tue 23:30</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-6 pt-8 space-y-8">
+
+      <!-- ===================================================================
+           VIEW 1: FOCUS STUDIO (Minimalist Apple Split: Timer Centerpiece + Companion + Study Queue)
+           =================================================================== -->
+      <section id="view-studio" class="space-y-8">
+
+        <!-- Whisper-Quiet Atmosphere Selector Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 secondary-panel">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-xs text-zinc-500 font-medium mr-1">Atmosphere</span>
+            <button type="button" data-scene-preset="gotham_rain" class="chip-btn active">Gotham Downpour</button>
+            <button type="button" data-scene-preset="nyc_sax" class="chip-btn">NYC 1984 Sax Velvet</button>
+            <button type="button" data-scene-preset="batcave" class="chip-btn">Batcave Obsidian</button>
+            <button type="button" data-scene-preset="wayne_aurora" class="chip-btn">Wayne Tower Gold</button>
+          </div>
+          <div class="text-xs text-zinc-500 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400/80"></span>
+            <span id="audio-status-label">Ambience Idle</span>
+          </div>
+        </div>
+
+        <!-- Primary Apple Bento Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+
+          <!-- LEFT COLUMN (7 cols): Minimalist Apple Chronometer Hero + Tasks/Scratchpad -->
+          <div class="lg:col-span-7 space-y-7">
+
+            <!-- HERO BUILT-IN POMODORO CHRONOMETER CARD -->
+            <div id="timer-hero-card" class="apple-glass p-8 relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+                <div class="flex items-center gap-3">
+                  <div class="traffic-lights">
+                    <span class="traffic-dot dot-red"></span>
+                    <span class="traffic-dot dot-yellow"></span>
+                    <span class="traffic-dot dot-green"></span>
+                  </div>
+                  <span class="text-xs font-medium text-zinc-400">
+                    Focus Chronometer
+                  </span>
+                </div>
+
+                <!-- Segmented Timer Presets -->
+                <div class="segmented-control flex-wrap">
+                  <button type="button" data-timer-preset="focus" data-minutes="25" class="segment-btn active">25m Classic</button>
+                  <button type="button" data-timer-preset="custom" data-minutes="50" class="segment-btn">50m Deep Work</button>
+                  <button type="button" data-timer-preset="shortBreak" data-minutes="5" class="segment-btn">5m Sax Break</button>
+                  <button type="button" data-timer-preset="longBreak" data-minutes="15" class="segment-btn">15m Recharge</button>
+                </div>
+              </div>
+
+              <!-- Centered Minimalist Timer Ring & Typography -->
+              <div class="flex flex-col items-center justify-center py-2">
+                <div class="relative w-64 h-64 flex items-center justify-center mb-6">
+                  <svg class="w-full h-full" viewBox="0 0 260 260">
+                    <defs>
+                      <linearGradient id="noirRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="70%" stop-color="#f59e0b" />
+                        <stop offset="100%" stop-color="#fb7185" />
+                      </linearGradient>
+                    </defs>
+                    <!-- Hairline Background Track -->
+                    <circle
+                      cx="130"
+                      cy="130"
+                      r="116"
+                      stroke="rgba(255, 255, 255, 0.06)"
+                      stroke-width="4"
+                      fill="transparent"
+                    />
+                    <!-- Ultra-Sleek Progress Ring -->
+                    <circle
+                      id="timer-progress-circle"
+                      class="progress-ring-circle"
+                      cx="130"
+                      cy="130"
+                      r="116"
+                      stroke="url(#noirRingGrad)"
+                      stroke-width="4.5"
+                      stroke-linecap="round"
+                      fill="transparent"
+                      stroke-dasharray="728.85"
+                      stroke-dashoffset="728.85"
+                    />
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                    <span id="timer-percent-badge" class="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-1">
+                      0% COMPLETE
+                    </span>
+                    <div id="timer-countdown-display" class="timer-digits text-6xl sm:text-7xl tracking-tighter">
+                      25:00
+                    </div>
+                    <h1 id="active-mission-title" class="text-xs font-medium text-zinc-400 mt-2 max-w-[180px] truncate">
+                      Deep Work &amp; Study
+                    </h1>
+                  </div>
+                </div>
+
+                <!-- Minimalist Pill Controls -->
+                <div class="flex flex-wrap items-center justify-center gap-3 w-full max-w-md">
+                  <button type="button" id="timer-start-pause-btn" class="btn-primary-noir px-8 py-3 text-xs">
+                    Engage Focus Timer
+                  </button>
+                  <button type="button" id="timer-reset-btn" class="btn-glass px-5 py-3 text-xs">
+                    Reset Clock
+                  </button>
+                  <button type="button" id="timer-log-checkpoint-btn" class="btn-glass px-5 py-3 text-xs text-zinc-300">
+                    + Log Session Now
+                  </button>
+                </div>
+
+                <!-- Subtle Inline Custom Duration & Daily Goal Bar -->
+                <div class="w-full mt-8 pt-5 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs">
+                  <div class="flex items-center gap-2">
+                    <label for="custom-timer-minutes-input" class="text-zinc-500">Custom duration</label>
+                    <input
+                      id="custom-timer-minutes-input"
+                      type="number"
+                      min="1"
+                      max="240"
+                      value="45"
+                      class="noir-input w-16 text-center py-1 px-2 text-xs font-mono"
+                    />
+                    <button type="button" id="apply-custom-timer-btn" class="btn-glass py-1.5 px-3 text-xs">
+                      Set Custom Minutes
+                    </button>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span id="stat-goal-pct" class="text-zinc-400">67% of 180m goal</span>
+                    <button type="button" data-nav-tab="sessions" class="text-zinc-200 hover:text-white underline underline-offset-4">
+                      Open Session Log →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MINIMALIST STUDY QUEUE & SCRATCHPAD SPLIT -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-7 secondary-panel">
+              <!-- Study Tasks Queue (7 cols) -->
+              <div class="md:col-span-7 apple-glass p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2.5">
+                    <h2 class="text-sm font-semibold text-zinc-100">Study Tasks</h2>
+                    <span id="tasks-count-badge" class="px-2.5 py-0.5 text-[11px] rounded-full bg-white/[0.06] text-zinc-300">
+                      2 Active
+                    </span>
+                  </div>
+                </div>
+
+                <form id="add-task-form" class="space-y-2.5">
+                  <div class="flex gap-2">
+                    <input
+                      id="new-task-title"
+                      type="text"
+                      placeholder="Add a study goal or task..."
+                      class="noir-input flex-1 text-xs"
+                    />
+                    <button type="submit" class="btn-primary-noir text-xs px-4 py-2">
+                      + Add
+                    </button>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2">
+                    <select id="new-task-category" class="noir-input text-xs py-1.5">
+                      <option value="Deep Study">Deep Study</option>
+                      <option value="Reading &amp; Notes">Reading &amp; Notes</option>
+                      <option value="Practice &amp; Drills">Practice &amp; Drills</option>
+                      <option value="Exam Prep">Exam Prep</option>
+                    </select>
+                    <select id="new-task-priority" class="noir-input text-xs py-1.5">
+                      <option value="Critical">Critical</option>
+                      <option value="High" selected>High Priority</option>
+                      <option value="Standard">Standard</option>
+                    </select>
+                    <input
+                      id="new-task-minutes"
+                      type="number"
+                      min="5"
+                      max="240"
+                      value="45"
+                      title="Estimated minutes"
+                      class="noir-input text-xs py-1.5 font-mono"
+                    />
+                  </div>
+                </form>
+
+                <div id="tasks-list-container" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+              </div>
+
+              <!-- Minimalist Notes Scratchpad (5 cols) -->
+              <div class="md:col-span-5 apple-glass p-6 flex flex-col justify-between space-y-3">
+                <div class="flex items-center justify-between">
+                  <h2 class="text-sm font-semibold text-zinc-100">Quick Notes</h2>
+                  <button type="button" id="clear-scratchpad-btn" class="text-xs text-zinc-500 hover:text-zinc-300">
+                    Clear
+                  </button>
+                </div>
+                <textarea
+                  id="noir-scratchpad"
+                  rows="8"
+                  placeholder="Capture thoughts without breaking focus..."
+                  class="noir-input w-full flex-1 text-xs leading-relaxed resize-none"
+                ></textarea>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN (5 cols): Minimalist Companion Check-In + Soundscape Mixer -->
+          <div class="lg:col-span-5 space-y-7">
+
+            <!-- COMPANION CARD ("Vance // Midnight Concierge" in sleek Apple Siri/Spotlight style) -->
+            <div class="apple-glass apple-glass-amber p-6 relative overflow-hidden">
+              <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-2.5">
+                  <div class="traffic-lights">
+                    <span class="traffic-dot dot-red"></span>
+                    <span class="traffic-dot dot-yellow"></span>
+                    <span class="traffic-dot dot-green"></span>
+                  </div>
+                  <span class="text-xs font-medium text-zinc-400">
+                    Vance · Focus Companion
+                  </span>
+                </div>
+                <button type="button" id="character-peptalk-btn" class="text-xs text-zinc-400 hover:text-white">
+                  Noir Quote
+                </button>
+              </div>
+
+              <!-- Minimalist Avatar + Message -->
+              <div class="flex items-center gap-4 mb-6">
+                <div class="character-avatar-wrap shrink-0 w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/10 p-2 flex items-center justify-center relative">
+                  <svg viewBox="0 0 120 140" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="60" cy="48" r="36" fill="url(#noirHalo)" opacity="0.35" />
+                    <path d="M34 52 L38 14 L50 38 L70 38 L82 14 L86 52 Z" fill="#0c0d12" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />
+                    <path d="M35 48 C35 32 85 32 85 48 L82 78 L60 90 L38 78 Z" fill="#11131a" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
+                    <path d="M16 135 L24 82 L44 72 L60 96 L76 72 L96 82 L104 135 Z" fill="#090a0f" stroke="rgba(255,255,255,0.22)" stroke-width="1.2" />
+                    <g class="bat-visor-glow">
+                      <polygon points="43,54 55,58 45,61" fill="#f5f5f7" />
+                      <polygon points="77,54 65,58 75,61" fill="#f5f5f7" />
+                    </g>
+                    <defs>
+                      <radialGradient id="noirHalo" cx="0.5" cy="0.5" r="0.5">
+                        <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.6" />
+                        <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+                      </radialGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                <p id="character-speech-text" class="text-xs leading-relaxed text-zinc-300 font-normal">
+                  "Rain's heavy over Gotham &amp; 52nd Street tonight. Tell me what you're studying and for how long—I'll set the clock and guard your focus."
+                </p>
+              </div>
+
+              <!-- Clean Check-In Form -->
+              <form id="character-checkin-form" class="space-y-4 pt-4 border-t border-white/[0.06]">
+                <div>
+                  <label for="char-subject-input" class="block text-xs text-zinc-400 mb-2">
+                    What are you studying tonight?
+                  </label>
+                  <input
+                    id="char-subject-input"
+                    type="text"
+                    value="Deep Work &amp; Study"
+                    placeholder="Enter subject, chapter, or goal..."
+                    class="noir-input w-full"
+                  />
+                  <div class="flex flex-wrap gap-1.5 mt-2.5">
+                    <button type="button" data-char-subject="Deep Work &amp; Study" class="chip-btn active">Deep Study</button>
+                    <button type="button" data-char-subject="Reading &amp; Lecture Notes" class="chip-btn">Reading &amp; Notes</button>
+                    <button type="button" data-char-subject="Problem Solving &amp; Practice" class="chip-btn">Practice</button>
+                    <button type="button" data-char-subject="Exam Revision" class="chip-btn">Exam Prep</button>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="char-minutes-input" class="block text-xs text-zinc-400 mb-2">
+                    Session length (minutes)
+                  </label>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <input
+                      id="char-minutes-input"
+                      type="number"
+                      min="1"
+                      max="240"
+                      value="45"
+                      class="noir-input w-20 font-mono text-center"
+                    />
+                    <button type="button" data-char-mins="25" class="chip-btn">25m</button>
+                    <button type="button" data-char-mins="45" class="chip-btn active">45m</button>
+                    <button type="button" data-char-mins="50" class="chip-btn">50m</button>
+                    <button type="button" data-char-mins="90" class="chip-btn">90m</button>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-2 gap-3 flex-wrap">
+                  <label class="inline-flex items-center gap-2 text-xs text-zinc-400 cursor-pointer select-none">
+                    <input id="char-spotlight-checkbox" type="checkbox" class="rounded border-zinc-700 bg-zinc-900" />
+                    <span>Enable Zen Spotlight</span>
+                  </label>
+
+                  <button type="submit" class="btn-primary-noir text-xs">
+                    Lock In &amp; Start Timer →
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- MINIMALIST SOUND MIXER CARD -->
+            <div class="apple-glass p-6 secondary-panel space-y-5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-medium text-zinc-300">
+                  Ambient Soundscape
+                </span>
+                <button type="button" id="engage-midnight-mix-btn" class="btn-glass text-xs py-1.5 px-3.5">
+                  Play Gotham &amp; NYC Sax Mix
+                </button>
+              </div>
+
+              <div class="space-y-4 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1.5">
+                    <span class="text-zinc-400">Gotham Rain</span>
+                    <span id="val-gotham-rain" class="font-mono text-zinc-300">0%</span>
+                  </div>
+                  <input id="slider-gotham-rain" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-1.5">
+                    <span class="text-zinc-400">1984 NYC Midnight Sax Pad</span>
+                    <span id="val-nyc-sax" class="font-mono text-zinc-300">0%</span>
+                  </div>
+                  <input id="slider-nyc-sax" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-1.5">
+                    <span class="text-zinc-400">Batcave Deep Brown Noise</span>
+                    <span id="val-batcave-brown" class="font-mono text-zinc-300">0%</span>
+                  </div>
+                  <input id="slider-batcave-brown" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 2: STUDY SESSION TRACKER & ANALYTICS LOG
+           =================================================================== -->
+      <section id="view-sessions" class="hidden space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div class="apple-glass p-6">
+            <span class="text-xs text-zinc-500">Total Focused Study Time</span>
+            <div id="stat-total-time" class="text-2xl font-light text-white mt-1 font-mono">120m (2.0 hrs)</div>
+            <div class="w-full h-1 rounded-full bg-white/10 mt-4 overflow-hidden">
+              <div id="daily-goal-bar-fill" class="h-full bg-white" style="width: 67%"></div>
+            </div>
+          </div>
+
+          <div class="apple-glass p-6">
+            <span class="text-xs text-zinc-500">Logged Study Sessions</span>
+            <div id="stat-sessions-count" class="text-2xl font-light text-white mt-1 font-mono">3</div>
+            <p class="text-xs text-zinc-500 mt-2">Auto-recorded from timer + manual entries</p>
+          </div>
+
+          <div class="apple-glass p-6">
+            <span class="text-xs text-zinc-500">Nocturnal Focus Streak</span>
+            <div id="stat-streak-days" class="text-2xl font-light text-white mt-1 font-mono">7 Days</div>
+            <p class="text-xs text-zinc-500 mt-2">Consistent midnight discipline</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+          <div class="lg:col-span-5 space-y-7">
+            <div class="apple-glass p-6 space-y-4">
+              <h3 class="text-sm font-semibold text-white">Log a Study Session</h3>
+              <form id="manual-session-form" class="space-y-3">
+                <div>
+                  <label for="log-session-subject" class="block text-xs text-zinc-400 mb-1">Subject / Topic</label>
+                  <input id="log-session-subject" type="text" placeholder="What did you study?" class="noir-input w-full text-xs" required />
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div>
+                    <label for="log-session-category" class="block text-xs text-zinc-400 mb-1">Category</label>
+                    <select id="log-session-category" class="noir-input w-full text-xs py-2">
+                      <option value="Deep Study">Deep Study</option>
+                      <option value="Reading &amp; Notes">Reading &amp; Notes</option>
+                      <option value="Practice &amp; Drills">Practice</option>
+                      <option value="Exam Prep">Exam Prep</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="log-session-minutes" class="block text-xs text-zinc-400 mb-1">Minutes</label>
+                    <input id="log-session-minutes" type="number" min="1" max="300" value="45" class="noir-input w-full text-xs font-mono py-2" />
+                  </div>
+                  <div>
+                    <label for="log-session-rating" class="block text-xs text-zinc-400 mb-1">Rating</label>
+                    <select id="log-session-rating" class="noir-input w-full text-xs py-2">
+                      <option value="5">★★★★★ (5)</option>
+                      <option value="4">★★★★ (4)</option>
+                      <option value="3">★★★ (3)</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label for="log-session-notes" class="block text-xs text-zinc-400 mb-1">Session Notes</label>
+                  <input id="log-session-notes" type="text" placeholder="Key takeaways or progress..." class="noir-input w-full text-xs" />
+                </div>
+                <button type="submit" class="btn-primary-noir w-full text-xs py-2.5">
+                  + Save Study Session
+                </button>
+              </form>
+            </div>
+
+            <div class="apple-glass p-6 space-y-3">
+              <h3 class="text-sm font-semibold text-white">Time by Study Category</h3>
+              <div id="category-breakdown-bars" class="space-y-3"></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 apple-glass p-6 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-sm font-semibold text-white">Study Session History</h3>
+                <p class="text-xs text-zinc-500">Completed timer blocks and manual study sessions.</p>
+              </div>
+              <button type="button" id="export-sessions-csv-btn" class="btn-glass text-xs">
+                ⬇ Export CSV
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-white/[0.07] text-[11px] text-zinc-500">
+                    <th class="py-2.5 px-3 font-medium">Subject</th>
+                    <th class="py-2.5 px-3 font-medium">Category</th>
+                    <th class="py-2.5 px-3 font-medium">Duration</th>
+                    <th class="py-2.5 px-3 font-medium">Focus</th>
+                    <th class="py-2.5 px-3 font-medium">Logged At</th>
+                  </tr>
+                </thead>
+                <tbody id="session-history-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Minimalist Apple Floating Pill Dock (Personal Use Only: Studio + Session Tracker) -->
+    <footer class="fixed bottom-4 inset-x-0 z-30 flex justify-center px-4 pointer-events-none">
+      <div class="apple-glass px-2.5 py-1.5 rounded-full flex items-center gap-1 pointer-events-auto shadow-2xl border border-white/10">
+        <button type="button" data-nav-tab="studio" class="segment-btn active flex items-center gap-1.5">
+          <span>🦇</span> <span>Focus Studio</span>
+        </button>
+        <button type="button" data-nav-tab="sessions" class="segment-btn flex items-center gap-1.5">
+          <span>📊</span> <span>Session Tracker</span>
+        </button>
+      </div>
+    </footer>
+
+    <!-- Non-Blocking Apple Minimalist Toast -->
+    <div
+      id="noir-toast"
+      class="fixed bottom-20 right-6 z-50 translate-y-24 opacity-0 pointer-events-none apple-glass px-4 py-3 rounded-2xl flex items-center gap-3 max-w-sm"
+    >
+      <span class="w-2 h-2 rounded-full bg-white shrink-0"></span>
+      <div>
+        <div id="toast-title" class="text-xs font-medium text-white">Mission Locked In</div>
+        <div id="toast-subtitle" class="text-[11px] text-zinc-400">Timer started</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+/* ==========================================================================
+   WAYNE-OS // MIDNIGHT NYC & GOTHAM NOIR FOCUS ENGINE (app.js)
+   Modules:
+   1. State & Storage Engine (Tasks, Study Sessions, Settings, Scratchpad)
+   2. Gotham + 1980s NYC Midnight Canvas Animator (Rain, Skyline, Bat-Signal, Sax Embers)
+   3. Web Audio API Ambient Synthesizer (Gotham Rain, Careless Whisper Midnight Sax Pad, Batcave Brown Noise, Chimes)
+   4. Interactive Character Companion ("Vance // Midnight Architect & Vigilante Concierge")
+   5. Built-in Pomodoro & Custom Focus Timer + Knightfall Spotlight Mode
+   6. Task & Architecture Blueprint Board + Study Session Tracker & Analytics
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  const STORAGE_KEY = 'wayne_os_personal_focus_v2';
+
+  const DEFAULT_STATE = {
+    activeTab: 'studio', // 'studio' | 'architecture' | 'sessions' | 'code'
+    scenePreset: 'gotham_rain', // 'gotham_rain' | 'nyc_sax' | 'batcave' | 'wayne_aurora'
+    searchlightOn: true,
+    rainIntensity: 85,
+    spotlightMode: false,
+    timer: {
+      mode: 'focus', // 'focus' | 'shortBreak' | 'longBreak' | 'custom'
+      focusMinutes: 25,
+      shortBreakMinutes: 5,
+      longBreakMinutes: 15,
+      customMinutes: 45,
+      remainingSeconds: 25 * 60,
+      totalSeconds: 25 * 60,
+      isRunning: false,
+      startedAtSessionMinutes: 25,
+      currentSubject: 'Deep Work & Study',
+      completedPomodorosToday: 2,
+      dailyGoalMinutes: 180
+    },
+    character: {
+      name: 'Vance // Midnight Concierge',
+      mood: 'vigilant',
+      selectedSubject: 'Deep Work & Study',
+      selectedMinutes: 45,
+      autoSpotlight: false,
+      lastMessage: "Rain's heavy over Gotham & 52nd Street tonight. Tell me what you're studying tonight and for how long—I'll set the clock and guard your focus."
+    },
+    tasks: [
+      {
+        id: 'tsk-1',
+        title: 'Complete Chapter Reading & Key Summary Notes',
+        category: 'Deep Study',
+        priority: 'Critical',
+        estMinutes: 50,
+        completedMinutes: 25,
+        completed: false,
+        pinned: true
+      },
+      {
+        id: 'tsk-2',
+        title: 'Practice Problem Set & Past Questions',
+        category: 'Practice & Drills',
+        priority: 'High',
+        estMinutes: 45,
+        completedMinutes: 0,
+        completed: false,
+        pinned: false
+      },
+      {
+        id: 'tsk-3',
+        title: 'Review Flashcards & Core Concepts',
+        category: 'Exam Prep',
+        priority: 'Standard',
+        estMinutes: 25,
+        completedMinutes: 25,
+        completed: true,
+        pinned: false
+      }
+    ],
+    sessions: [
+      {
+        id: 'ses-101',
+        subject: 'Deep Work & Study',
+        category: 'Deep Study',
+        durationMinutes: 50,
+        timestamp: 'Tonight • 21:15',
+        rating: 5,
+        notes: 'Finished core reading block with Gotham rain ambience.'
+      },
+      {
+        id: 'ses-102',
+        subject: 'Practice Problem Set',
+        category: 'Practice & Drills',
+        durationMinutes: 45,
+        timestamp: 'Tonight • 19:40',
+        rating: 4,
+        notes: 'Solved practice drills under timer lock.'
+      },
+      {
+        id: 'ses-103',
+        subject: 'Evening Concept Review',
+        category: 'Exam Prep',
+        durationMinutes: 25,
+        timestamp: 'Yesterday • 23:10',
+        rating: 5,
+        notes: 'Locked in under Gotham rain ambience.'
+      }
+    ],
+    scratchpad: "• Summarize key chapters before midnight\n• Complete 2 deep focus blocks\n• Take a 5m sax break between sessions",
+    audio: {
+      masterMuted: false,
+      rainLevel: 0,
+      saxPadLevel: 0,
+      brownNoiseLevel: 0
+    },
+    streakDays: 7
+  };
+
+  let state = loadState();
+  let timerInterval = null;
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
+      const parsed = JSON.parse(raw);
+      return Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_STATE)), parsed, {
+        timer: Object.assign({}, DEFAULT_STATE.timer, parsed.timer || {}, { isRunning: false }),
+        character: Object.assign({}, DEFAULT_STATE.character, parsed.character || {}),
+        audio: Object.assign({}, DEFAULT_STATE.audio, { rainLevel: 0, saxPadLevel: 0, brownNoiseLevel: 0 })
+      });
+    } catch (err) {
+      return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (err) {
+      // Ignore storage quota errors inside sandboxed iframes
+    }
+  }
+
+  // =========================================================================
+  // TOAST NOTIFICATION HELPER
+  // =========================================================================
+  let toastTimeout = null;
+  function showToast(title, subtitle) {
+    const toast = document.getElementById('noir-toast');
+    const titleEl = document.getElementById('toast-title');
+    const subEl = document.getElementById('toast-subtitle');
+    if (!toast || !titleEl || !subEl) return;
+    titleEl.textContent = title;
+    subEl.textContent = subtitle || '';
+    toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 3600);
+  }
+
+  // =========================================================================
+  // 2. GOTHAM + 1980s NYC MIDNIGHT SKYLINE ANIMATED CANVAS
+  // =========================================================================
+  const canvas = document.getElementById('gotham-canvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  let buildings = [];
+  let raindrops = [];
+  let saxEmbers = [];
+  let mistClouds = [];
+  let sweepAngle = 0;
+  let mouseX = 0.5;
+  let mouseY = 0.5;
+
+  function initSkyline() {
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const w = canvas.width;
+    const h = canvas.height;
+
+    buildings = [];
+    const count = Math.max(18, Math.floor(w / 55));
+    for (let i = 0; i <= count; i++) {
+      const bw = 48 + (i * 37) % 65;
+      const bh = h * (0.26 + ((i * 73) % 45) / 100);
+      const bx = (i / count) * (w + 120) - 60;
+      const layer = i % 3; // 0 back, 1 mid, 2 front
+      const hasSpire = (i % 4 === 0);
+      const windows = [];
+      const cols = Math.floor(bw / 12);
+      const rows = Math.floor(bh / 18);
+      for (let r = 1; r < rows - 1; r++) {
+        for (let c = 1; c < cols - 1; c++) {
+          if (((r * 13 + c * 7 + i) % 11) < 3) {
+            const warm = ((r + c + i) % 5 !== 0);
+            windows.push({
+              rx: c * 11,
+              ry: r * 16,
+              color: warm ? 'rgba(245, 158, 11, 0.42)' : 'rgba(225, 29, 72, 0.34)',
+              flickerSeed: (r * 19 + c * 31 + i) % 100
+            });
+          }
+        }
+      }
+      buildings.push({ x: bx, w: bw, h: bh, layer, hasSpire, windows });
+    }
+
+    raindrops = [];
+    for (let i = 0; i < 150; i++) {
+      raindrops.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        len: 14 + Math.random() * 22,
+        speed: 9 + Math.random() * 9,
+        alpha: 0.12 + Math.random() * 0.28
+      });
+    }
+
+    saxEmbers = [];
+    for (let i = 0; i < 32; i++) {
+      saxEmbers.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 1.2 + Math.random() * 2.8,
+        vy: 0.25 + Math.random() * 0.65,
+        vx: (Math.random() - 0.5) * 0.4,
+        hue: Math.random() > 0.38 ? '#f59e0b' : '#e11d48',
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+
+    mistClouds = [];
+    for (let i = 0; i < 6; i++) {
+      mistClouds.push({
+        x: Math.random() * w,
+        y: h * (0.68 + Math.random() * 0.25),
+        radius: 180 + Math.random() * 220,
+        vx: 0.18 + Math.random() * 0.25
+      });
+    }
+  }
+
+  function renderSkyline(time) {
+    if (!ctx || !canvas) return;
+    const w = canvas.width;
+    const h = canvas.height;
+    const preset = state.scenePreset;
+
+    // 1. Deep Nocturnal Sky Gradient
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, h);
+    if (preset === 'nyc_sax') {
+      skyGrad.addColorStop(0, '#07050c');
+      skyGrad.addColorStop(0.55, '#150b1c');
+      skyGrad.addColorStop(1, '#240f1e');
+    } else if (preset === 'batcave') {
+      skyGrad.addColorStop(0, '#020305');
+      skyGrad.addColorStop(0.6, '#070a12');
+      skyGrad.addColorStop(1, '#0c1220');
+    } else if (preset === 'wayne_aurora') {
+      skyGrad.addColorStop(0, '#04070e');
+      skyGrad.addColorStop(0.5, '#0b1622');
+      skyGrad.addColorStop(1, '#18130d');
+    } else {
+      // Default gotham_rain
+      skyGrad.addColorStop(0, '#040508');
+      skyGrad.addColorStop(0.55, '#0a0d16');
+      skyGrad.addColorStop(1, '#171214');
+    }
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, w, h);
+
+    // 2. Ambient NYC / Gotham Horizon Glow
+    const horizonGlow = ctx.createRadialGradient(
+      w * (0.5 + (mouseX - 0.5) * 0.08),
+      h * 0.72,
+      20,
+      w * 0.5,
+      h * 0.72,
+      w * 0.65
+    );
+    if (preset === 'nyc_sax') {
+      horizonGlow.addColorStop(0, 'rgba(225, 29, 72, 0.20)');
+      horizonGlow.addColorStop(0.45, 'rgba(245, 158, 11, 0.12)');
+      horizonGlow.addColorStop(1, 'transparent');
+    } else {
+      horizonGlow.addColorStop(0, 'rgba(245, 158, 11, 0.16)');
+      horizonGlow.addColorStop(0.5, 'rgba(190, 18, 60, 0.07)');
+      horizonGlow.addColorStop(1, 'transparent');
+    }
+    ctx.fillStyle = horizonGlow;
+    ctx.fillRect(0, 0, w, h);
+
+    // 3. Sweeping Gotham Bat-Signal Searchlight in the Night Sky
+    if (state.searchlightOn) {
+      sweepAngle += 0.0045;
+      const srcX = w * 0.74;
+      const srcY = h * 0.85;
+      const targetX = w * (0.48 + Math.sin(sweepAngle) * 0.24);
+      const targetY = h * (0.18 + Math.cos(sweepAngle * 0.7) * 0.06);
+
+      ctx.save();
+      const beamGrad = ctx.createLinearGradient(srcX, srcY, targetX, targetY);
+      beamGrad.addColorStop(0, 'rgba(245, 158, 11, 0.22)');
+      beamGrad.addColorStop(0.7, 'rgba(245, 158, 11, 0.09)');
+      beamGrad.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
+
+      ctx.fillStyle = beamGrad;
+      ctx.beginPath();
+      ctx.moveTo(srcX - 8, srcY);
+      ctx.lineTo(targetX - 75, targetY);
+      ctx.lineTo(targetX + 75, targetY);
+      ctx.lineTo(srcX + 8, srcY);
+      ctx.closePath();
+      ctx.fill();
+
+      // Glowing Bat-Signal Oval in the Clouds
+      ctx.translate(targetX, targetY);
+      ctx.scale(1.6, 0.78);
+      const spotGrad = ctx.createRadialGradient(0, 0, 4, 0, 0, 52);
+      spotGrad.addColorStop(0, 'rgba(254, 243, 199, 0.36)');
+      spotGrad.addColorStop(0.55, 'rgba(245, 158, 11, 0.16)');
+      spotGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = spotGrad;
+      ctx.beginPath();
+      ctx.arc(0, 0, 52, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Subtle Bat Silhouette Emblem inside Cloud Signal
+      ctx.fillStyle = 'rgba(7, 8, 13, 0.65)';
+      ctx.beginPath();
+      ctx.moveTo(0, -9);
+      ctx.lineTo(4, -14);
+      ctx.lineTo(6, -7);
+      ctx.quadraticCurveTo(18, -12, 26, -2);
+      ctx.quadraticCurveTo(17, 2, 13, 8);
+      ctx.quadraticCurveTo(6, 4, 0, 11);
+      ctx.quadraticCurveTo(-6, 4, -13, 8);
+      ctx.quadraticCurveTo(-17, 2, -26, -2);
+      ctx.quadraticCurveTo(-18, -12, -6, -7);
+      ctx.lineTo(-4, -14);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 4. Layered Gotham / Manhattan Skyscrapers
+    for (let layer = 0; layer < 3; layer++) {
+      const parallax = (layer + 1) * (mouseX - 0.5) * -14;
+      for (let i = 0; i < buildings.length; i++) {
+        const b = buildings[i];
+        if (b.layer !== layer) continue;
+        const bx = b.x + parallax;
+        const by = h - b.h;
+
+        ctx.fillStyle = layer === 0 ? '#06080f' : layer === 1 ? '#080a12' : '#040509';
+        ctx.fillRect(bx, by, b.w, b.h);
+
+        // Gothic / Art Deco Spire
+        if (b.hasSpire) {
+          ctx.beginPath();
+          ctx.moveTo(bx + b.w * 0.2, by);
+          ctx.lineTo(bx + b.w * 0.5, by - 38);
+          ctx.lineTo(bx + b.w * 0.8, by);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        // Illuminated Penthouse Windows
+        for (let wIdx = 0; wIdx < b.windows.length; wIdx++) {
+          const win = b.windows[wIdx];
+          const pulse = Math.sin((time * 0.0015) + win.flickerSeed) > -0.85;
+          if (pulse) {
+            ctx.fillStyle = win.color;
+            ctx.fillRect(bx + win.rx, by + win.ry, 5, 8);
+          }
+        }
+      }
+    }
+
+    // 5. Rising NYC Midnight Street Steam / Mist
+    for (let i = 0; i < mistClouds.length; i++) {
+      const m = mistClouds[i];
+      m.x += m.vx;
+      if (m.x - m.radius > w) m.x = -m.radius;
+      const mg = ctx.createRadialGradient(m.x, m.y, 10, m.x, m.y, m.radius);
+      mg.addColorStop(0, 'rgba(245, 158, 11, 0.045)');
+      mg.addColorStop(0.5, 'rgba(15, 18, 30, 0.06)');
+      mg.addColorStop(1, 'transparent');
+      ctx.fillStyle = mg;
+      ctx.fillRect(m.x - m.radius, m.y - m.radius, m.radius * 2, m.radius * 2);
+    }
+
+    // 6. Floating Golden Saxophone / Velvet Jazz Embers
+    for (let i = 0; i < saxEmbers.length; i++) {
+      const e = saxEmbers[i];
+      e.y -= e.vy;
+      e.x += Math.sin(time * 0.001 + e.phase) * 0.35 + e.vx;
+      if (e.y < -10) {
+        e.y = h + 10;
+        e.x = Math.random() * w;
+      }
+      ctx.save();
+      ctx.globalAlpha = 0.25 + 0.25 * Math.sin(time * 0.002 + e.phase);
+      ctx.fillStyle = e.hue;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 7. Gotham Rain Streaks
+    const activeDrops = Math.floor((state.rainIntensity / 100) * raindrops.length);
+    if (activeDrops > 0) {
+      ctx.strokeStyle = 'rgba(212, 224, 255, 0.22)';
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      for (let i = 0; i < activeDrops; i++) {
+        const r = raindrops[i];
+        r.y += r.speed;
+        r.x -= 1.4;
+        if (r.y > h) {
+          r.y = -20;
+          r.x = Math.random() * (w + 100);
+        }
+        ctx.moveTo(r.x, r.y);
+        ctx.lineTo(r.x - 2.5, r.y + r.len);
+      }
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(renderSkyline);
+  }
+
+  // =========================================================================
+  // 3. WEB AUDIO API SYNTHESIZER (GOTHAM RAIN, NYC SAX PAD, BROWN NOISE, CHIMES)
+  // =========================================================================
+  let audioCtx = null;
+  let rainGain = null;
+  let saxGain = null;
+  let brownGain = null;
+  let saxChordInterval = null;
+
+  function ensureAudioContext() {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return null;
+      audioCtx = new AudioContextClass();
+
+      // 1. Gotham Rain Generator (Filtered Pink/White Noise)
+      const bufferSize = audioCtx.sampleRate * 2;
+      const rainBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const rainData = rainBuffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        rainData[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+        b6 = white * 0.115926;
+      }
+      const rainSource = audioCtx.createBufferSource();
+      rainSource.buffer = rainBuffer;
+      rainSource.loop = true;
+
+      const rainFilter = audioCtx.createBiquadFilter();
+      rainFilter.type = 'bandpass';
+      rainFilter.frequency.value = 1100;
+      rainFilter.Q.value = 0.7;
+
+      rainGain = audioCtx.createGain();
+      rainGain.gain.value = 0;
+      rainSource.connect(rainFilter);
+      rainFilter.connect(rainGain);
+      rainGain.connect(audioCtx.destination);
+      rainSource.start();
+
+      // 2. Batcave Sub-Focus Brown Noise Generator
+      const brownBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const brownData = brownBuffer.getChannelData(0);
+      let lastOut = 0.0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        brownData[i] = (lastOut + (0.02 * white)) / 1.02;
+        lastOut = brownData[i];
+        brownData[i] *= 0.18;
+      }
+      const brownSource = audioCtx.createBufferSource();
+      brownSource.buffer = brownBuffer;
+      brownSource.loop = true;
+
+      const brownFilter = audioCtx.createBiquadFilter();
+      brownFilter.type = 'lowpass';
+      brownFilter.frequency.value = 240;
+
+      brownGain = audioCtx.createGain();
+      brownGain.gain.value = 0;
+      brownSource.connect(brownFilter);
+      brownFilter.connect(brownGain);
+      brownGain.connect(audioCtx.destination);
+      brownSource.start();
+
+      // 3. 1980s George Michael NYC Midnight Sax / Rhodes Warm Noir Pad
+      saxGain = audioCtx.createGain();
+      saxGain.gain.value = 0;
+
+      const saxFilter = audioCtx.createBiquadFilter();
+      saxFilter.type = 'lowpass';
+      saxFilter.frequency.value = 620;
+      saxFilter.connect(saxGain);
+      saxGain.connect(audioCtx.destination);
+
+      // D Minor 9 / Bb Major 7 smooth nocturnal chord progression
+      const chords = [
+        [146.83, 220.00, 261.63, 329.63], // Dm9
+        [116.54, 174.61, 220.00, 293.66], // Bbmaj7
+        [196.00, 246.94, 293.66, 349.23], // Gm7
+        [164.81, 207.65, 246.94, 311.13]  // A7alt
+      ];
+      let chordIdx = 0;
+      const oscs = [0, 1, 2, 3].map((idx) => {
+        const osc = audioCtx.createOscillator();
+        osc.type = idx % 2 === 0 ? 'sawtooth' : 'triangle';
+        osc.frequency.value = chords[0][idx];
+        const voiceGain = audioCtx.createGain();
+        voiceGain.gain.value = 0.045;
+        osc.connect(voiceGain);
+        voiceGain.connect(saxFilter);
+        osc.start();
+        return osc;
+      });
+
+      saxChordInterval = setInterval(() => {
+        if (!audioCtx || audioCtx.state !== 'running') return;
+        chordIdx = (chordIdx + 1) % chords.length;
+        const nextChord = chords[chordIdx];
+        const now = audioCtx.currentTime;
+        oscs.forEach((osc, i) => {
+          osc.frequency.exponentialRampToValueAtTime(nextChord[i], now + 2.4);
+        });
+      }, 6500);
+    }
+
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function updateAudioLevels() {
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+    const muteFactor = state.audio.masterMuted ? 0 : 1;
+    if (rainGain) {
+      rainGain.gain.setTargetAtTime((state.audio.rainLevel / 100) * 0.45 * muteFactor, now, 0.15);
+    }
+    if (saxGain) {
+      saxGain.gain.setTargetAtTime((state.audio.saxPadLevel / 100) * 0.38 * muteFactor, now, 0.2);
+    }
+    if (brownGain) {
+      brownGain.gain.setTargetAtTime((state.audio.brownNoiseLevel / 100) * 0.5 * muteFactor, now, 0.15);
+    }
+    renderAudioEqualizerBadge();
+  }
+
+  function playNoirChime(type) {
+    const ctxAudio = ensureAudioContext();
+    if (!ctxAudio || state.audio.masterMuted) return;
+    const now = ctxAudio.currentTime;
+    const notes = type === 'complete'
+      ? [293.66, 349.23, 440.00, 523.25, 659.25] // Dm9 arpeggio
+      : [440.00, 523.25];
+    notes.forEach((freq, idx) => {
+      const osc = ctxAudio.createOscillator();
+      const gain = ctxAudio.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.11);
+      gain.gain.setValueAtTime(0.001, now + idx * 0.11);
+      gain.gain.exponentialRampToValueAtTime(0.14, now + idx * 0.11 + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.11 + 1.25);
+      osc.connect(gain);
+      gain.connect(ctxAudio.destination);
+      osc.start(now + idx * 0.11);
+      osc.stop(now + idx * 0.11 + 1.3);
+    });
+  }
+
+  // =========================================================================
+  // 4. INTERACTIVE CHARACTER COMPANION ("VANCE // MIDNIGHT ARCHITECT")
+  // =========================================================================
+  const CHARACTER_QUOTES = {
+    greeting: "Rain's heavy over Gotham & 52nd Street tonight. Tell me what you're studying tonight and for how long—I'll set the clock and guard your focus.",
+    lockedIn: function (subj, mins) {
+      return 'Mission accepted: "' + subj + '" for ' + mins + ' minutes. The city sleeps while we build. Stay sharp—not a single distraction gets past the Batcomputer.';
+    },
+    halfway: "Halfway through the block. Like a midnight saxophone solo on 52nd Street—smooth, relentless, unshakable. Keep your eyes on the blueprint.",
+    completed: function (subj, mins) {
+      return 'Outstanding execution. ' + mins + ' minutes logged on "' + subj + '". Even Gotham respects discipline like that. Take five by the window before the next round.';
+    },
+    pepTalks: [
+      "Every great skyline starts with one disciplined hour in the dark. Lock in.",
+      "Turn down the static. Just the rain on the glass, the amber glow, and your craft.",
+      "Focus isn't luck—it's architecture. Brick by brick, module by module.",
+      "George Michael on the vinyl, Gotham rain outside, zero distractions inside. Let's work."
+    ]
+  };
+
+  function setCharacterMessage(msg) {
+    state.character.lastMessage = msg;
+    const bubble = document.getElementById('character-speech-text');
+    if (bubble) {
+      bubble.textContent = msg;
+    }
+    saveState();
+  }
+
+  function handleCharacterLaunchSession() {
+    const subjInput = document.getElementById('char-subject-input');
+    const minsInput = document.getElementById('char-minutes-input');
+    const spotlightToggle = document.getElementById('char-spotlight-checkbox');
+
+    const subject = (subjInput && subjInput.value.trim()) ? subjInput.value.trim() : 'Architecture & Deep Study';
+    const mins = Math.max(1, Math.min(240, parseInt(minsInput ? minsInput.value : '45', 10) || 45));
+    const useSpotlight = spotlightToggle ? spotlightToggle.checked : false;
+
+    state.character.selectedSubject = subject;
+    state.character.selectedMinutes = mins;
+    state.character.autoSpotlight = useSpotlight;
+
+    // Update Timer
+    stopTimerInterval();
+    state.timer.mode = 'custom';
+    state.timer.customMinutes = mins;
+    state.timer.startedAtSessionMinutes = mins;
+    state.timer.totalSeconds = mins * 60;
+    state.timer.remainingSeconds = mins * 60;
+    state.timer.currentSubject = subject;
+
+    // Ensure task exists or pin matching task
+    let matchingTask = state.tasks.find(
+      (t) => t.title.toLowerCase() === subject.toLowerCase() && !t.completed
+    );
+    state.tasks.forEach((t) => { t.pinned = false; });
+    if (matchingTask) {
+      matchingTask.pinned = true;
+    } else {
+      state.tasks.unshift({
+        id: 'tsk-' + Date.now(),
+        title: subject,
+        category: inferCategory(subject),
+        priority: 'Critical',
+        estMinutes: mins,
+        completedMinutes: 0,
+        completed: false,
+        pinned: true
+      });
+    }
+
+    if (useSpotlight) {
+      state.spotlightMode = true;
+      document.body.classList.add('spotlight-active');
+    }
+
+    setCharacterMessage(CHARACTER_QUOTES.lockedIn(subject, mins));
+    playNoirChime('start');
+    startTimer();
+    renderAll();
+    showToast('Mission Locked In', subject + ' • ' + mins + 'm countdown active');
+  }
+
+  function inferCategory(text) {
+    const lower = text.toLowerCase();
+    if (lower.includes('css') || lower.includes('js') || lower.includes('code') || lower.includes('api') || lower.includes('system')) {
+      return 'Software Architecture';
+    }
+    if (lower.includes('studio') || lower.includes('cad') || lower.includes('building') || lower.includes('spatial') || lower.includes('design')) {
+      return 'Building Architecture';
+    }
+    return 'Core Study';
+  }
+
+  // =========================================================================
+  // 5. BUILT-IN POMODORO & CUSTOM FOCUS TIMER ENGINE
+  // =========================================================================
+  function formatTime(totalSecs) {
+    const mins = Math.floor(totalSecs / 60);
+    const secs = totalSecs % 60;
+    return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+  }
+
+  function setTimerPreset(mode, minutes) {
+    stopTimerInterval();
+    state.timer.mode = mode;
+    const mins = minutes || (
+      mode === 'focus' ? state.timer.focusMinutes :
+      mode === 'shortBreak' ? state.timer.shortBreakMinutes :
+      mode === 'longBreak' ? state.timer.longBreakMinutes :
+      state.timer.customMinutes
+    );
+    state.timer.startedAtSessionMinutes = mins;
+    state.timer.totalSeconds = mins * 60;
+    state.timer.remainingSeconds = mins * 60;
+    state.timer.isRunning = false;
+    saveState();
+    renderTimerSection();
+    renderDynamicIsland();
+  }
+
+  function startTimer() {
+    stopTimerInterval();
+    state.timer.isRunning = true;
+    renderTimerSection();
+    renderDynamicIsland();
+
+    timerInterval = setInterval(() => {
+      if (state.timer.remainingSeconds > 0) {
+        state.timer.remainingSeconds -= 1;
+
+        // Halfway check-in from Character
+        if (state.timer.remainingSeconds === Math.floor(state.timer.totalSeconds / 2) && state.timer.totalSeconds >= 120) {
+          setCharacterMessage(CHARACTER_QUOTES.halfway);
+        }
+
+        renderTimerDigitsAndRing();
+        renderDynamicIsland();
+      } else {
+        completeCurrentTimerSession();
+      }
+    }, 1000);
+  }
+
+  function pauseTimer() {
+    stopTimerInterval();
+    state.timer.isRunning = false;
+    saveState();
+    renderTimerSection();
+    renderDynamicIsland();
+  }
+
+  function stopTimerInterval() {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }
+
+  function resetTimer() {
+    pauseTimer();
+    state.timer.remainingSeconds = state.timer.totalSeconds;
+    saveState();
+    renderTimerSection();
+    renderDynamicIsland();
+  }
+
+  function completeCurrentTimerSession() {
+    pauseTimer();
+    playNoirChime('complete');
+
+    const minsCompleted = Math.max(1, Math.round(state.timer.totalSeconds / 60));
+    const subject = state.timer.currentSubject || 'Deep Focus Block';
+
+    if (state.timer.mode === 'focus' || state.timer.mode === 'custom') {
+      state.timer.completedPomodorosToday += 1;
+
+      // Credit pinned task
+      const pinned = state.tasks.find((t) => t.pinned) || state.tasks[0];
+      if (pinned) {
+        pinned.completedMinutes = (pinned.completedMinutes || 0) + minsCompleted;
+      }
+
+      // Record in Study Session Tracker automatically
+      const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      state.sessions.unshift({
+        id: 'ses-' + Date.now(),
+        subject: subject,
+        category: pinned ? pinned.category : inferCategory(subject),
+        durationMinutes: minsCompleted,
+        timestamp: 'Today • ' + nowStr,
+        rating: 5,
+        notes: 'Completed via Built-in Gotham Pomodoro Timer.'
+      });
+
+      setCharacterMessage(CHARACTER_QUOTES.completed(subject, minsCompleted));
+      showToast('Session Logged (+' + minsCompleted + 'm)', subject + ' added to Study Tracker');
+    } else {
+      showToast('Break Finished', 'Ready to lock back into the blueprint.');
+    }
+
+    state.timer.remainingSeconds = state.timer.totalSeconds;
+    saveState();
+    renderAll();
+  }
+
+  // Log partial elapsed session manually from the timer
+  function logElapsedSessionNow() {
+    const elapsedSeconds = state.timer.totalSeconds - state.timer.remainingSeconds;
+    const elapsedMinutes = Math.max(1, Math.round(elapsedSeconds / 60));
+    const subject = state.timer.currentSubject || 'Architecture Focus Session';
+    const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    state.sessions.unshift({
+      id: 'ses-' + Date.now(),
+      subject: subject,
+      category: inferCategory(subject),
+      durationMinutes: elapsedMinutes,
+      timestamp: 'Today • ' + nowStr,
+      rating: 5,
+      notes: 'Logged directly from active timer checkpoint.'
+    });
+
+    const pinned = state.tasks.find((t) => t.pinned);
+    if (pinned) {
+      pinned.completedMinutes = (pinned.completedMinutes || 0) + elapsedMinutes;
+    }
+
+    saveState();
+    renderAll();
+    showToast('Checkpoint Logged', elapsedMinutes + ' min saved to Study Session Tracker');
+  }
+
+  // =========================================================================
+  // 6. UI RENDERERS
+  // =========================================================================
+  function renderTimerDigitsAndRing() {
+    const displayEl = document.getElementById('timer-countdown-display');
+    const ringEl = document.getElementById('timer-progress-circle');
+    const pctEl = document.getElementById('timer-percent-badge');
+
+    if (displayEl) {
+      displayEl.textContent = formatTime(state.timer.remainingSeconds);
+    }
+
+    const total = Math.max(1, state.timer.totalSeconds);
+    const elapsed = total - state.timer.remainingSeconds;
+    const ratio = Math.min(1, Math.max(0, elapsed / total));
+
+    if (ringEl) {
+      const circumference = 2 * Math.PI * 116; // r=116 => 728.85
+      const offset = circumference * (1 - ratio);
+      ringEl.style.strokeDasharray = String(circumference);
+      ringEl.style.strokeDashoffset = String(offset);
+    }
+
+    if (pctEl) {
+      pctEl.textContent = Math.round(ratio * 100) + '% COMPLETE';
+    }
+  }
+
+  function renderTimerSection() {
+    renderTimerDigitsAndRing();
+
+    const activeSubjEl = document.getElementById('active-mission-title');
+    if (activeSubjEl) {
+      activeSubjEl.textContent = state.timer.currentSubject || 'System Architecture & Design';
+    }
+
+    const startPauseBtn = document.getElementById('timer-start-pause-btn');
+    if (startPauseBtn) {
+      startPauseBtn.textContent = state.timer.isRunning ? 'Pause Clock' : 'Engage Focus Timer';
+    }
+
+    // Mode segment buttons
+    document.querySelectorAll('[data-timer-preset]').forEach((btn) => {
+      const preset = btn.getAttribute('data-timer-preset');
+      const mins = parseInt(btn.getAttribute('data-minutes') || '25', 10);
+      const isSelected = state.timer.mode === preset && Math.round(state.timer.totalSeconds / 60) === mins;
+      btn.classList.toggle('active', isSelected);
+    });
+
+    // Spotlight button state
+    const spotBtn = document.getElementById('toggle-spotlight-btn');
+    if (spotBtn) {
+      spotBtn.textContent = state.spotlightMode ? 'Exit Knightfall Focus' : 'Knightfall Max Focus';
+      spotBtn.classList.toggle('border-amber-400', state.spotlightMode);
+    }
+  }
+
+  function renderDynamicIsland() {
+    const islandStatus = document.getElementById('island-status-text');
+    const islandTime = document.getElementById('island-timer-pill');
+    const islandDot = document.getElementById('island-live-dot');
+
+    if (islandStatus) {
+      islandStatus.textContent = state.timer.currentSubject;
+    }
+    if (islandTime) {
+      islandTime.textContent = formatTime(state.timer.remainingSeconds);
+    }
+    if (islandDot) {
+      islandDot.className = state.timer.isRunning
+        ? 'w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping'
+        : 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+    }
+  }
+
+  function renderTasksList() {
+    const container = document.getElementById('tasks-list-container');
+    const countBadge = document.getElementById('tasks-count-badge');
+    if (!container) return;
+
+    const openCount = state.tasks.filter((t) => !t.completed).length;
+    if (countBadge) {
+      countBadge.textContent = openCount + ' Active';
+    }
+
+    if (state.tasks.length === 0) {
+      container.innerHTML = '<div class="text-xs text-zinc-400 py-6 text-center">No architecture tasks queued. Add a mission above or ask Vance to set one up.</div>';
+      return;
+    }
+
+    container.innerHTML = state.tasks.map((task) => {
+      const priorityBadge = task.priority === 'Critical'
+        ? '<span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">Critical</span>'
+        : task.priority === 'High'
+        ? '<span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">High</span>'
+        : '<span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-zinc-700/50 text-zinc-300 border border-zinc-600/30">Standard</span>';
+
+      return (
+        '<div class="p-3.5 rounded-2xl border transition-all ' +
+        (task.pinned
+          ? 'bg-white/[0.06] border-white/20'
+          : 'bg-white/[0.02] border-white/[0.07] hover:border-white/15') +
+        ' flex items-center justify-between gap-3">' +
+          '<div class="flex items-start gap-3 min-w-0">' +
+            '<button type="button" data-task-action="toggle" data-task-id="' + task.id + '" ' +
+              'class="mt-0.5 w-5 h-5 rounded-md border flex items-center justify-center transition-colors ' +
+              (task.completed ? 'bg-amber-500 border-amber-400 text-black' : 'border-zinc-500 hover:border-amber-400') + '" ' +
+              'title="Complete Task">' +
+              (task.completed ? '✓' : '') +
+            '</button>' +
+            '<div class="min-w-0">' +
+              '<div class="flex items-center gap-2 flex-wrap">' +
+                '<span class="text-sm font-semibold ' + (task.completed ? 'line-through text-zinc-500' : 'text-zinc-100') + '">' +
+                  escapeHtml(task.title) +
+                '</span>' +
+                (task.pinned ? '<span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-white text-black">Active</span>' : '') +
+              '</div>' +
+              '<div class="flex items-center gap-2 mt-1.5 flex-wrap">' +
+                '<span class="text-[11px] text-zinc-400">' + escapeHtml(task.category) + '</span>' +
+                '<span class="text-zinc-600">•</span>' +
+                priorityBadge +
+                '<span class="text-zinc-600">•</span>' +
+                '<span class="text-[11px] font-mono text-amber-300/90">' + (task.completedMinutes || 0) + '/' + task.estMinutes + 'm logged</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="flex items-center gap-1.5 shrink-0">' +
+            '<button type="button" data-task-action="focus" data-task-id="' + task.id + '" ' +
+              'class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 transition" ' +
+              'title="Lock into this task">' +
+              'Focus' +
+            '</button>' +
+            '<button type="button" data-task-action="delete" data-task-id="' + task.id + '" ' +
+              'class="px-2 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10 transition" ' +
+              'title="Remove task">' +
+              '✕' +
+            '</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function renderSessionsTracker() {
+    const totalMins = state.sessions.reduce((acc, s) => acc + (Number(s.durationMinutes) || 0), 0);
+    const totalHoursStr = (totalMins / 60).toFixed(1) + ' hrs';
+    const goalPct = Math.min(100, Math.round((totalMins / (state.timer.dailyGoalMinutes || 180)) * 100));
+
+    const statTotalEl = document.getElementById('stat-total-time');
+    const statCountEl = document.getElementById('stat-sessions-count');
+    const statStreakEl = document.getElementById('stat-streak-days');
+    const statGoalEl = document.getElementById('stat-goal-pct');
+    const goalBarEl = document.getElementById('daily-goal-bar-fill');
+
+    if (statTotalEl) statTotalEl.textContent = totalMins + 'm (' + totalHoursStr + ')';
+    if (statCountEl) statCountEl.textContent = String(state.sessions.length);
+    if (statStreakEl) statStreakEl.textContent = state.streakDays + ' Days';
+    if (statGoalEl) statGoalEl.textContent = goalPct + '% of ' + state.timer.dailyGoalMinutes + 'm goal';
+    if (goalBarEl) goalBarEl.style.width = goalPct + '%';
+
+    // Category Breakdown Bars
+    const catBreakdownEl = document.getElementById('category-breakdown-bars');
+    if (catBreakdownEl) {
+      const totalsByCat = {};
+      state.sessions.forEach((s) => {
+        const c = s.category || 'Core Study';
+        totalsByCat[c] = (totalsByCat[c] || 0) + (Number(s.durationMinutes) || 0);
+      });
+      const entries = Object.entries(totalsByCat);
+      catBreakdownEl.innerHTML = entries.map(([cat, mins]) => {
+        const pct = totalMins > 0 ? Math.round((mins / totalMins) * 100) : 0;
+        return (
+          '<div class="space-y-1">' +
+            '<div class="flex justify-between text-xs">' +
+              '<span class="font-medium text-zinc-200">' + escapeHtml(cat) + '</span>' +
+              '<span class="font-mono text-amber-400">' + mins + 'm (' + pct + '%)</span>' +
+            '</div>' +
+            '<div class="w-full h-2 rounded-full bg-zinc-900 overflow-hidden border border-white/5">' +
+              '<div class="h-full rounded-full bg-white/85" style="width:' + pct + '%"></div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+    }
+
+    // Sessions History Table
+    const tbody = document.getElementById('session-history-tbody');
+    if (tbody) {
+      if (state.sessions.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-xs text-zinc-500">No study sessions recorded yet. Start the timer or log a block manually!</td></tr>';
+      } else {
+        tbody.innerHTML = state.sessions.map((s) => {
+          const stars = '★'.repeat(Math.max(1, Math.min(5, s.rating || 5)));
+          return (
+            '<tr class="border-b border-white/5 hover:bg-white/[0.02] transition">' +
+              '<td class="py-3 px-3 text-xs font-semibold text-zinc-100">' + escapeHtml(s.subject) + '</td>' +
+              '<td class="py-3 px-3 text-xs text-zinc-400">' + escapeHtml(s.category) + '</td>' +
+              '<td class="py-3 px-3 text-xs font-mono text-amber-400 font-semibold">' + s.durationMinutes + ' min</td>' +
+              '<td class="py-3 px-3 text-xs text-amber-300">' + stars + '</td>' +
+              '<td class="py-3 px-3 text-xs text-zinc-400 flex items-center justify-between gap-2">' +
+                '<span>' + escapeHtml(s.timestamp) + '</span>' +
+                '<button type="button" data-session-delete="' + s.id + '" class="text-zinc-500 hover:text-rose-400 px-1.5 py-0.5 rounded" title="Delete session entry">✕</button>' +
+              '</td>' +
+            '</tr>'
+          );
+        }).join('');
+      }
+    }
+  }
+
+  function renderAudioEqualizerBadge() {
+    const isPlayingAny = !state.audio.masterMuted && (
+      state.audio.rainLevel > 0 || state.audio.saxPadLevel > 0 || state.audio.brownNoiseLevel > 0
+    );
+    const badge = document.getElementById('audio-status-label');
+    if (badge) {
+      badge.textContent = isPlayingAny ? 'Noir Audio Live' : 'Ambience Idle';
+    }
+  }
+
+  function renderTabs() {
+    const tabs = ['studio', 'sessions'];
+    tabs.forEach((tabId) => {
+      const section = document.getElementById('view-' + tabId);
+      if (section) {
+        section.classList.toggle('hidden', state.activeTab !== tabId);
+      }
+    });
+    document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
+      const target = btn.getAttribute('data-nav-tab');
+      const active = target === state.activeTab;
+      btn.classList.toggle('active', active);
+    });
+  }
+
+  function renderAll() {
+    renderTabs();
+    renderTimerSection();
+    renderDynamicIsland();
+    renderTasksList();
+    renderSessionsTracker();
+    renderAudioEqualizerBadge();
+
+    const speechEl = document.getElementById('character-speech-text');
+    if (speechEl) {
+      speechEl.textContent = state.character.lastMessage;
+    }
+
+    const scratchEl = document.getElementById('noir-scratchpad');
+    if (scratchEl && scratchEl.value !== state.scratchpad) {
+      scratchEl.value = state.scratchpad;
+    }
+  }
+
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // =========================================================================
+  // 7. EVENT WIRING & INITIALIZATION
+  // =========================================================================
+  function bindEvents() {
+    window.addEventListener('resize', initSkyline);
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX / Math.max(1, window.innerWidth);
+      mouseY = e.clientY / Math.max(1, window.innerHeight);
+    });
+
+    // Navigation Tabs (Top bar + macOS Dock)
+    document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.activeTab = btn.getAttribute('data-nav-tab') || 'studio';
+        saveState();
+        renderTabs();
+      });
+    });
+
+    // Scene Background Presets
+    document.querySelectorAll('[data-scene-preset]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.scenePreset = btn.getAttribute('data-scene-preset') || 'gotham_rain';
+        document.querySelectorAll('[data-scene-preset]').forEach((b) => {
+          b.classList.toggle('active', b.getAttribute('data-scene-preset') === state.scenePreset);
+        });
+        saveState();
+        showToast('Atmosphere Updated', btn.textContent.trim() + ' active');
+      });
+    });
+
+    // Bat-Signal Toggle
+    const batSignalBtn = document.getElementById('toggle-batsignal-btn');
+    if (batSignalBtn) {
+      batSignalBtn.addEventListener('click', () => {
+        state.searchlightOn = !state.searchlightOn;
+        batSignalBtn.textContent = state.searchlightOn ? 'Bat-Signal: ON' : 'Bat-Signal: OFF';
+        saveState();
+      });
+    }
+
+    // Character Quick Subject Chips
+    document.querySelectorAll('[data-char-subject]').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const val = chip.getAttribute('data-char-subject') || '';
+        const input = document.getElementById('char-subject-input');
+        if (input) input.value = val;
+        document.querySelectorAll('[data-char-subject]').forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+
+    // Character Quick Duration Chips
+    document.querySelectorAll('[data-char-mins]').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const val = chip.getAttribute('data-char-mins') || '45';
+        const input = document.getElementById('char-minutes-input');
+        if (input) input.value = val;
+        document.querySelectorAll('[data-char-mins]').forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+
+    // Character Lock-In Form
+    const charForm = document.getElementById('character-checkin-form');
+    if (charForm) {
+      charForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleCharacterLaunchSession();
+      });
+    }
+
+    // Character Pep Talk Button
+    const pepBtn = document.getElementById('character-peptalk-btn');
+    if (pepBtn) {
+      pepBtn.addEventListener('click', () => {
+        const list = CHARACTER_QUOTES.pepTalks;
+        const pick = list[Math.floor(Math.random() * list.length)];
+        setCharacterMessage(pick);
+      });
+    }
+
+    // Timer Controls
+    const startPauseBtn = document.getElementById('timer-start-pause-btn');
+    if (startPauseBtn) {
+      startPauseBtn.addEventListener('click', () => {
+        if (state.timer.isRunning) {
+          pauseTimer();
+        } else {
+          playNoirChime('start');
+          startTimer();
+        }
+      });
+    }
+
+    const resetBtn = document.getElementById('timer-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', resetTimer);
+    }
+
+    const logNowBtn = document.getElementById('timer-log-checkpoint-btn');
+    if (logNowBtn) {
+      logNowBtn.addEventListener('click', logElapsedSessionNow);
+    }
+
+    // Timer Preset Buttons
+    document.querySelectorAll('[data-timer-preset]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-timer-preset') || 'focus';
+        const mins = parseInt(btn.getAttribute('data-minutes') || '25', 10);
+        setTimerPreset(mode, mins);
+      });
+    });
+
+    // Custom Timer Apply Button
+    const applyCustomBtn = document.getElementById('apply-custom-timer-btn');
+    if (applyCustomBtn) {
+      applyCustomBtn.addEventListener('click', () => {
+        const input = document.getElementById('custom-timer-minutes-input');
+        const mins = Math.max(1, Math.min(240, parseInt(input ? input.value : '45', 10) || 45));
+        state.timer.customMinutes = mins;
+        setTimerPreset('custom', mins);
+        showToast('Custom Timer Ready', mins + ' minute countdown configured');
+      });
+    }
+
+    // Spotlight Mode Toggle
+    const spotBtn = document.getElementById('toggle-spotlight-btn');
+    if (spotBtn) {
+      spotBtn.addEventListener('click', () => {
+        state.spotlightMode = !state.spotlightMode;
+        document.body.classList.toggle('spotlight-active', state.spotlightMode);
+        renderTimerSection();
+        showToast(
+          state.spotlightMode ? 'Knightfall Spotlight Active' : 'Standard Studio View',
+          state.spotlightMode ? 'Secondary panels dimmed for maximum focus' : 'All panels restored'
+        );
+      });
+    }
+
+    // Add Task Form
+    const addTaskForm = document.getElementById('add-task-form');
+    if (addTaskForm) {
+      addTaskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const titleInput = document.getElementById('new-task-title');
+        const catSelect = document.getElementById('new-task-category');
+        const prioSelect = document.getElementById('new-task-priority');
+        const minsInput = document.getElementById('new-task-minutes');
+
+        const title = titleInput ? titleInput.value.trim() : '';
+        if (!title) return;
+
+        const newTask = {
+          id: 'tsk-' + Date.now(),
+          title: title,
+          category: catSelect ? catSelect.value : 'Software Architecture',
+          priority: prioSelect ? prioSelect.value : 'High',
+          estMinutes: Math.max(5, parseInt(minsInput ? minsInput.value : '45', 10) || 45),
+          completedMinutes: 0,
+          completed: false,
+          pinned: false
+        };
+
+        state.tasks.unshift(newTask);
+        if (titleInput) titleInput.value = '';
+        saveState();
+        renderTasksList();
+        showToast('Task Added to Blueprint', title);
+      });
+    }
+
+    // Delegated Task List Actions
+    const tasksContainer = document.getElementById('tasks-list-container');
+    if (tasksContainer) {
+      tasksContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-task-action]');
+        if (!btn) return;
+        const action = btn.getAttribute('data-task-action');
+        const taskId = btn.getAttribute('data-task-id');
+        const task = state.tasks.find((t) => t.id === taskId);
+        if (!task) return;
+
+        if (action === 'toggle') {
+          task.completed = !task.completed;
+          saveState();
+          renderTasksList();
+        } else if (action === 'focus') {
+          state.tasks.forEach((t) => { t.pinned = (t.id === taskId); });
+          state.timer.currentSubject = task.title;
+          setTimerPreset('custom', task.estMinutes || 45);
+          setCharacterMessage(CHARACTER_QUOTES.lockedIn(task.title, task.estMinutes || 45));
+          saveState();
+          renderAll();
+          showToast('Target Pinned to Timer', task.title);
+        } else if (action === 'delete') {
+          state.tasks = state.tasks.filter((t) => t.id !== taskId);
+          saveState();
+          renderTasksList();
+        }
+      });
+    }
+
+    // Manual Study Session Log Form
+    const logSessionForm = document.getElementById('manual-session-form');
+    if (logSessionForm) {
+      logSessionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const subjEl = document.getElementById('log-session-subject');
+        const catEl = document.getElementById('log-session-category');
+        const minsEl = document.getElementById('log-session-minutes');
+        const ratingEl = document.getElementById('log-session-rating');
+        const notesEl = document.getElementById('log-session-notes');
+
+        const subject = subjEl && subjEl.value.trim() ? subjEl.value.trim() : 'Architecture Study Block';
+        const duration = Math.max(1, parseInt(minsEl ? minsEl.value : '45', 10) || 45);
+        const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        state.sessions.unshift({
+          id: 'ses-' + Date.now(),
+          subject: subject,
+          category: catEl ? catEl.value : 'Software Architecture',
+          durationMinutes: duration,
+          timestamp: 'Today • ' + nowStr,
+          rating: parseInt(ratingEl ? ratingEl.value : '5', 10) || 5,
+          notes: notesEl ? notesEl.value.trim() : ''
+        });
+
+        if (subjEl) subjEl.value = '';
+        if (notesEl) notesEl.value = '';
+        saveState();
+        renderSessionsTracker();
+        showToast('Study Session Recorded', subject + ' (' + duration + 'm)');
+      });
+    }
+
+    // Delete Session Row Delegation
+    const sessionTbody = document.getElementById('session-history-tbody');
+    if (sessionTbody) {
+      sessionTbody.addEventListener('click', (e) => {
+        const delBtn = e.target.closest('[data-session-delete]');
+        if (!delBtn) return;
+        const sesId = delBtn.getAttribute('data-session-delete');
+        state.sessions = state.sessions.filter((s) => s.id !== sesId);
+        saveState();
+        renderSessionsTracker();
+      });
+    }
+
+    // Export Study Sessions CSV
+    const exportCsvBtn = document.getElementById('export-sessions-csv-btn');
+    if (exportCsvBtn) {
+      exportCsvBtn.addEventListener('click', () => {
+        const headers = ['Subject,Category,DurationMinutes,Rating,Timestamp,Notes'];
+        const rows = state.sessions.map((s) =>
+          '"' + (s.subject || '').replace(/"/g, '""') + '",' +
+          '"' + (s.category || '').replace(/"/g, '""') + '",' +
+          s.durationMinutes + ',' +
+          (s.rating || 5) + ',' +
+          '"' + (s.timestamp || '') + '",' +
+          '"' + (s.notes || '').replace(/"/g, '""') + '"'
+        );
+        const csvContent = headers.concat(rows).join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'wayne_os_study_sessions.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast('Export Complete', 'Downloaded wayne_os_study_sessions.csv');
+      });
+    }
+
+    // Audio Sliders
+    const rainSlider = document.getElementById('slider-gotham-rain');
+    if (rainSlider) {
+      rainSlider.addEventListener('input', () => {
+        ensureAudioContext();
+        state.audio.rainLevel = parseInt(rainSlider.value, 10) || 0;
+        const valEl = document.getElementById('val-gotham-rain');
+        if (valEl) valEl.textContent = state.audio.rainLevel + '%';
+        updateAudioLevels();
+      });
+    }
+
+    const saxSlider = document.getElementById('slider-nyc-sax');
+    if (saxSlider) {
+      saxSlider.addEventListener('input', () => {
+        ensureAudioContext();
+        state.audio.saxPadLevel = parseInt(saxSlider.value, 10) || 0;
+        const valEl = document.getElementById('val-nyc-sax');
+        if (valEl) valEl.textContent = state.audio.saxPadLevel + '%';
+        updateAudioLevels();
+      });
+    }
+
+    const brownSlider = document.getElementById('slider-batcave-brown');
+    if (brownSlider) {
+      brownSlider.addEventListener('input', () => {
+        ensureAudioContext();
+        state.audio.brownNoiseLevel = parseInt(brownSlider.value, 10) || 0;
+        const valEl = document.getElementById('val-batcave-brown');
+        if (valEl) valEl.textContent = state.audio.brownNoiseLevel + '%';
+        updateAudioLevels();
+      });
+    }
+
+    // Quick Sound Preset Button ("Engage Midnight Mix")
+    const quickMixBtn = document.getElementById('engage-midnight-mix-btn');
+    if (quickMixBtn) {
+      quickMixBtn.addEventListener('click', () => {
+        ensureAudioContext();
+        const isCurrentlyActive = state.audio.rainLevel > 0 || state.audio.saxPadLevel > 0;
+        if (isCurrentlyActive) {
+          state.audio.rainLevel = 0;
+          state.audio.saxPadLevel = 0;
+          state.audio.brownNoiseLevel = 0;
+          quickMixBtn.textContent = 'Play Gotham & NYC Sax Mix';
+        } else {
+          state.audio.rainLevel = 65;
+          state.audio.saxPadLevel = 45;
+          state.audio.brownNoiseLevel = 30;
+          quickMixBtn.textContent = 'Mute Midnight Mix';
+        }
+        if (rainSlider) rainSlider.value = String(state.audio.rainLevel);
+        if (saxSlider) saxSlider.value = String(state.audio.saxPadLevel);
+        if (brownSlider) brownSlider.value = String(state.audio.brownNoiseLevel);
+        const rVal = document.getElementById('val-gotham-rain');
+        const sVal = document.getElementById('val-nyc-sax');
+        const bVal = document.getElementById('val-batcave-brown');
+        if (rVal) rVal.textContent = state.audio.rainLevel + '%';
+        if (sVal) sVal.textContent = state.audio.saxPadLevel + '%';
+        if (bVal) bVal.textContent = state.audio.brownNoiseLevel + '%';
+        updateAudioLevels();
+      });
+    }
+
+    // Scratchpad Auto-Save
+    const scratchEl = document.getElementById('noir-scratchpad');
+    if (scratchEl) {
+      scratchEl.addEventListener('input', () => {
+        state.scratchpad = scratchEl.value;
+        saveState();
+      });
+    }
+
+    const clearScratchBtn = document.getElementById('clear-scratchpad-btn');
+    if (clearScratchBtn && scratchEl) {
+      clearScratchBtn.addEventListener('click', () => {
+        state.scratchpad = '';
+        scratchEl.value = '';
+        saveState();
+        showToast('Scratchpad Cleared', 'Ready for fresh midnight notes');
+      });
+    }
+
+
+
+    // Live macOS Clock
+    function updateClock() {
+      const clockEl = document.getElementById('macos-live-clock');
+      if (clockEl) {
+        const now = new Date();
+        clockEl.textContent = now.toLocaleTimeString([], { weekday: 'short', hour: '2-digit', minute: '2-digit' });
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 15000);
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+    } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initSkyline();
+    requestAnimationFrame(renderSkyline);
+    bindEvents();
+    renderAll();
+  });
+})();
+
+</script>
+</body>
+</html>
