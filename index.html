@@ -2,22 +2,22 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>WayneOS // Personal Focus &amp; Study Studio</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <style>
 /* ==========================================================================
-   WAYNE-OS // APPLE MINIMALIST DARK EDITION
-   Aesthetic: Pure Apple Minimalism (macOS Sequoia / visionOS / OLED Dark)
+   WAYNE-OS // APPLE MINIMALIST DARK EDITION (ALL-DEVICE RESPONSIVE)
+   Aesthetic: Pure Apple Minimalism (macOS Sequoia / iOS 18 / visionOS Dark)
               + Subtle Gotham Noir & 1984 NYC Midnight Atmosphere
    ========================================================================== */
 
 :root {
   --bg-obsidian: #030305;
   --bg-charcoal: #09090c;
-  --glass-surface: rgba(20, 20, 24, 0.54);
-  --glass-surface-elevated: rgba(28, 28, 34, 0.65);
-  --glass-pill: rgba(14, 14, 18, 0.78);
+  --glass-surface: rgba(20, 20, 24, 0.56);
+  --glass-surface-elevated: rgba(28, 28, 34, 0.72);
+  --glass-pill: rgba(14, 14, 18, 0.82);
   --glass-border: rgba(255, 255, 255, 0.075);
   --glass-border-highlight: rgba(255, 255, 255, 0.16);
   --amber-bat: #f59e0b;
@@ -36,10 +36,12 @@
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
   width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
   background-color: var(--bg-obsidian);
   color: var(--text-primary);
@@ -69,7 +71,15 @@ html, body {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Animated Skyline Canvas - Subtly Diffused for Apple Minimalism */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animated Skyline Canvas */
 #gotham-canvas {
   position: fixed;
   inset: 0;
@@ -100,11 +110,17 @@ html, body {
   box-shadow:
     0 20px 50px -15px rgba(0, 0, 0, 0.7),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
+  border-radius: 26px;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.3s ease,
               box-shadow 0.3s ease,
               opacity 0.35s ease;
+}
+
+@media (max-width: 640px) {
+  .apple-glass {
+    border-radius: 22px;
+  }
 }
 
 .apple-glass:hover {
@@ -118,7 +134,7 @@ html, body {
     inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
-/* Minimalist Monochrome macOS Window Dots (Reveal color only on card hover) */
+/* Minimalist Monochrome macOS Window Dots */
 .traffic-lights {
   display: inline-flex;
   align-items: center;
@@ -138,7 +154,7 @@ html, body {
 .apple-glass:hover .dot-yellow { background: #ffbd2e; }
 .apple-glass:hover .dot-green { background: #27c93f; }
 
-/* Apple Dynamic Island - Whisper-Quiet Pill */
+/* Apple Dynamic Island */
 .dynamic-island {
   background: rgba(8, 8, 10, 0.88);
   backdrop-filter: blur(36px) saturate(190%);
@@ -165,9 +181,9 @@ html, body {
 }
 
 .segment-btn {
-  padding: 6px 14px;
+  padding: 6px 13px;
   border-radius: 999px;
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-secondary);
   background: transparent;
@@ -182,9 +198,9 @@ html, body {
 }
 
 .segment-btn.active {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.13);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.14);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
@@ -203,7 +219,7 @@ html, body {
   transform-origin: 50% 50%;
 }
 
-/* Subtle Character Animations */
+/* Subtle Character & Breathing Animations */
 @keyframes floatNoir {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-3px); }
@@ -219,12 +235,21 @@ html, body {
   50% { transform: scaleY(0.95); }
 }
 
+@keyframes breatheRing {
+  0%, 100% { transform: scale(0.82); opacity: 0.45; }
+  50% { transform: scale(1.18); opacity: 0.95; }
+}
+
 .character-avatar-wrap {
   animation: floatNoir 5s ease-in-out infinite;
 }
 
 .bat-visor-glow {
   animation: pulseVisor 3.2s ease-in-out infinite;
+}
+
+.breathing-orb-active {
+  animation: breatheRing 8s ease-in-out infinite;
 }
 
 .eq-bar {
@@ -242,14 +267,14 @@ html, body {
 
 /* Spotlight Maximum Focus Mode (Apple Zen Focus) */
 body.spotlight-active .secondary-panel {
-  opacity: 0.08;
-  filter: blur(6px);
+  opacity: 0.06;
+  filter: blur(8px);
   pointer-events: none;
   transform: scale(0.985);
 }
 
 body.spotlight-active .secondary-panel:hover {
-  opacity: 0.85;
+  opacity: 0.9;
   filter: none;
   pointer-events: auto;
   transform: scale(1);
@@ -318,6 +343,24 @@ body.spotlight-active #timer-hero-card {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
+.btn-danger-glass {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.32);
+  color: #fda4af;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger-glass:hover {
+  background: rgba(244, 63, 94, 0.24);
+  border-color: rgba(244, 63, 94, 0.55);
+  color: #fff;
+}
+
 /* Minimalist Apple Filter Pills */
 .chip-btn {
   background: rgba(255, 255, 255, 0.035);
@@ -355,12 +398,23 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background: #f5f5f7;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Flashcard Flip Card */
+.flashcard-surface {
+  min-height: 190px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+.flashcard-surface:active {
+  transform: scale(0.99);
 }
 
 /* Toast Notification */
@@ -377,35 +431,41 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="noir-vignette"></div>
 
   <!-- Main Workspace Wrapper -->
-  <div class="relative z-10 flex flex-col min-h-screen pb-28">
+  <div class="relative z-10 flex flex-col min-h-screen pb-28 sm:pb-24">
 
-    <!-- Ultra-Minimal Apple Status Header + Dynamic Island -->
-    <header class="sticky top-0 z-30 px-6 py-3.5 bg-black/35 backdrop-blur-3xl border-b border-white/[0.06]">
-      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-        <!-- Left: Minimalist Apple Branding & Navigation -->
-        <div class="flex items-center gap-6">
-          <div class="flex items-center gap-2.5">
+    <!-- Responsive Apple Minimalist Status Header + Dynamic Island -->
+    <header class="sticky top-0 z-30 px-3 sm:px-6 py-2.5 sm:py-3.5 bg-black/45 backdrop-blur-3xl border-b border-white/[0.06]">
+      <div class="max-w-6xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+        <!-- Left: Minimalist Apple Branding & Desktop Tabs -->
+        <div class="flex items-center gap-3 lg:gap-6 shrink-0">
+          <div class="flex items-center gap-2">
             <span class="w-5 h-5 rounded-full bg-white text-black flex items-center justify-center font-semibold text-[11px] tracking-tighter">
               W
             </span>
             <span class="font-medium tracking-tight text-sm text-zinc-100">WayneOS</span>
+            <span id="header-rank-pill" class="hidden sm:inline-block text-[10px] px-2 py-0.5 rounded-full bg-white/[0.06] text-zinc-300 border border-white/10">
+              Lv.3 Night Watcher
+            </span>
           </div>
 
-          <nav class="hidden md:flex items-center gap-1 text-xs">
+          <nav class="hidden lg:flex items-center gap-1 text-xs">
             <button type="button" data-nav-tab="studio" class="segment-btn active">Focus Studio</button>
+            <button type="button" data-nav-tab="tasks" class="segment-btn">Tasks &amp; Exams</button>
+            <button type="button" data-nav-tab="toolkit" class="segment-btn">Study Lab</button>
+            <button type="button" data-nav-tab="ambience" class="segment-btn">Ambience</button>
             <button type="button" data-nav-tab="sessions" class="segment-btn">Session Tracker</button>
           </nav>
         </div>
 
         <!-- Center: Apple Dynamic Island Live Activity -->
-        <div class="dynamic-island px-4 py-1.5 flex items-center gap-3">
-          <span id="island-live-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span id="island-status-text" class="text-xs font-normal text-zinc-300 truncate max-w-[160px] sm:max-w-[220px]">
+        <div class="dynamic-island px-3 sm:px-4 py-1.5 flex items-center gap-2 sm:gap-3 min-w-0">
+          <span id="island-live-dot" class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+          <span id="island-status-text" class="text-xs font-normal text-zinc-300 truncate max-w-[100px] sm:max-w-[180px]">
             Deep Work &amp; Study
           </span>
           <span class="text-zinc-700">·</span>
-          <span id="island-timer-pill" class="text-xs font-mono font-medium text-white">25:00</span>
-          <div class="hidden sm:flex items-end gap-0.5 h-2.5 ml-0.5" aria-hidden="true">
+          <span id="island-timer-pill" class="text-xs font-mono font-medium text-white shrink-0">25:00</span>
+          <div class="hidden sm:flex items-end gap-0.5 h-2.5 ml-0.5 shrink-0" aria-hidden="true">
             <span class="eq-bar"></span>
             <span class="eq-bar"></span>
             <span class="eq-bar"></span>
@@ -413,64 +473,62 @@ input[type="range"]::-webkit-slider-thumb {
           </div>
         </div>
 
-        <!-- Right: Minimalist Scene & Focus Toggles + Clock -->
-        <div class="flex items-center gap-2">
-          <button type="button" id="toggle-batsignal-btn" class="btn-glass text-xs py-1.5 px-3 hidden sm:inline-flex text-zinc-300">
+        <!-- Right: Focus Controls & Clock -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button type="button" id="toggle-batsignal-btn" class="btn-glass text-xs py-1.5 px-3 hidden md:inline-flex text-zinc-300">
             Bat-Signal: ON
           </button>
-          <button type="button" id="toggle-spotlight-btn" class="btn-glass text-xs py-1.5 px-3.5 text-zinc-200">
+          <button type="button" id="toggle-spotlight-btn" class="btn-glass text-[11px] sm:text-xs py-1.5 px-2.5 sm:px-3.5 text-zinc-200">
             Knightfall Max Focus
           </button>
-          <span id="macos-live-clock" class="text-xs text-zinc-400 font-normal ml-2">Tue 23:30</span>
+          <span id="macos-live-clock" class="hidden sm:inline text-xs text-zinc-400 font-normal ml-1">Wed 00:05</span>
         </div>
       </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-1 max-w-6xl w-full mx-auto px-6 pt-8 space-y-8">
+    <!-- Main Uncrowded Tabbed Content Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 pt-5 sm:pt-8 space-y-6">
 
       <!-- ===================================================================
-           VIEW 1: FOCUS STUDIO (Minimalist Apple Split: Timer Centerpiece + Companion + Study Queue)
+           TAB 1: FOCUS STUDIO (Uncrowded: Only Chronometer + Vance Companion + Breathing Pacer)
            =================================================================== -->
-      <section id="view-studio" class="space-y-8">
+      <section id="view-studio" class="space-y-6">
 
-        <!-- Whisper-Quiet Atmosphere Selector Bar -->
-        <div class="flex flex-wrap items-center justify-between gap-3 secondary-panel">
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="text-xs text-zinc-500 font-medium mr-1">Atmosphere</span>
-            <button type="button" data-scene-preset="gotham_rain" class="chip-btn active">Gotham Downpour</button>
-            <button type="button" data-scene-preset="nyc_sax" class="chip-btn">NYC 1984 Sax Velvet</button>
-            <button type="button" data-scene-preset="batcave" class="chip-btn">Batcave Obsidian</button>
-            <button type="button" data-scene-preset="wayne_aurora" class="chip-btn">Wayne Tower Gold</button>
+        <!-- Compact Quick Status Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-400 px-1 secondary-panel">
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400/80"></span>
+              <span id="audio-status-label">Ambience Idle</span>
+            </span>
+            <span class="text-zinc-700">·</span>
+            <span id="pomodoro-cycle-badge" class="font-mono text-zinc-300">Cycle 1 / 4</span>
+            <span class="text-zinc-700">·</span>
+            <span id="distractions-resisted-badge" class="text-zinc-300">0 Distractions Resisted</span>
           </div>
-          <div class="text-xs text-zinc-500 flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-400/80"></span>
-            <span id="audio-status-label">Ambience Idle</span>
+          <div class="hidden sm:flex items-center gap-2 text-[11px] text-zinc-500">
+            <span>Shortcuts: <kbd class="px-1.5 py-0.5 rounded bg-white/5 text-zinc-300">Space</kbd> Play/Pause</span>
+            <span><kbd class="px-1.5 py-0.5 rounded bg-white/5 text-zinc-300">R</kbd> Reset</span>
           </div>
         </div>
 
-        <!-- Primary Apple Bento Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-          <!-- LEFT COLUMN (7 cols): Minimalist Apple Chronometer Hero + Tasks/Scratchpad -->
-          <div class="lg:col-span-7 space-y-7">
-
-            <!-- HERO BUILT-IN POMODORO CHRONOMETER CARD -->
-            <div id="timer-hero-card" class="apple-glass p-8 relative overflow-hidden">
-              <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+          <!-- LEFT (7 cols): Spacious Focus Chronometer Card -->
+          <div class="lg:col-span-7">
+            <div id="timer-hero-card" class="apple-glass p-5 sm:p-8 relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
                 <div class="flex items-center gap-3">
                   <div class="traffic-lights">
                     <span class="traffic-dot dot-red"></span>
                     <span class="traffic-dot dot-yellow"></span>
                     <span class="traffic-dot dot-green"></span>
                   </div>
-                  <span class="text-xs font-medium text-zinc-400">
-                    Focus Chronometer
-                  </span>
+                  <span class="text-xs font-medium text-zinc-400">Focus Chronometer</span>
                 </div>
 
                 <!-- Segmented Timer Presets -->
-                <div class="segmented-control flex-wrap">
+                <div class="segmented-control flex-wrap max-w-full overflow-x-auto no-scrollbar">
                   <button type="button" data-timer-preset="focus" data-minutes="25" class="segment-btn active">25m Classic</button>
                   <button type="button" data-timer-preset="custom" data-minutes="50" class="segment-btn">50m Deep Work</button>
                   <button type="button" data-timer-preset="shortBreak" data-minutes="5" class="segment-btn">5m Sax Break</button>
@@ -478,9 +536,22 @@ input[type="range"]::-webkit-slider-thumb {
                 </div>
               </div>
 
+              <!-- Timer Mode Pills: Countdown vs Count-Up Stopwatch + Auto-Chain -->
+              <div class="flex flex-wrap items-center justify-center gap-2 mb-4">
+                <button type="button" id="toggle-stopwatch-mode-btn" class="chip-btn text-xs">
+                  Mode: Countdown Timer
+                </button>
+                <button type="button" id="toggle-autochain-btn" class="chip-btn text-xs">
+                  Auto-Cycle Breaks: OFF
+                </button>
+                <button type="button" id="resist-distraction-btn" class="chip-btn text-xs text-amber-300/90">
+                  🛡️ +1 Resisted Distraction
+                </button>
+              </div>
+
               <!-- Centered Minimalist Timer Ring & Typography -->
               <div class="flex flex-col items-center justify-center py-2">
-                <div class="relative w-64 h-64 flex items-center justify-center mb-6">
+                <div class="relative w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center mb-6">
                   <svg class="w-full h-full" viewBox="0 0 260 260">
                     <defs>
                       <linearGradient id="noirRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -489,7 +560,6 @@ input[type="range"]::-webkit-slider-thumb {
                         <stop offset="100%" stop-color="#fb7185" />
                       </linearGradient>
                     </defs>
-                    <!-- Hairline Background Track -->
                     <circle
                       cx="130"
                       cy="130"
@@ -498,7 +568,6 @@ input[type="range"]::-webkit-slider-thumb {
                       stroke-width="4"
                       fill="transparent"
                     />
-                    <!-- Ultra-Sleek Progress Ring -->
                     <circle
                       id="timer-progress-circle"
                       class="progress-ring-circle"
@@ -517,7 +586,7 @@ input[type="range"]::-webkit-slider-thumb {
                     <span id="timer-percent-badge" class="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-1">
                       0% COMPLETE
                     </span>
-                    <div id="timer-countdown-display" class="timer-digits text-6xl sm:text-7xl tracking-tighter">
+                    <div id="timer-countdown-display" class="timer-digits text-5xl sm:text-7xl tracking-tighter">
                       25:00
                     </div>
                     <h1 id="active-mission-title" class="text-xs font-medium text-zinc-400 mt-2 max-w-[180px] truncate">
@@ -526,23 +595,32 @@ input[type="range"]::-webkit-slider-thumb {
                   </div>
                 </div>
 
-                <!-- Minimalist Pill Controls -->
-                <div class="flex flex-wrap items-center justify-center gap-3 w-full max-w-md">
-                  <button type="button" id="timer-start-pause-btn" class="btn-primary-noir px-8 py-3 text-xs">
+                <!-- Quick -5m / +5m Adjusters + Primary Controls -->
+                <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 w-full">
+                  <button type="button" id="timer-minus-5-btn" class="btn-glass px-3.5 py-2.5 text-xs font-mono" title="Subtract 5 minutes">
+                    -5m
+                  </button>
+                  <button type="button" id="timer-start-pause-btn" class="btn-primary-noir px-7 sm:px-8 py-3 text-xs">
                     Engage Focus Timer
                   </button>
-                  <button type="button" id="timer-reset-btn" class="btn-glass px-5 py-3 text-xs">
+                  <button type="button" id="timer-plus-5-btn" class="btn-glass px-3.5 py-2.5 text-xs font-mono" title="Add 5 minutes">
+                    +5m
+                  </button>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-2.5 mt-3">
+                  <button type="button" id="timer-reset-btn" class="btn-glass px-4 py-2 text-xs">
                     Reset Clock
                   </button>
-                  <button type="button" id="timer-log-checkpoint-btn" class="btn-glass px-5 py-3 text-xs text-zinc-300">
+                  <button type="button" id="timer-log-checkpoint-btn" class="btn-glass px-4 py-2 text-xs text-zinc-300">
                     + Log Session Now
                   </button>
                 </div>
 
                 <!-- Subtle Inline Custom Duration & Daily Goal Bar -->
-                <div class="w-full mt-8 pt-5 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs">
+                <div class="w-full mt-7 pt-5 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 text-xs">
                   <div class="flex items-center gap-2">
-                    <label for="custom-timer-minutes-input" class="text-zinc-500">Custom duration</label>
+                    <label for="custom-timer-minutes-input" class="text-zinc-500">Custom</label>
                     <input
                       id="custom-timer-minutes-input"
                       type="number"
@@ -565,102 +643,29 @@ input[type="range"]::-webkit-slider-thumb {
                 </div>
               </div>
             </div>
-
-            <!-- MINIMALIST STUDY QUEUE & SCRATCHPAD SPLIT -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-7 secondary-panel">
-              <!-- Study Tasks Queue (7 cols) -->
-              <div class="md:col-span-7 apple-glass p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2.5">
-                    <h2 class="text-sm font-semibold text-zinc-100">Study Tasks</h2>
-                    <span id="tasks-count-badge" class="px-2.5 py-0.5 text-[11px] rounded-full bg-white/[0.06] text-zinc-300">
-                      2 Active
-                    </span>
-                  </div>
-                </div>
-
-                <form id="add-task-form" class="space-y-2.5">
-                  <div class="flex gap-2">
-                    <input
-                      id="new-task-title"
-                      type="text"
-                      placeholder="Add a study goal or task..."
-                      class="noir-input flex-1 text-xs"
-                    />
-                    <button type="submit" class="btn-primary-noir text-xs px-4 py-2">
-                      + Add
-                    </button>
-                  </div>
-                  <div class="grid grid-cols-3 gap-2">
-                    <select id="new-task-category" class="noir-input text-xs py-1.5">
-                      <option value="Deep Study">Deep Study</option>
-                      <option value="Reading &amp; Notes">Reading &amp; Notes</option>
-                      <option value="Practice &amp; Drills">Practice &amp; Drills</option>
-                      <option value="Exam Prep">Exam Prep</option>
-                    </select>
-                    <select id="new-task-priority" class="noir-input text-xs py-1.5">
-                      <option value="Critical">Critical</option>
-                      <option value="High" selected>High Priority</option>
-                      <option value="Standard">Standard</option>
-                    </select>
-                    <input
-                      id="new-task-minutes"
-                      type="number"
-                      min="5"
-                      max="240"
-                      value="45"
-                      title="Estimated minutes"
-                      class="noir-input text-xs py-1.5 font-mono"
-                    />
-                  </div>
-                </form>
-
-                <div id="tasks-list-container" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
-              </div>
-
-              <!-- Minimalist Notes Scratchpad (5 cols) -->
-              <div class="md:col-span-5 apple-glass p-6 flex flex-col justify-between space-y-3">
-                <div class="flex items-center justify-between">
-                  <h2 class="text-sm font-semibold text-zinc-100">Quick Notes</h2>
-                  <button type="button" id="clear-scratchpad-btn" class="text-xs text-zinc-500 hover:text-zinc-300">
-                    Clear
-                  </button>
-                </div>
-                <textarea
-                  id="noir-scratchpad"
-                  rows="8"
-                  placeholder="Capture thoughts without breaking focus..."
-                  class="noir-input w-full flex-1 text-xs leading-relaxed resize-none"
-                ></textarea>
-              </div>
-            </div>
-
           </div>
 
-          <!-- RIGHT COLUMN (5 cols): Minimalist Companion Check-In + Soundscape Mixer -->
-          <div class="lg:col-span-5 space-y-7">
+          <!-- RIGHT (5 cols): Vance Companion Check-In + Mindful Box Breathing Pacer -->
+          <div class="lg:col-span-5 space-y-6 secondary-panel">
 
-            <!-- COMPANION CARD ("Vance // Midnight Concierge" in sleek Apple Siri/Spotlight style) -->
-            <div class="apple-glass apple-glass-amber p-6 relative overflow-hidden">
-              <div class="flex items-center justify-between mb-5">
+            <!-- COMPANION CARD ("Vance · Focus Companion") -->
+            <div class="apple-glass apple-glass-amber p-5 sm:p-6 relative overflow-hidden">
+              <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-2.5">
                   <div class="traffic-lights">
                     <span class="traffic-dot dot-red"></span>
                     <span class="traffic-dot dot-yellow"></span>
                     <span class="traffic-dot dot-green"></span>
                   </div>
-                  <span class="text-xs font-medium text-zinc-400">
-                    Vance · Focus Companion
-                  </span>
+                  <span class="text-xs font-medium text-zinc-400">Vance · Focus Companion</span>
                 </div>
                 <button type="button" id="character-peptalk-btn" class="text-xs text-zinc-400 hover:text-white">
                   Noir Quote
                 </button>
               </div>
 
-              <!-- Minimalist Avatar + Message -->
-              <div class="flex items-center gap-4 mb-6">
-                <div class="character-avatar-wrap shrink-0 w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/10 p-2 flex items-center justify-center relative">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="character-avatar-wrap shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/[0.04] border border-white/10 p-2 flex items-center justify-center relative">
                   <svg viewBox="0 0 120 140" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="60" cy="48" r="36" fill="url(#noirHalo)" opacity="0.35" />
                     <path d="M34 52 L38 14 L50 38 L70 38 L82 14 L86 52 Z" fill="#0c0d12" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />
@@ -684,7 +689,6 @@ input[type="range"]::-webkit-slider-thumb {
                 </p>
               </div>
 
-              <!-- Clean Check-In Form -->
               <form id="character-checkin-form" class="space-y-4 pt-4 border-t border-white/[0.06]">
                 <div>
                   <label for="char-subject-input" class="block text-xs text-zinc-400 mb-2">
@@ -697,7 +701,7 @@ input[type="range"]::-webkit-slider-thumb {
                     placeholder="Enter subject, chapter, or goal..."
                     class="noir-input w-full"
                   />
-                  <div class="flex flex-wrap gap-1.5 mt-2.5">
+                  <div class="flex flex-wrap gap-1.5 mt-2">
                     <button type="button" data-char-subject="Deep Work &amp; Study" class="chip-btn active">Deep Study</button>
                     <button type="button" data-char-subject="Reading &amp; Lecture Notes" class="chip-btn">Reading &amp; Notes</button>
                     <button type="button" data-char-subject="Problem Solving &amp; Practice" class="chip-btn">Practice</button>
@@ -709,14 +713,14 @@ input[type="range"]::-webkit-slider-thumb {
                   <label for="char-minutes-input" class="block text-xs text-zinc-400 mb-2">
                     Session length (minutes)
                   </label>
-                  <div class="flex items-center gap-2 flex-wrap">
+                  <div class="flex items-center gap-1.5 flex-wrap">
                     <input
                       id="char-minutes-input"
                       type="number"
                       min="1"
                       max="240"
                       value="45"
-                      class="noir-input w-20 font-mono text-center"
+                      class="noir-input w-20 font-mono text-center py-2"
                     />
                     <button type="button" data-char-mins="25" class="chip-btn">25m</button>
                     <button type="button" data-char-mins="45" class="chip-btn active">45m</button>
@@ -725,7 +729,7 @@ input[type="range"]::-webkit-slider-thumb {
                   </div>
                 </div>
 
-                <div class="flex items-center justify-between pt-2 gap-3 flex-wrap">
+                <div class="flex items-center justify-between pt-1 gap-3 flex-wrap">
                   <label class="inline-flex items-center gap-2 text-xs text-zinc-400 cursor-pointer select-none">
                     <input id="char-spotlight-checkbox" type="checkbox" class="rounded border-zinc-700 bg-zinc-900" />
                     <span>Enable Zen Spotlight</span>
@@ -738,41 +742,21 @@ input[type="range"]::-webkit-slider-thumb {
               </form>
             </div>
 
-            <!-- MINIMALIST SOUND MIXER CARD -->
-            <div class="apple-glass p-6 secondary-panel space-y-5">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-medium text-zinc-300">
-                  Ambient Soundscape
-                </span>
-                <button type="button" id="engage-midnight-mix-btn" class="btn-glass text-xs py-1.5 px-3.5">
-                  Play Gotham &amp; NYC Sax Mix
-                </button>
+            <!-- PRE-SESSION BOX BREATHING PACER CARD -->
+            <div class="apple-glass p-5 sm:p-6 flex items-center justify-between gap-4">
+              <div class="space-y-1">
+                <span class="text-xs font-medium text-zinc-200 block">Mindful Box Breathing Pacer</span>
+                <p id="breathing-status-text" class="text-xs text-zinc-400">
+                  Calm your nervous system before deep study (4s inhale · 4s hold · 4s exhale).
+                </p>
               </div>
-
-              <div class="space-y-4 text-xs">
-                <div>
-                  <div class="flex justify-between mb-1.5">
-                    <span class="text-zinc-400">Gotham Rain</span>
-                    <span id="val-gotham-rain" class="font-mono text-zinc-300">0%</span>
-                  </div>
-                  <input id="slider-gotham-rain" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+              <div class="flex items-center gap-3 shrink-0">
+                <div id="breathing-visual-orb" class="w-9 h-9 rounded-full bg-white/10 border border-white/25 flex items-center justify-center text-[10px] font-mono text-white">
+                  4s
                 </div>
-
-                <div>
-                  <div class="flex justify-between mb-1.5">
-                    <span class="text-zinc-400">1984 NYC Midnight Sax Pad</span>
-                    <span id="val-nyc-sax" class="font-mono text-zinc-300">0%</span>
-                  </div>
-                  <input id="slider-nyc-sax" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
-                </div>
-
-                <div>
-                  <div class="flex justify-between mb-1.5">
-                    <span class="text-zinc-400">Batcave Deep Brown Noise</span>
-                    <span id="val-batcave-brown" class="font-mono text-zinc-300">0%</span>
-                  </div>
-                  <input id="slider-batcave-brown" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
-                </div>
+                <button type="button" id="toggle-breathing-btn" class="btn-glass text-xs">
+                  Start Pacer
+                </button>
               </div>
             </div>
 
@@ -781,34 +765,403 @@ input[type="range"]::-webkit-slider-thumb {
       </section>
 
       <!-- ===================================================================
-           VIEW 2: STUDY SESSION TRACKER & ANALYTICS LOG
+           TAB 2: TASKS & EXAMS (Uncrowded Task Manager + Subtasks + Exam Countdown)
+           =================================================================== -->
+      <section id="view-tasks" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+          <!-- Left (7 cols): Full Study Tasks Queue with Search & Filter -->
+          <div class="lg:col-span-7 apple-glass p-5 sm:p-7 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2.5">
+                <h2 class="text-base font-semibold text-zinc-100">Study Tasks</h2>
+                <span id="tasks-count-badge" class="px-2.5 py-0.5 text-[11px] rounded-full bg-white/[0.06] text-zinc-300">
+                  2 Active
+                </span>
+              </div>
+
+              <!-- Filter Pills -->
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button type="button" data-task-filter="all" class="chip-btn active">All</button>
+                <button type="button" data-task-filter="active" class="chip-btn">Active</button>
+                <button type="button" data-task-filter="completed" class="chip-btn">Done</button>
+                <button type="button" id="clear-completed-tasks-btn" class="text-xs text-zinc-400 hover:text-white ml-1">
+                  Clear Done
+                </button>
+              </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div>
+              <input
+                id="task-search-input"
+                type="text"
+                placeholder="Search study tasks or categories..."
+                class="noir-input w-full text-xs"
+              />
+            </div>
+
+            <!-- Add Task Form -->
+            <form id="add-task-form" class="space-y-2.5 pt-2 border-t border-white/[0.06]">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input
+                  id="new-task-title"
+                  type="text"
+                  placeholder="Add a study goal, chapter, or assignment..."
+                  class="noir-input flex-1 text-xs"
+                />
+                <button type="submit" class="btn-primary-noir text-xs px-5 py-2.5">
+                  + Add
+                </button>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <select id="new-task-category" class="noir-input text-xs py-2">
+                  <option value="Deep Study">Deep Study</option>
+                  <option value="Reading &amp; Notes">Reading &amp; Notes</option>
+                  <option value="Practice &amp; Drills">Practice &amp; Drills</option>
+                  <option value="Exam Prep">Exam Prep</option>
+                </select>
+                <select id="new-task-priority" class="noir-input text-xs py-2">
+                  <option value="Critical">Critical</option>
+                  <option value="High" selected>High Priority</option>
+                  <option value="Standard">Standard</option>
+                </select>
+                <input
+                  id="new-task-minutes"
+                  type="number"
+                  min="5"
+                  max="240"
+                  value="45"
+                  title="Estimated minutes"
+                  class="noir-input text-xs py-2 font-mono"
+                />
+              </div>
+            </form>
+
+            <!-- Tasks List Container -->
+            <div id="tasks-list-container" class="space-y-2.5 max-h-[420px] overflow-y-auto pr-1"></div>
+          </div>
+
+          <!-- Right (5 cols): Exam & Deadline Countdown Tracker -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="apple-glass p-5 sm:p-7 space-y-4">
+              <div>
+                <h3 class="text-base font-semibold text-white">Exam &amp; Milestone Countdowns</h3>
+                <p class="text-xs text-zinc-400 mt-0.5">Keep upcoming tests and project deadlines on your radar.</p>
+              </div>
+
+              <form id="add-exam-form" class="space-y-2.5 pt-2 border-t border-white/[0.06]">
+                <input
+                  id="exam-title-input"
+                  type="text"
+                  placeholder="Exam or deadline name (e.g., Midterm Exam)..."
+                  class="noir-input w-full text-xs"
+                  required
+                />
+                <div class="flex gap-2">
+                  <input
+                    id="exam-days-input"
+                    type="number"
+                    min="1"
+                    max="365"
+                    value="14"
+                    placeholder="Days left"
+                    class="noir-input w-28 text-xs font-mono"
+                    required
+                  />
+                  <button type="submit" class="btn-glass flex-1 text-xs">
+                    + Add Countdown
+                  </button>
+                </div>
+              </form>
+
+              <div id="exams-list-container" class="space-y-2.5"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 3: STUDY LAB (Active Recall Flashcards + Multi-Template Study Notes)
+           =================================================================== -->
+      <section id="view-toolkit" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+          <!-- Left (6 cols): Active Recall Flashcards Deck -->
+          <div class="lg:col-span-6 apple-glass p-5 sm:p-7 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h2 class="text-base font-semibold text-white">Active Recall Flashcards</h2>
+                <p class="text-xs text-zinc-400">Click the card to flip between question and answer.</p>
+              </div>
+              <span id="flashcard-counter-badge" class="text-xs font-mono px-2.5 py-1 rounded-full bg-white/[0.06] text-zinc-300">
+                Card 1 / 3
+              </span>
+            </div>
+
+            <!-- Interactive Flip Card -->
+            <div
+              id="flashcard-Active-box"
+              class="flashcard-surface rounded-2xl bg-white/[0.03] hover:bg-white/[0.05] border border-white/10 p-6 flex flex-col justify-between"
+            >
+              <div class="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-zinc-400">
+                <span id="flashcard-side-label">QUESTION PROMPT</span>
+                <span id="flashcard-mastery-badge" class="text-amber-300">In Review</span>
+              </div>
+              <p id="flashcard-content-text" class="text-base sm:text-lg font-medium text-white text-center my-6 leading-relaxed">
+                What is the Feynman Technique for mastering a complex topic?
+              </p>
+              <div class="text-center text-[11px] text-zinc-500">
+                Tap card or click "Flip Card" to reveal
+              </div>
+            </div>
+
+            <!-- Deck Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <button type="button" id="flashcard-prev-btn" class="btn-glass text-xs px-3.5">← Prev</button>
+                <button type="button" id="flashcard-flip-btn" class="btn-primary-noir text-xs px-5">Flip Card</button>
+                <button type="button" id="flashcard-next-btn" class="btn-glass text-xs px-3.5">Next →</button>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" id="flashcard-gotit-btn" class="btn-glass text-xs text-emerald-300">✓ Got It</button>
+                <button type="button" id="flashcard-shuffle-btn" class="btn-glass text-xs">Shuffle</button>
+              </div>
+            </div>
+
+            <!-- Add New Flashcard Form -->
+            <form id="add-flashcard-form" class="space-y-2.5 pt-4 border-t border-white/[0.06]">
+              <span class="text-xs font-medium text-zinc-300 block">Add New Flashcard</span>
+              <input
+                id="new-card-question"
+                type="text"
+                placeholder="Question or concept prompt..."
+                class="noir-input w-full text-xs"
+                required
+              />
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input
+                  id="new-card-answer"
+                  type="text"
+                  placeholder="Answer or explanation..."
+                  class="noir-input flex-1 text-xs"
+                  required
+                />
+                <button type="submit" class="btn-glass text-xs px-4 py-2">
+                  + Add Card
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right (6 cols): Multi-Template Study Notes & Brain Dump Scratchpad -->
+          <div class="lg:col-span-6 apple-glass p-5 sm:p-7 flex flex-col justify-between space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h2 class="text-base font-semibold text-zinc-100">Quick Notes &amp; Study Scratchpad</h2>
+                <p class="text-xs text-zinc-400">Auto-saves locally as you type.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" id="download-notes-btn" class="btn-glass text-xs py-1 px-3">
+                  ⬇ Save .txt
+                </button>
+                <button type="button" id="clear-scratchpad-btn" class="text-xs text-zinc-400 hover:text-zinc-200 px-2">
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Note Structure Templates -->
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="text-[11px] text-zinc-500 mr-1">Insert template:</span>
+              <button type="button" data-note-template="cornell" class="chip-btn">Cornell Cues</button>
+              <button type="button" data-note-template="feynman" class="chip-btn">Feynman Summary</button>
+              <button type="button" data-note-template="checklist" class="chip-btn">Session Goals</button>
+            </div>
+
+            <textarea
+              id="noir-scratchpad"
+              rows="12"
+              placeholder="Capture thoughts, formulas, or lecture summaries without breaking focus..."
+              class="noir-input w-full flex-1 text-xs leading-relaxed resize-y"
+            ></textarea>
+
+            <div class="flex items-center justify-between text-[11px] text-zinc-500 font-mono">
+              <span id="scratchpad-word-count">18 words · 114 chars</span>
+              <span>Auto-saved to device</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 4: AMBIENCE (Skyline Moods + 5-Channel Audio Synth + Weather Controls)
+           =================================================================== -->
+      <section id="view-ambience" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+          <!-- Left (7 cols): 5-Channel Web Audio Synthesizer -->
+          <div class="lg:col-span-7 apple-glass p-5 sm:p-7 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 class="text-base font-semibold text-white">Ambient Soundscape Mixer</h2>
+                <p class="text-xs text-zinc-400">Real-time synthesized audio—combine rain, 1984 NYC sax pads, and binaural focus tones.</p>
+              </div>
+              <button type="button" id="engage-midnight-mix-btn" class="btn-primary-noir text-xs py-2 px-4">
+                Play Gotham &amp; NYC Sax Mix
+              </button>
+            </div>
+
+            <div class="space-y-4 text-xs pt-2 border-t border-white/[0.06]">
+              <div>
+                <div class="flex justify-between mb-1.5">
+                  <span class="text-zinc-300">🌧️ Gotham Rooftop Rain</span>
+                  <span id="val-gotham-rain" class="font-mono text-zinc-300">0%</span>
+                </div>
+                <input id="slider-gotham-rain" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1.5">
+                  <span class="text-zinc-300">🎷 1984 NYC Midnight Sax &amp; Velvet Pad</span>
+                  <span id="val-nyc-sax" class="font-mono text-zinc-300">0%</span>
+                </div>
+                <input id="slider-nyc-sax" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1.5">
+                  <span class="text-zinc-300">🦇 Batcave Deep Brown Noise</span>
+                  <span id="val-batcave-brown" class="font-mono text-zinc-300">0%</span>
+                </div>
+                <input id="slider-batcave-brown" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1.5">
+                  <span class="text-zinc-300">🧠 40Hz Gamma Binaural Deep Focus Hum</span>
+                  <span id="val-binaural-hum" class="font-mono text-zinc-300">0%</span>
+                </div>
+                <input id="slider-binaural-hum" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1.5">
+                  <span class="text-zinc-300">📻 Warm Midnight Vinyl Lo-Fi Crackle</span>
+                  <span id="val-vinyl-crackle" class="font-mono text-zinc-300">0%</span>
+                </div>
+                <input id="slider-vinyl-crackle" type="range" min="0" max="100" value="0" class="w-full cursor-pointer" />
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs text-zinc-400">Save or load your personal audio mix:</span>
+              <div class="flex items-center gap-2">
+                <button type="button" id="save-custom-mix-btn" class="btn-glass text-xs py-1.5 px-3">
+                  Save My Mix
+                </button>
+                <button type="button" id="load-custom-mix-btn" class="btn-glass text-xs py-1.5 px-3">
+                  Load Saved Mix
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right (5 cols): Skyline Scene & Weather Customizer -->
+          <div class="lg:col-span-5 apple-glass p-5 sm:p-7 space-y-5">
+            <div>
+              <h3 class="text-base font-semibold text-white">Nocturnal Skyline &amp; Weather</h3>
+              <p class="text-xs text-zinc-400">Customize the live animated backdrop behind the glass.</p>
+            </div>
+
+            <div class="space-y-2">
+              <span class="text-xs text-zinc-400 block">Skyline Color Palette</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button type="button" data-scene-preset="gotham_rain" class="chip-btn active py-2.5 text-left px-3.5">Gotham Downpour</button>
+                <button type="button" data-scene-preset="nyc_sax" class="chip-btn py-2.5 text-left px-3.5">NYC 1984 Sax Velvet</button>
+                <button type="button" data-scene-preset="batcave" class="chip-btn py-2.5 text-left px-3.5">Batcave Obsidian</button>
+                <button type="button" data-scene-preset="wayne_aurora" class="chip-btn py-2.5 text-left px-3.5">Wayne Tower Gold</button>
+              </div>
+            </div>
+
+            <div class="space-y-4 pt-3 border-t border-white/[0.06] text-xs">
+              <div>
+                <div class="flex justify-between mb-1.5">
+                  <span class="text-zinc-300">Visual Rainfall Density</span>
+                  <span id="val-visual-rain" class="font-mono text-zinc-300">85%</span>
+                </div>
+                <input id="slider-visual-rain" type="range" min="0" max="100" value="85" class="w-full cursor-pointer" />
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1.5">
+                  <span class="text-zinc-300">Backdrop Brightness</span>
+                  <span id="val-canvas-opacity" class="font-mono text-zinc-300">72%</span>
+                </div>
+                <input id="slider-canvas-opacity" type="range" min="20" max="100" value="72" class="w-full cursor-pointer" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 5: SESSION TRACKER (KPIs + 7-Day Chart + History + Reset Data Modal)
            =================================================================== -->
       <section id="view-sessions" class="hidden space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <div class="apple-glass p-6">
+
+        <!-- Top KPI Cards + Editable Daily Goal + Reset Data Button -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="apple-glass p-5">
             <span class="text-xs text-zinc-500">Total Focused Study Time</span>
             <div id="stat-total-time" class="text-2xl font-light text-white mt-1 font-mono">120m (2.0 hrs)</div>
-            <div class="w-full h-1 rounded-full bg-white/10 mt-4 overflow-hidden">
+            <div class="w-full h-1 rounded-full bg-white/10 mt-3 overflow-hidden">
               <div id="daily-goal-bar-fill" class="h-full bg-white" style="width: 67%"></div>
             </div>
           </div>
 
-          <div class="apple-glass p-6">
+          <div class="apple-glass p-5">
             <span class="text-xs text-zinc-500">Logged Study Sessions</span>
             <div id="stat-sessions-count" class="text-2xl font-light text-white mt-1 font-mono">3</div>
-            <p class="text-xs text-zinc-500 mt-2">Auto-recorded from timer + manual entries</p>
+            <p class="text-xs text-zinc-500 mt-2">Auto-recorded + manual logs</p>
           </div>
 
-          <div class="apple-glass p-6">
+          <div class="apple-glass p-5">
             <span class="text-xs text-zinc-500">Nocturnal Focus Streak</span>
             <div id="stat-streak-days" class="text-2xl font-light text-white mt-1 font-mono">7 Days</div>
-            <p class="text-xs text-zinc-500 mt-2">Consistent midnight discipline</p>
+            <p id="stat-xp-level" class="text-xs text-amber-300/90 mt-2">1,200 XP · Night Watcher</p>
+          </div>
+
+          <!-- Daily Goal Setter & Reset Trigger Card -->
+          <div class="apple-glass p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between gap-2">
+              <label for="daily-goal-input" class="text-xs text-zinc-400">Daily Goal ( mins )</label>
+              <input
+                id="daily-goal-input"
+                type="number"
+                min="15"
+                max="720"
+                value="180"
+                class="noir-input w-20 py-1 px-2 text-xs font-mono text-center"
+              />
+            </div>
+            <button
+              type="button"
+              id="open-reset-modal-btn"
+              class="btn-danger-glass w-full text-xs py-2 flex items-center justify-center gap-1.5"
+            >
+              <span>↺</span> <span>Reset Data...</span>
+            </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
-          <div class="lg:col-span-5 space-y-7">
-            <div class="apple-glass p-6 space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Left (5 cols): Log Manual Session + 7-Day Consistency + Category Breakdown -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="apple-glass p-5 sm:p-6 space-y-4">
               <h3 class="text-sm font-semibold text-white">Log a Study Session</h3>
               <form id="manual-session-form" class="space-y-3">
                 <div>
@@ -848,36 +1201,54 @@ input[type="range"]::-webkit-slider-thumb {
               </form>
             </div>
 
-            <div class="apple-glass p-6 space-y-3">
+            <div class="apple-glass p-5 sm:p-6 space-y-3">
               <h3 class="text-sm font-semibold text-white">Time by Study Category</h3>
               <div id="category-breakdown-bars" class="space-y-3"></div>
             </div>
           </div>
 
-          <div class="lg:col-span-7 apple-glass p-6 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h3 class="text-sm font-semibold text-white">Study Session History</h3>
-                <p class="text-xs text-zinc-500">Completed timer blocks and manual study sessions.</p>
+          <!-- Right (7 cols): 7-Day Activity Chart + Session History Table -->
+          <div class="lg:col-span-7 space-y-6">
+            <!-- 7-Day Weekly Consistency Bar Chart -->
+            <div class="apple-glass p-5 sm:p-6 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-semibold text-white">7-Day Study Consistency</h3>
+                <span class="text-xs text-zinc-400 font-mono">Minutes / Day</span>
               </div>
-              <button type="button" id="export-sessions-csv-btn" class="btn-glass text-xs">
-                ⬇ Export CSV
-              </button>
+              <div id="weekly-heatmap-bars" class="grid grid-cols-7 gap-2 items-end h-28 pt-4"></div>
             </div>
 
-            <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse">
-                <thead>
-                  <tr class="border-b border-white/[0.07] text-[11px] text-zinc-500">
-                    <th class="py-2.5 px-3 font-medium">Subject</th>
-                    <th class="py-2.5 px-3 font-medium">Category</th>
-                    <th class="py-2.5 px-3 font-medium">Duration</th>
-                    <th class="py-2.5 px-3 font-medium">Focus</th>
-                    <th class="py-2.5 px-3 font-medium">Logged At</th>
-                  </tr>
-                </thead>
-                <tbody id="session-history-tbody"></tbody>
-              </table>
+            <!-- Session History Log Table -->
+            <div class="apple-glass p-5 sm:p-6 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-white">Study Session History</h3>
+                  <p class="text-xs text-zinc-500">Completed timer blocks and manual study sessions.</p>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <button type="button" id="export-sessions-csv-btn" class="btn-glass text-xs">
+                    ⬇ Export CSV
+                  </button>
+                  <button type="button" id="export-backup-json-btn" class="btn-glass text-xs">
+                    ⬇ Backup JSON
+                  </button>
+                </div>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[440px]">
+                  <thead>
+                    <tr class="border-b border-white/[0.07] text-[11px] text-zinc-500">
+                      <th class="py-2.5 px-3 font-medium">Subject</th>
+                      <th class="py-2.5 px-3 font-medium">Category</th>
+                      <th class="py-2.5 px-3 font-medium">Duration</th>
+                      <th class="py-2.5 px-3 font-medium">Focus</th>
+                      <th class="py-2.5 px-3 font-medium">Logged At</th>
+                    </tr>
+                  </thead>
+                  <tbody id="session-history-tbody"></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -885,11 +1256,20 @@ input[type="range"]::-webkit-slider-thumb {
 
     </main>
 
-    <!-- Minimalist Apple Floating Pill Dock (Personal Use Only: Studio + Session Tracker) -->
-    <footer class="fixed bottom-4 inset-x-0 z-30 flex justify-center px-4 pointer-events-none">
-      <div class="apple-glass px-2.5 py-1.5 rounded-full flex items-center gap-1 pointer-events-auto shadow-2xl border border-white/10">
+    <!-- All-Device Responsive Apple Floating Pill Dock -->
+    <footer class="fixed bottom-3 sm:bottom-4 inset-x-0 z-30 flex justify-center px-2 sm:px-4 pointer-events-none">
+      <div class="apple-glass px-2 py-1.5 rounded-full flex items-center gap-1 pointer-events-auto shadow-2xl border border-white/10 max-w-full overflow-x-auto no-scrollbar">
         <button type="button" data-nav-tab="studio" class="segment-btn active flex items-center gap-1.5">
           <span>🦇</span> <span>Focus Studio</span>
+        </button>
+        <button type="button" data-nav-tab="tasks" class="segment-btn flex items-center gap-1.5">
+          <span>✓</span> <span>Tasks</span>
+        </button>
+        <button type="button" data-nav-tab="toolkit" class="segment-btn flex items-center gap-1.5">
+          <span>🗂️</span> <span>Study Lab</span>
+        </button>
+        <button type="button" data-nav-tab="ambience" class="segment-btn flex items-center gap-1.5">
+          <span>🎷</span> <span>Ambience</span>
         </button>
         <button type="button" data-nav-tab="sessions" class="segment-btn flex items-center gap-1.5">
           <span>📊</span> <span>Session Tracker</span>
@@ -897,10 +1277,72 @@ input[type="range"]::-webkit-slider-thumb {
       </div>
     </footer>
 
+    <!-- ===================================================================
+         "MAKE SURE" RESET DATA CONFIRMATION MODAL (Apple Minimalist Sheet)
+         =================================================================== -->
+    <div
+      id="reset-confirm-modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-xl"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reset-modal-title"
+    >
+      <div class="apple-glass max-w-md w-full p-6 sm:p-7 space-y-5 border border-white/15 shadow-2xl">
+        <div class="flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-300 shrink-0 text-lg">
+            ⚠️
+          </div>
+          <div class="space-y-1">
+            <h3 id="reset-modal-title" class="text-base font-semibold text-white">
+              Are you sure you want to reset your data?
+            </h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              This action cannot be undone. Choose whether to clear only your logged study session history (resetting total hours and streak to zero) or factory-reset the entire studio.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.07] space-y-2">
+          <label class="flex items-center gap-2.5 text-xs text-zinc-200 cursor-pointer select-none">
+            <input
+              id="reset-safety-checkbox"
+              type="checkbox"
+              class="rounded border-zinc-600 bg-zinc-900"
+            />
+            <span>Yes, I am sure I want to permanently clear this data.</span>
+          </label>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-end gap-2.5 pt-2">
+          <button
+            type="button"
+            id="cancel-reset-modal-btn"
+            class="btn-glass w-full sm:w-auto text-xs py-2.5 px-5"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            id="confirm-reset-sessions-only-btn"
+            class="btn-danger-glass w-full sm:w-auto text-xs py-2.5 px-4"
+          >
+            Clear Sessions Only
+          </button>
+          <button
+            type="button"
+            id="confirm-reset-all-data-btn"
+            class="btn-danger-glass w-full sm:w-auto text-xs py-2.5 px-5 font-semibold bg-rose-500/25 border-rose-500/50 text-white"
+          >
+            Reset Everything
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Non-Blocking Apple Minimalist Toast -->
     <div
       id="noir-toast"
-      class="fixed bottom-20 right-6 z-50 translate-y-24 opacity-0 pointer-events-none apple-glass px-4 py-3 rounded-2xl flex items-center gap-3 max-w-sm"
+      class="fixed bottom-20 right-4 sm:right-6 z-50 translate-y-24 opacity-0 pointer-events-none apple-glass px-4 py-3 rounded-2xl flex items-center gap-3 max-w-xs sm:max-w-sm"
     >
       <span class="w-2 h-2 rounded-full bg-white shrink-0"></span>
       <div>
@@ -913,40 +1355,43 @@ input[type="range"]::-webkit-slider-thumb {
 
   <script>
 /* ==========================================================================
-   WAYNE-OS // MIDNIGHT NYC & GOTHAM NOIR FOCUS ENGINE (app.js)
-   Modules:
-   1. State & Storage Engine (Tasks, Study Sessions, Settings, Scratchpad)
-   2. Gotham + 1980s NYC Midnight Canvas Animator (Rain, Skyline, Bat-Signal, Sax Embers)
-   3. Web Audio API Ambient Synthesizer (Gotham Rain, Careless Whisper Midnight Sax Pad, Batcave Brown Noise, Chimes)
-   4. Interactive Character Companion ("Vance // Midnight Architect & Vigilante Concierge")
-   5. Built-in Pomodoro & Custom Focus Timer + Knightfall Spotlight Mode
-   6. Task & Architecture Blueprint Board + Study Session Tracker & Analytics
+   WAYNE-OS // PERSONAL FOCUS & STUDY STUDIO ENGINE (app.js)
+   5 Uncrowded Tabs + 20 Personal Study Features + Safe Reset Data Modal
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'wayne_os_personal_focus_v2';
+  const STORAGE_KEY = 'wayne_os_personal_focus_v3';
 
   const DEFAULT_STATE = {
-    activeTab: 'studio', // 'studio' | 'architecture' | 'sessions' | 'code'
-    scenePreset: 'gotham_rain', // 'gotham_rain' | 'nyc_sax' | 'batcave' | 'wayne_aurora'
+    activeTab: 'studio', // 'studio' | 'tasks' | 'toolkit' | 'ambience' | 'sessions'
+    scenePreset: 'gotham_rain',
     searchlightOn: true,
     rainIntensity: 85,
+    canvasOpacity: 72,
     spotlightMode: false,
+    taskFilter: 'all', // 'all' | 'active' | 'completed'
+    taskSearchQuery: '',
     timer: {
       mode: 'focus', // 'focus' | 'shortBreak' | 'longBreak' | 'custom'
+      isStopwatch: false,
+      autoChainCycles: false,
+      currentCycle: 1,
+      maxCycles: 4,
       focusMinutes: 25,
       shortBreakMinutes: 5,
       longBreakMinutes: 15,
       customMinutes: 45,
       remainingSeconds: 25 * 60,
       totalSeconds: 25 * 60,
+      elapsedStopwatchSeconds: 0,
       isRunning: false,
       startedAtSessionMinutes: 25,
       currentSubject: 'Deep Work & Study',
       completedPomodorosToday: 2,
-      dailyGoalMinutes: 180
+      dailyGoalMinutes: 180,
+      distractionsResisted: 3
     },
     character: {
       name: 'Vance // Midnight Concierge',
@@ -954,7 +1399,7 @@ input[type="range"]::-webkit-slider-thumb {
       selectedSubject: 'Deep Work & Study',
       selectedMinutes: 45,
       autoSpotlight: false,
-      lastMessage: "Rain's heavy over Gotham & 52nd Street tonight. Tell me what you're studying tonight and for how long—I'll set the clock and guard your focus."
+      lastMessage: "Rain's heavy over Gotham & 52nd Street tonight. Tell me what you're studying and for how long—I'll set the clock and guard your focus."
     },
     tasks: [
       {
@@ -988,6 +1433,32 @@ input[type="range"]::-webkit-slider-thumb {
         pinned: false
       }
     ],
+    exams: [
+      { id: 'ex-1', title: 'Midterm Assessment & Concept Review', daysLeft: 12 },
+      { id: 'ex-2', title: 'Final Project Submission Milestone', daysLeft: 28 }
+    ],
+    flashcards: [
+      {
+        id: 'fc-1',
+        question: 'What is the Feynman Technique for mastering a complex topic?',
+        answer: 'Explain the concept in simple language as if teaching a beginner, identify gaps in your explanation, and review the source material to simplify further.',
+        mastered: false
+      },
+      {
+        id: 'fc-2',
+        question: 'Why does Active Recall outperform passive re-reading?',
+        answer: 'Retrieving information from memory strengthens neural pathways and exposes knowledge gaps immediately.',
+        mastered: true
+      },
+      {
+        id: 'fc-3',
+        question: 'How does Spaced Repetition optimize long-term memory?',
+        answer: 'By reviewing material at increasing intervals right before you are about to forget it, flattening the forgetting curve.',
+        mastered: false
+      }
+    ],
+    activeFlashcardIndex: 0,
+    flashcardShowingAnswer: false,
     sessions: [
       {
         id: 'ses-101',
@@ -1017,18 +1488,31 @@ input[type="range"]::-webkit-slider-thumb {
         notes: 'Locked in under Gotham rain ambience.'
       }
     ],
+    weeklyMinutes: [45, 75, 90, 60, 110, 85, 120],
     scratchpad: "• Summarize key chapters before midnight\n• Complete 2 deep focus blocks\n• Take a 5m sax break between sessions",
     audio: {
       masterMuted: false,
       rainLevel: 0,
       saxPadLevel: 0,
-      brownNoiseLevel: 0
+      brownNoiseLevel: 0,
+      binauralLevel: 0,
+      vinylLevel: 0
+    },
+    savedAudioPreset: {
+      rainLevel: 65,
+      saxPadLevel: 45,
+      brownNoiseLevel: 25,
+      binauralLevel: 20,
+      vinylLevel: 15,
+      scenePreset: 'gotham_rain'
     },
     streakDays: 7
   };
 
   let state = loadState();
   let timerInterval = null;
+  let breathingInterval = null;
+  let breathingActive = false;
 
   function loadState() {
     try {
@@ -1038,7 +1522,13 @@ input[type="range"]::-webkit-slider-thumb {
       return Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_STATE)), parsed, {
         timer: Object.assign({}, DEFAULT_STATE.timer, parsed.timer || {}, { isRunning: false }),
         character: Object.assign({}, DEFAULT_STATE.character, parsed.character || {}),
-        audio: Object.assign({}, DEFAULT_STATE.audio, { rainLevel: 0, saxPadLevel: 0, brownNoiseLevel: 0 })
+        audio: Object.assign({}, DEFAULT_STATE.audio, {
+          rainLevel: 0,
+          saxPadLevel: 0,
+          brownNoiseLevel: 0,
+          binauralLevel: 0,
+          vinylLevel: 0
+        })
       });
     } catch (err) {
       return JSON.parse(JSON.stringify(DEFAULT_STATE));
@@ -1049,7 +1539,7 @@ input[type="range"]::-webkit-slider-thumb {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (err) {
-      // Ignore storage quota errors inside sandboxed iframes
+      // Ignore storage errors inside sandboxed iframes
     }
   }
 
@@ -1070,7 +1560,7 @@ input[type="range"]::-webkit-slider-thumb {
     toastTimeout = setTimeout(() => {
       toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
       toast.classList.remove('translate-y-0', 'opacity-100');
-    }, 3600);
+    }, 3400);
   }
 
   // =========================================================================
@@ -1094,12 +1584,12 @@ input[type="range"]::-webkit-slider-thumb {
     const h = canvas.height;
 
     buildings = [];
-    const count = Math.max(18, Math.floor(w / 55));
+    const count = Math.max(16, Math.floor(w / 55));
     for (let i = 0; i <= count; i++) {
       const bw = 48 + (i * 37) % 65;
       const bh = h * (0.26 + ((i * 73) % 45) / 100);
       const bx = (i / count) * (w + 120) - 60;
-      const layer = i % 3; // 0 back, 1 mid, 2 front
+      const layer = i % 3;
       const hasSpire = (i % 4 === 0);
       const windows = [];
       const cols = Math.floor(bw / 12);
@@ -1121,13 +1611,12 @@ input[type="range"]::-webkit-slider-thumb {
     }
 
     raindrops = [];
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 160; i++) {
       raindrops.push({
         x: Math.random() * w,
         y: Math.random() * h,
         len: 14 + Math.random() * 22,
-        speed: 9 + Math.random() * 9,
-        alpha: 0.12 + Math.random() * 0.28
+        speed: 9 + Math.random() * 9
       });
     }
 
@@ -1161,7 +1650,6 @@ input[type="range"]::-webkit-slider-thumb {
     const h = canvas.height;
     const preset = state.scenePreset;
 
-    // 1. Deep Nocturnal Sky Gradient
     const skyGrad = ctx.createLinearGradient(0, 0, 0, h);
     if (preset === 'nyc_sax') {
       skyGrad.addColorStop(0, '#07050c');
@@ -1176,7 +1664,6 @@ input[type="range"]::-webkit-slider-thumb {
       skyGrad.addColorStop(0.5, '#0b1622');
       skyGrad.addColorStop(1, '#18130d');
     } else {
-      // Default gotham_rain
       skyGrad.addColorStop(0, '#040508');
       skyGrad.addColorStop(0.55, '#0a0d16');
       skyGrad.addColorStop(1, '#171214');
@@ -1184,7 +1671,6 @@ input[type="range"]::-webkit-slider-thumb {
     ctx.fillStyle = skyGrad;
     ctx.fillRect(0, 0, w, h);
 
-    // 2. Ambient NYC / Gotham Horizon Glow
     const horizonGlow = ctx.createRadialGradient(
       w * (0.5 + (mouseX - 0.5) * 0.08),
       h * 0.72,
@@ -1205,7 +1691,7 @@ input[type="range"]::-webkit-slider-thumb {
     ctx.fillStyle = horizonGlow;
     ctx.fillRect(0, 0, w, h);
 
-    // 3. Sweeping Gotham Bat-Signal Searchlight in the Night Sky
+    // Sweeping Gotham Bat-Signal
     if (state.searchlightOn) {
       sweepAngle += 0.0045;
       const srcX = w * 0.74;
@@ -1228,7 +1714,6 @@ input[type="range"]::-webkit-slider-thumb {
       ctx.closePath();
       ctx.fill();
 
-      // Glowing Bat-Signal Oval in the Clouds
       ctx.translate(targetX, targetY);
       ctx.scale(1.6, 0.78);
       const spotGrad = ctx.createRadialGradient(0, 0, 4, 0, 0, 52);
@@ -1240,7 +1725,6 @@ input[type="range"]::-webkit-slider-thumb {
       ctx.arc(0, 0, 52, 0, Math.PI * 2);
       ctx.fill();
 
-      // Subtle Bat Silhouette Emblem inside Cloud Signal
       ctx.fillStyle = 'rgba(7, 8, 13, 0.65)';
       ctx.beginPath();
       ctx.moveTo(0, -9);
@@ -1258,7 +1742,7 @@ input[type="range"]::-webkit-slider-thumb {
       ctx.restore();
     }
 
-    // 4. Layered Gotham / Manhattan Skyscrapers
+    // Skyscrapers
     for (let layer = 0; layer < 3; layer++) {
       const parallax = (layer + 1) * (mouseX - 0.5) * -14;
       for (let i = 0; i < buildings.length; i++) {
@@ -1270,7 +1754,6 @@ input[type="range"]::-webkit-slider-thumb {
         ctx.fillStyle = layer === 0 ? '#06080f' : layer === 1 ? '#080a12' : '#040509';
         ctx.fillRect(bx, by, b.w, b.h);
 
-        // Gothic / Art Deco Spire
         if (b.hasSpire) {
           ctx.beginPath();
           ctx.moveTo(bx + b.w * 0.2, by);
@@ -1280,7 +1763,6 @@ input[type="range"]::-webkit-slider-thumb {
           ctx.fill();
         }
 
-        // Illuminated Penthouse Windows
         for (let wIdx = 0; wIdx < b.windows.length; wIdx++) {
           const win = b.windows[wIdx];
           const pulse = Math.sin((time * 0.0015) + win.flickerSeed) > -0.85;
@@ -1292,7 +1774,7 @@ input[type="range"]::-webkit-slider-thumb {
       }
     }
 
-    // 5. Rising NYC Midnight Street Steam / Mist
+    // Mist
     for (let i = 0; i < mistClouds.length; i++) {
       const m = mistClouds[i];
       m.x += m.vx;
@@ -1305,7 +1787,7 @@ input[type="range"]::-webkit-slider-thumb {
       ctx.fillRect(m.x - m.radius, m.y - m.radius, m.radius * 2, m.radius * 2);
     }
 
-    // 6. Floating Golden Saxophone / Velvet Jazz Embers
+    // Sax Embers
     for (let i = 0; i < saxEmbers.length; i++) {
       const e = saxEmbers[i];
       e.y -= e.vy;
@@ -1323,7 +1805,7 @@ input[type="range"]::-webkit-slider-thumb {
       ctx.restore();
     }
 
-    // 7. Gotham Rain Streaks
+    // Rain
     const activeDrops = Math.floor((state.rainIntensity / 100) * raindrops.length);
     if (activeDrops > 0) {
       ctx.strokeStyle = 'rgba(212, 224, 255, 0.22)';
@@ -1347,13 +1829,14 @@ input[type="range"]::-webkit-slider-thumb {
   }
 
   // =========================================================================
-  // 3. WEB AUDIO API SYNTHESIZER (GOTHAM RAIN, NYC SAX PAD, BROWN NOISE, CHIMES)
+  // 3. 5-CHANNEL WEB AUDIO API SYNTHESIZER
   // =========================================================================
   let audioCtx = null;
   let rainGain = null;
   let saxGain = null;
   let brownGain = null;
-  let saxChordInterval = null;
+  let binauralGain = null;
+  let vinylGain = null;
 
   function ensureAudioContext() {
     if (!audioCtx) {
@@ -1361,8 +1844,9 @@ input[type="range"]::-webkit-slider-thumb {
       if (!AudioContextClass) return null;
       audioCtx = new AudioContextClass();
 
-      // 1. Gotham Rain Generator (Filtered Pink/White Noise)
       const bufferSize = audioCtx.sampleRate * 2;
+
+      // 1. Gotham Rain
       const rainBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const rainData = rainBuffer.getChannelData(0);
       let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
@@ -1380,12 +1864,10 @@ input[type="range"]::-webkit-slider-thumb {
       const rainSource = audioCtx.createBufferSource();
       rainSource.buffer = rainBuffer;
       rainSource.loop = true;
-
       const rainFilter = audioCtx.createBiquadFilter();
       rainFilter.type = 'bandpass';
       rainFilter.frequency.value = 1100;
       rainFilter.Q.value = 0.7;
-
       rainGain = audioCtx.createGain();
       rainGain.gain.value = 0;
       rainSource.connect(rainFilter);
@@ -1393,7 +1875,7 @@ input[type="range"]::-webkit-slider-thumb {
       rainGain.connect(audioCtx.destination);
       rainSource.start();
 
-      // 2. Batcave Sub-Focus Brown Noise Generator
+      // 2. Batcave Brown Noise
       const brownBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const brownData = brownBuffer.getChannelData(0);
       let lastOut = 0.0;
@@ -1406,11 +1888,9 @@ input[type="range"]::-webkit-slider-thumb {
       const brownSource = audioCtx.createBufferSource();
       brownSource.buffer = brownBuffer;
       brownSource.loop = true;
-
       const brownFilter = audioCtx.createBiquadFilter();
       brownFilter.type = 'lowpass';
       brownFilter.frequency.value = 240;
-
       brownGain = audioCtx.createGain();
       brownGain.gain.value = 0;
       brownSource.connect(brownFilter);
@@ -1418,22 +1898,20 @@ input[type="range"]::-webkit-slider-thumb {
       brownGain.connect(audioCtx.destination);
       brownSource.start();
 
-      // 3. 1980s George Michael NYC Midnight Sax / Rhodes Warm Noir Pad
+      // 3. 1984 NYC Midnight Sax Pad
       saxGain = audioCtx.createGain();
       saxGain.gain.value = 0;
-
       const saxFilter = audioCtx.createBiquadFilter();
       saxFilter.type = 'lowpass';
       saxFilter.frequency.value = 620;
       saxFilter.connect(saxGain);
       saxGain.connect(audioCtx.destination);
 
-      // D Minor 9 / Bb Major 7 smooth nocturnal chord progression
       const chords = [
-        [146.83, 220.00, 261.63, 329.63], // Dm9
-        [116.54, 174.61, 220.00, 293.66], // Bbmaj7
-        [196.00, 246.94, 293.66, 349.23], // Gm7
-        [164.81, 207.65, 246.94, 311.13]  // A7alt
+        [146.83, 220.00, 261.63, 329.63],
+        [116.54, 174.61, 220.00, 293.66],
+        [196.00, 246.94, 293.66, 349.23],
+        [164.81, 207.65, 246.94, 311.13]
       ];
       let chordIdx = 0;
       const oscs = [0, 1, 2, 3].map((idx) => {
@@ -1448,7 +1926,7 @@ input[type="range"]::-webkit-slider-thumb {
         return osc;
       });
 
-      saxChordInterval = setInterval(() => {
+      setInterval(() => {
         if (!audioCtx || audioCtx.state !== 'running') return;
         chordIdx = (chordIdx + 1) % chords.length;
         const nextChord = chords[chordIdx];
@@ -1457,6 +1935,43 @@ input[type="range"]::-webkit-slider-thumb {
           osc.frequency.exponentialRampToValueAtTime(nextChord[i], now + 2.4);
         });
       }, 6500);
+
+      // 4. 40Hz Gamma Binaural Focus Hum (200Hz + 240Hz warm sine pair)
+      binauralGain = audioCtx.createGain();
+      binauralGain.gain.value = 0;
+      const binLeft = audioCtx.createOscillator();
+      const binRight = audioCtx.createOscillator();
+      binLeft.type = 'sine';
+      binRight.type = 'sine';
+      binLeft.frequency.value = 180;
+      binRight.frequency.value = 220;
+      const binVoiceGain = audioCtx.createGain();
+      binVoiceGain.gain.value = 0.08;
+      binLeft.connect(binVoiceGain);
+      binRight.connect(binVoiceGain);
+      binVoiceGain.connect(binauralGain);
+      binauralGain.connect(audioCtx.destination);
+      binLeft.start();
+      binRight.start();
+
+      // 5. Warm Midnight Vinyl Crackle
+      const vinylBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const vinylData = vinylBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        vinylData[i] = Math.random() > 0.9965 ? (Math.random() * 2 - 1) * 0.45 : (Math.random() * 2 - 1) * 0.008;
+      }
+      const vinylSource = audioCtx.createBufferSource();
+      vinylSource.buffer = vinylBuffer;
+      vinylSource.loop = true;
+      const vinylFilter = audioCtx.createBiquadFilter();
+      vinylFilter.type = 'highpass';
+      vinylFilter.frequency.value = 1800;
+      vinylGain = audioCtx.createGain();
+      vinylGain.gain.value = 0;
+      vinylSource.connect(vinylFilter);
+      vinylFilter.connect(vinylGain);
+      vinylGain.connect(audioCtx.destination);
+      vinylSource.start();
     }
 
     if (audioCtx && audioCtx.state === 'suspended') {
@@ -1469,16 +1984,28 @@ input[type="range"]::-webkit-slider-thumb {
     if (!audioCtx) return;
     const now = audioCtx.currentTime;
     const muteFactor = state.audio.masterMuted ? 0 : 1;
-    if (rainGain) {
-      rainGain.gain.setTargetAtTime((state.audio.rainLevel / 100) * 0.45 * muteFactor, now, 0.15);
-    }
-    if (saxGain) {
-      saxGain.gain.setTargetAtTime((state.audio.saxPadLevel / 100) * 0.38 * muteFactor, now, 0.2);
-    }
-    if (brownGain) {
-      brownGain.gain.setTargetAtTime((state.audio.brownNoiseLevel / 100) * 0.5 * muteFactor, now, 0.15);
-    }
+    if (rainGain) rainGain.gain.setTargetAtTime((state.audio.rainLevel / 100) * 0.45 * muteFactor, now, 0.15);
+    if (saxGain) saxGain.gain.setTargetAtTime((state.audio.saxPadLevel / 100) * 0.38 * muteFactor, now, 0.2);
+    if (brownGain) brownGain.gain.setTargetAtTime((state.audio.brownNoiseLevel / 100) * 0.5 * muteFactor, now, 0.15);
+    if (binauralGain) binauralGain.gain.setTargetAtTime((state.audio.binauralLevel / 100) * 0.35 * muteFactor, now, 0.15);
+    if (vinylGain) vinylGain.gain.setTargetAtTime((state.audio.vinylLevel / 100) * 0.4 * muteFactor, now, 0.15);
     renderAudioEqualizerBadge();
+  }
+
+  function syncAudioSlidersUI() {
+    const map = [
+      ['slider-gotham-rain', 'val-gotham-rain', state.audio.rainLevel],
+      ['slider-nyc-sax', 'val-nyc-sax', state.audio.saxPadLevel],
+      ['slider-batcave-brown', 'val-batcave-brown', state.audio.brownNoiseLevel],
+      ['slider-binaural-hum', 'val-binaural-hum', state.audio.binauralLevel],
+      ['slider-vinyl-crackle', 'val-vinyl-crackle', state.audio.vinylLevel]
+    ];
+    map.forEach(([sliderId, valId, level]) => {
+      const s = document.getElementById(sliderId);
+      const v = document.getElementById(valId);
+      if (s) s.value = String(level || 0);
+      if (v) v.textContent = (level || 0) + '%';
+    });
   }
 
   function playNoirChime(type) {
@@ -1486,7 +2013,7 @@ input[type="range"]::-webkit-slider-thumb {
     if (!ctxAudio || state.audio.masterMuted) return;
     const now = ctxAudio.currentTime;
     const notes = type === 'complete'
-      ? [293.66, 349.23, 440.00, 523.25, 659.25] // Dm9 arpeggio
+      ? [293.66, 349.23, 440.00, 523.25, 659.25]
       : [440.00, 523.25];
     notes.forEach((freq, idx) => {
       const osc = ctxAudio.createOscillator();
@@ -1504,21 +2031,21 @@ input[type="range"]::-webkit-slider-thumb {
   }
 
   // =========================================================================
-  // 4. INTERACTIVE CHARACTER COMPANION ("VANCE // MIDNIGHT ARCHITECT")
+  // 4. INTERACTIVE CHARACTER COMPANION ("VANCE // FOCUS COMPANION")
   // =========================================================================
   const CHARACTER_QUOTES = {
-    greeting: "Rain's heavy over Gotham & 52nd Street tonight. Tell me what you're studying tonight and for how long—I'll set the clock and guard your focus.",
+    greeting: "Rain's heavy over Gotham & 52nd Street tonight. Tell me what you're studying and for how long—I'll set the clock and guard your focus.",
     lockedIn: function (subj, mins) {
-      return 'Mission accepted: "' + subj + '" for ' + mins + ' minutes. The city sleeps while we build. Stay sharp—not a single distraction gets past the Batcomputer.';
+      return 'Mission accepted: "' + subj + '" for ' + mins + ' minutes. The city sleeps while you lock in. Not a single distraction gets past the perimeter.';
     },
-    halfway: "Halfway through the block. Like a midnight saxophone solo on 52nd Street—smooth, relentless, unshakable. Keep your eyes on the blueprint.",
+    halfway: "Halfway through the session. Like a midnight saxophone solo on 52nd Street—smooth, relentless, unshakable.",
     completed: function (subj, mins) {
-      return 'Outstanding execution. ' + mins + ' minutes logged on "' + subj + '". Even Gotham respects discipline like that. Take five by the window before the next round.';
+      return 'Outstanding discipline. ' + mins + ' minutes logged on "' + subj + '". Take five by the window before the next round.';
     },
     pepTalks: [
-      "Every great skyline starts with one disciplined hour in the dark. Lock in.",
-      "Turn down the static. Just the rain on the glass, the amber glow, and your craft.",
-      "Focus isn't luck—it's architecture. Brick by brick, module by module.",
+      "Every great achievement starts with one disciplined hour in the dark. Lock in.",
+      "Turn down the static. Just the rain on the glass, the warm light, and your focus.",
+      "Consistency beats intensity. One clean study block at a time.",
       "George Michael on the vinyl, Gotham rain outside, zero distractions inside. Let's work."
     ]
   };
@@ -1526,9 +2053,7 @@ input[type="range"]::-webkit-slider-thumb {
   function setCharacterMessage(msg) {
     state.character.lastMessage = msg;
     const bubble = document.getElementById('character-speech-text');
-    if (bubble) {
-      bubble.textContent = msg;
-    }
+    if (bubble) bubble.textContent = msg;
     saveState();
   }
 
@@ -1537,7 +2062,7 @@ input[type="range"]::-webkit-slider-thumb {
     const minsInput = document.getElementById('char-minutes-input');
     const spotlightToggle = document.getElementById('char-spotlight-checkbox');
 
-    const subject = (subjInput && subjInput.value.trim()) ? subjInput.value.trim() : 'Architecture & Deep Study';
+    const subject = (subjInput && subjInput.value.trim()) ? subjInput.value.trim() : 'Deep Work & Study';
     const mins = Math.max(1, Math.min(240, parseInt(minsInput ? minsInput.value : '45', 10) || 45));
     const useSpotlight = spotlightToggle ? spotlightToggle.checked : false;
 
@@ -1545,8 +2070,8 @@ input[type="range"]::-webkit-slider-thumb {
     state.character.selectedMinutes = mins;
     state.character.autoSpotlight = useSpotlight;
 
-    // Update Timer
     stopTimerInterval();
+    state.timer.isStopwatch = false;
     state.timer.mode = 'custom';
     state.timer.customMinutes = mins;
     state.timer.startedAtSessionMinutes = mins;
@@ -1554,7 +2079,6 @@ input[type="range"]::-webkit-slider-thumb {
     state.timer.remainingSeconds = mins * 60;
     state.timer.currentSubject = subject;
 
-    // Ensure task exists or pin matching task
     let matchingTask = state.tasks.find(
       (t) => t.title.toLowerCase() === subject.toLowerCase() && !t.completed
     );
@@ -1588,17 +2112,14 @@ input[type="range"]::-webkit-slider-thumb {
 
   function inferCategory(text) {
     const lower = text.toLowerCase();
-    if (lower.includes('css') || lower.includes('js') || lower.includes('code') || lower.includes('api') || lower.includes('system')) {
-      return 'Software Architecture';
-    }
-    if (lower.includes('studio') || lower.includes('cad') || lower.includes('building') || lower.includes('spatial') || lower.includes('design')) {
-      return 'Building Architecture';
-    }
-    return 'Core Study';
+    if (lower.includes('read') || lower.includes('note') || lower.includes('chapter')) return 'Reading & Notes';
+    if (lower.includes('practice') || lower.includes('problem') || lower.includes('drill')) return 'Practice & Drills';
+    if (lower.includes('exam') || lower.includes('quiz') || lower.includes('test')) return 'Exam Prep';
+    return 'Deep Study';
   }
 
   // =========================================================================
-  // 5. BUILT-IN POMODORO & CUSTOM FOCUS TIMER ENGINE
+  // 5. BUILT-IN POMODORO & STOPWATCH CHRONOMETER ENGINE
   // =========================================================================
   function formatTime(totalSecs) {
     const mins = Math.floor(totalSecs / 60);
@@ -1608,6 +2129,7 @@ input[type="range"]::-webkit-slider-thumb {
 
   function setTimerPreset(mode, minutes) {
     stopTimerInterval();
+    state.timer.isStopwatch = false;
     state.timer.mode = mode;
     const mins = minutes || (
       mode === 'focus' ? state.timer.focusMinutes :
@@ -1624,6 +2146,21 @@ input[type="range"]::-webkit-slider-thumb {
     renderDynamicIsland();
   }
 
+  function adjustTimerMinutes(deltaMinutes) {
+    if (state.timer.isStopwatch) {
+      showToast('Stopwatch Mode Active', 'Switch to Countdown mode to adjust duration');
+      return;
+    }
+    const deltaSecs = deltaMinutes * 60;
+    const nextRemaining = Math.max(60, Math.min(240 * 60, state.timer.remainingSeconds + deltaSecs));
+    const nextTotal = Math.max(nextRemaining, state.timer.totalSeconds + deltaSecs);
+    state.timer.remainingSeconds = nextRemaining;
+    state.timer.totalSeconds = nextTotal;
+    saveState();
+    renderTimerSection();
+    renderDynamicIsland();
+  }
+
   function startTimer() {
     stopTimerInterval();
     state.timer.isRunning = true;
@@ -1631,14 +2168,15 @@ input[type="range"]::-webkit-slider-thumb {
     renderDynamicIsland();
 
     timerInterval = setInterval(() => {
-      if (state.timer.remainingSeconds > 0) {
+      if (state.timer.isStopwatch) {
+        state.timer.elapsedStopwatchSeconds = (state.timer.elapsedStopwatchSeconds || 0) + 1;
+        renderTimerDigitsAndRing();
+        renderDynamicIsland();
+      } else if (state.timer.remainingSeconds > 0) {
         state.timer.remainingSeconds -= 1;
-
-        // Halfway check-in from Character
         if (state.timer.remainingSeconds === Math.floor(state.timer.totalSeconds / 2) && state.timer.totalSeconds >= 120) {
           setCharacterMessage(CHARACTER_QUOTES.halfway);
         }
-
         renderTimerDigitsAndRing();
         renderDynamicIsland();
       } else {
@@ -1664,7 +2202,11 @@ input[type="range"]::-webkit-slider-thumb {
 
   function resetTimer() {
     pauseTimer();
-    state.timer.remainingSeconds = state.timer.totalSeconds;
+    if (state.timer.isStopwatch) {
+      state.timer.elapsedStopwatchSeconds = 0;
+    } else {
+      state.timer.remainingSeconds = state.timer.totalSeconds;
+    }
     saveState();
     renderTimerSection();
     renderDynamicIsland();
@@ -1675,18 +2217,16 @@ input[type="range"]::-webkit-slider-thumb {
     playNoirChime('complete');
 
     const minsCompleted = Math.max(1, Math.round(state.timer.totalSeconds / 60));
-    const subject = state.timer.currentSubject || 'Deep Focus Block';
+    const subject = state.timer.currentSubject || 'Deep Work & Study';
 
     if (state.timer.mode === 'focus' || state.timer.mode === 'custom') {
       state.timer.completedPomodorosToday += 1;
 
-      // Credit pinned task
       const pinned = state.tasks.find((t) => t.pinned) || state.tasks[0];
       if (pinned) {
         pinned.completedMinutes = (pinned.completedMinutes || 0) + minsCompleted;
       }
 
-      // Record in Study Session Tracker automatically
       const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       state.sessions.unshift({
         id: 'ses-' + Date.now(),
@@ -1695,13 +2235,38 @@ input[type="range"]::-webkit-slider-thumb {
         durationMinutes: minsCompleted,
         timestamp: 'Today • ' + nowStr,
         rating: 5,
-        notes: 'Completed via Built-in Gotham Pomodoro Timer.'
+        notes: 'Completed via Built-in Focus Chronometer.'
       });
 
+      // Add to today's bar in 7-day chart
+      if (Array.isArray(state.weeklyMinutes) && state.weeklyMinutes.length === 7) {
+        state.weeklyMinutes[6] += minsCompleted;
+      }
+
       setCharacterMessage(CHARACTER_QUOTES.completed(subject, minsCompleted));
-      showToast('Session Logged (+' + minsCompleted + 'm)', subject + ' added to Study Tracker');
+      showToast('Session Logged (+' + minsCompleted + 'm)', subject + ' saved to Tracker');
+
+      // Handle Auto-Cycle Breaks if enabled
+      if (state.timer.autoChainCycles) {
+        if (state.timer.currentCycle < state.timer.maxCycles) {
+          state.timer.currentCycle += 1;
+          setTimerPreset('shortBreak', 5);
+          startTimer();
+          return;
+        } else {
+          state.timer.currentCycle = 1;
+          setTimerPreset('longBreak', 15);
+          startTimer();
+          return;
+        }
+      }
     } else {
-      showToast('Break Finished', 'Ready to lock back into the blueprint.');
+      showToast('Break Finished', 'Ready for the next focus block');
+      if (state.timer.autoChainCycles) {
+        setTimerPreset('focus', 25);
+        startTimer();
+        return;
+      }
     }
 
     state.timer.remainingSeconds = state.timer.totalSeconds;
@@ -1709,11 +2274,12 @@ input[type="range"]::-webkit-slider-thumb {
     renderAll();
   }
 
-  // Log partial elapsed session manually from the timer
   function logElapsedSessionNow() {
-    const elapsedSeconds = state.timer.totalSeconds - state.timer.remainingSeconds;
+    const elapsedSeconds = state.timer.isStopwatch
+      ? (state.timer.elapsedStopwatchSeconds || 0)
+      : (state.timer.totalSeconds - state.timer.remainingSeconds);
     const elapsedMinutes = Math.max(1, Math.round(elapsedSeconds / 60));
-    const subject = state.timer.currentSubject || 'Architecture Focus Session';
+    const subject = state.timer.currentSubject || 'Deep Work & Study';
     const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     state.sessions.unshift({
@@ -1726,41 +2292,57 @@ input[type="range"]::-webkit-slider-thumb {
       notes: 'Logged directly from active timer checkpoint.'
     });
 
+    if (Array.isArray(state.weeklyMinutes) && state.weeklyMinutes.length === 7) {
+      state.weeklyMinutes[6] += elapsedMinutes;
+    }
+
     const pinned = state.tasks.find((t) => t.pinned);
     if (pinned) {
       pinned.completedMinutes = (pinned.completedMinutes || 0) + elapsedMinutes;
     }
 
+    if (state.timer.isStopwatch) {
+      state.timer.elapsedStopwatchSeconds = 0;
+    }
+
     saveState();
     renderAll();
-    showToast('Checkpoint Logged', elapsedMinutes + ' min saved to Study Session Tracker');
+    showToast('Checkpoint Logged', elapsedMinutes + ' min saved to Session Tracker');
   }
 
   // =========================================================================
   // 6. UI RENDERERS
   // =========================================================================
+  function getActiveClockSeconds() {
+    return state.timer.isStopwatch
+      ? (state.timer.elapsedStopwatchSeconds || 0)
+      : state.timer.remainingSeconds;
+  }
+
   function renderTimerDigitsAndRing() {
     const displayEl = document.getElementById('timer-countdown-display');
     const ringEl = document.getElementById('timer-progress-circle');
     const pctEl = document.getElementById('timer-percent-badge');
 
-    if (displayEl) {
-      displayEl.textContent = formatTime(state.timer.remainingSeconds);
+    const secs = getActiveClockSeconds();
+    if (displayEl) displayEl.textContent = formatTime(secs);
+
+    let ratio = 0;
+    if (state.timer.isStopwatch) {
+      ratio = ((secs % 3600) / 3600);
+      if (pctEl) pctEl.textContent = 'STOPWATCH · ' + Math.floor(secs / 60) + 'M ELAPSED';
+    } else {
+      const total = Math.max(1, state.timer.totalSeconds);
+      const elapsed = total - state.timer.remainingSeconds;
+      ratio = Math.min(1, Math.max(0, elapsed / total));
+      if (pctEl) pctEl.textContent = Math.round(ratio * 100) + '% COMPLETE';
     }
 
-    const total = Math.max(1, state.timer.totalSeconds);
-    const elapsed = total - state.timer.remainingSeconds;
-    const ratio = Math.min(1, Math.max(0, elapsed / total));
-
     if (ringEl) {
-      const circumference = 2 * Math.PI * 116; // r=116 => 728.85
+      const circumference = 2 * Math.PI * 116;
       const offset = circumference * (1 - ratio);
       ringEl.style.strokeDasharray = String(circumference);
       ringEl.style.strokeDashoffset = String(offset);
-    }
-
-    if (pctEl) {
-      pctEl.textContent = Math.round(ratio * 100) + '% COMPLETE';
     }
   }
 
@@ -1769,7 +2351,7 @@ input[type="range"]::-webkit-slider-thumb {
 
     const activeSubjEl = document.getElementById('active-mission-title');
     if (activeSubjEl) {
-      activeSubjEl.textContent = state.timer.currentSubject || 'System Architecture & Design';
+      activeSubjEl.textContent = state.timer.currentSubject || 'Deep Work & Study';
     }
 
     const startPauseBtn = document.getElementById('timer-start-pause-btn');
@@ -1777,19 +2359,38 @@ input[type="range"]::-webkit-slider-thumb {
       startPauseBtn.textContent = state.timer.isRunning ? 'Pause Clock' : 'Engage Focus Timer';
     }
 
-    // Mode segment buttons
+    const swBtn = document.getElementById('toggle-stopwatch-mode-btn');
+    if (swBtn) {
+      swBtn.textContent = state.timer.isStopwatch ? 'Mode: Count-Up Stopwatch' : 'Mode: Countdown Timer';
+      swBtn.classList.toggle('active', Boolean(state.timer.isStopwatch));
+    }
+
+    const chainBtn = document.getElementById('toggle-autochain-btn');
+    if (chainBtn) {
+      chainBtn.textContent = state.timer.autoChainCycles ? 'Auto-Cycle Breaks: ON' : 'Auto-Cycle Breaks: OFF';
+      chainBtn.classList.toggle('active', Boolean(state.timer.autoChainCycles));
+    }
+
+    const cycleBadge = document.getElementById('pomodoro-cycle-badge');
+    if (cycleBadge) {
+      cycleBadge.textContent = 'Cycle ' + (state.timer.currentCycle || 1) + ' / ' + (state.timer.maxCycles || 4);
+    }
+
+    const resistBadge = document.getElementById('distractions-resisted-badge');
+    if (resistBadge) {
+      resistBadge.textContent = (state.timer.distractionsResisted || 0) + ' Distractions Resisted';
+    }
+
     document.querySelectorAll('[data-timer-preset]').forEach((btn) => {
       const preset = btn.getAttribute('data-timer-preset');
       const mins = parseInt(btn.getAttribute('data-minutes') || '25', 10);
-      const isSelected = state.timer.mode === preset && Math.round(state.timer.totalSeconds / 60) === mins;
+      const isSelected = !state.timer.isStopwatch && state.timer.mode === preset && Math.round(state.timer.totalSeconds / 60) === mins;
       btn.classList.toggle('active', isSelected);
     });
 
-    // Spotlight button state
     const spotBtn = document.getElementById('toggle-spotlight-btn');
     if (spotBtn) {
       spotBtn.textContent = state.spotlightMode ? 'Exit Knightfall Focus' : 'Knightfall Max Focus';
-      spotBtn.classList.toggle('border-amber-400', state.spotlightMode);
     }
   }
 
@@ -1798,16 +2399,12 @@ input[type="range"]::-webkit-slider-thumb {
     const islandTime = document.getElementById('island-timer-pill');
     const islandDot = document.getElementById('island-live-dot');
 
-    if (islandStatus) {
-      islandStatus.textContent = state.timer.currentSubject;
-    }
-    if (islandTime) {
-      islandTime.textContent = formatTime(state.timer.remainingSeconds);
-    }
+    if (islandStatus) islandStatus.textContent = state.timer.currentSubject;
+    if (islandTime) islandTime.textContent = formatTime(getActiveClockSeconds());
     if (islandDot) {
       islandDot.className = state.timer.isRunning
-        ? 'w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping'
-        : 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+        ? 'w-2 h-2 rounded-full bg-amber-400 animate-ping shrink-0'
+        : 'w-2 h-2 rounded-full bg-emerald-400 shrink-0';
     }
   }
 
@@ -1817,21 +2414,29 @@ input[type="range"]::-webkit-slider-thumb {
     if (!container) return;
 
     const openCount = state.tasks.filter((t) => !t.completed).length;
-    if (countBadge) {
-      countBadge.textContent = openCount + ' Active';
-    }
+    if (countBadge) countBadge.textContent = openCount + ' Active';
 
-    if (state.tasks.length === 0) {
-      container.innerHTML = '<div class="text-xs text-zinc-400 py-6 text-center">No architecture tasks queued. Add a mission above or ask Vance to set one up.</div>';
+    const query = (state.taskSearchQuery || '').toLowerCase();
+    const filtered = state.tasks.filter((task) => {
+      if (state.taskFilter === 'active' && task.completed) return false;
+      if (state.taskFilter === 'completed' && !task.completed) return false;
+      if (query && !task.title.toLowerCase().includes(query) && !task.category.toLowerCase().includes(query)) {
+        return false;
+      }
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<div class="text-xs text-zinc-500 py-8 text-center">No matching tasks in this view. Add a study goal above!</div>';
       return;
     }
 
-    container.innerHTML = state.tasks.map((task) => {
+    container.innerHTML = filtered.map((task) => {
       const priorityBadge = task.priority === 'Critical'
-        ? '<span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">Critical</span>'
+        ? '<span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/25">Critical</span>'
         : task.priority === 'High'
-        ? '<span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">High</span>'
-        : '<span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-zinc-700/50 text-zinc-300 border border-zinc-600/30">Standard</span>';
+        ? '<span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/25">High</span>'
+        : '<span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-white/5 text-zinc-300 border border-white/10">Standard</span>';
 
       return (
         '<div class="p-3.5 rounded-2xl border transition-all ' +
@@ -1841,35 +2446,35 @@ input[type="range"]::-webkit-slider-thumb {
         ' flex items-center justify-between gap-3">' +
           '<div class="flex items-start gap-3 min-w-0">' +
             '<button type="button" data-task-action="toggle" data-task-id="' + task.id + '" ' +
-              'class="mt-0.5 w-5 h-5 rounded-md border flex items-center justify-center transition-colors ' +
-              (task.completed ? 'bg-amber-500 border-amber-400 text-black' : 'border-zinc-500 hover:border-amber-400') + '" ' +
+              'class="mt-0.5 w-5 h-5 rounded-md border flex items-center justify-center transition-colors shrink-0 ' +
+              (task.completed ? 'bg-white border-white text-black' : 'border-zinc-500 hover:border-white') + '" ' +
               'title="Complete Task">' +
               (task.completed ? '✓' : '') +
             '</button>' +
             '<div class="min-w-0">' +
               '<div class="flex items-center gap-2 flex-wrap">' +
-                '<span class="text-sm font-semibold ' + (task.completed ? 'line-through text-zinc-500' : 'text-zinc-100') + '">' +
+                '<span class="text-sm font-medium ' + (task.completed ? 'line-through text-zinc-500' : 'text-zinc-100') + '">' +
                   escapeHtml(task.title) +
                 '</span>' +
-                (task.pinned ? '<span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-white text-black">Active</span>' : '') +
+                (task.pinned ? '<span class="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-white text-black">Active</span>' : '') +
               '</div>' +
               '<div class="flex items-center gap-2 mt-1.5 flex-wrap">' +
                 '<span class="text-[11px] text-zinc-400">' + escapeHtml(task.category) + '</span>' +
-                '<span class="text-zinc-600">•</span>' +
+                '<span class="text-zinc-600">·</span>' +
                 priorityBadge +
-                '<span class="text-zinc-600">•</span>' +
-                '<span class="text-[11px] font-mono text-amber-300/90">' + (task.completedMinutes || 0) + '/' + task.estMinutes + 'm logged</span>' +
+                '<span class="text-zinc-600">·</span>' +
+                '<span class="text-[11px] font-mono text-zinc-300">' + (task.completedMinutes || 0) + '/' + task.estMinutes + 'm</span>' +
               '</div>' +
             '</div>' +
           '</div>' +
           '<div class="flex items-center gap-1.5 shrink-0">' +
             '<button type="button" data-task-action="focus" data-task-id="' + task.id + '" ' +
-              'class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 transition" ' +
+              'class="px-3 py-1.5 rounded-full text-xs font-medium bg-white/10 hover:bg-white/20 text-white transition" ' +
               'title="Lock into this task">' +
               'Focus' +
             '</button>' +
             '<button type="button" data-task-action="delete" data-task-id="' + task.id + '" ' +
-              'class="px-2 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10 transition" ' +
+              'class="px-2 py-1.5 rounded-lg text-xs text-zinc-500 hover:text-rose-400 transition" ' +
               'title="Remove task">' +
               '✕' +
             '</button>' +
@@ -1879,61 +2484,167 @@ input[type="range"]::-webkit-slider-thumb {
     }).join('');
   }
 
+  function renderExamsList() {
+    const container = document.getElementById('exams-list-container');
+    if (!container) return;
+    if (!Array.isArray(state.exams) || state.exams.length === 0) {
+      container.innerHTML = '<div class="text-xs text-zinc-500 py-4 text-center">No upcoming exams queued.</div>';
+      return;
+    }
+    container.innerHTML = state.exams.map((ex) => {
+      const urgent = ex.daysLeft <= 7;
+      return (
+        '<div class="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.07] flex items-center justify-between gap-3">' +
+          '<div class="min-w-0">' +
+            '<div class="text-xs font-medium text-white truncate">' + escapeHtml(ex.title) + '</div>' +
+            '<div class="text-[11px] text-zinc-400 mt-0.5">Target milestone</div>' +
+          '</div>' +
+          '<div class="flex items-center gap-2 shrink-0">' +
+            '<span class="px-2.5 py-1 rounded-full text-xs font-mono ' +
+              (urgent ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-white/[0.06] text-zinc-200') + '">' +
+              ex.daysLeft + 'd left' +
+            '</span>' +
+            '<button type="button" data-exam-delete="' + ex.id + '" class="text-xs text-zinc-500 hover:text-rose-400 px-1">✕</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function renderFlashcardsSection() {
+    const cards = Array.isArray(state.flashcards) ? state.flashcards : [];
+    const counterEl = document.getElementById('flashcard-counter-badge');
+    const sideEl = document.getElementById('flashcard-side-label');
+    const masteryEl = document.getElementById('flashcard-mastery-badge');
+    const contentEl = document.getElementById('flashcard-content-text');
+
+    if (cards.length === 0) {
+      if (counterEl) counterEl.textContent = '0 Cards';
+      if (sideEl) sideEl.textContent = 'EMPTY DECK';
+      if (contentEl) contentEl.textContent = 'Add your first study flashcard below.';
+      if (masteryEl) masteryEl.textContent = '';
+      return;
+    }
+
+    if (state.activeFlashcardIndex >= cards.length) {
+      state.activeFlashcardIndex = 0;
+    }
+    const current = cards[state.activeFlashcardIndex];
+    if (counterEl) counterEl.textContent = 'Card ' + (state.activeFlashcardIndex + 1) + ' / ' + cards.length;
+    if (sideEl) sideEl.textContent = state.flashcardShowingAnswer ? 'ANSWER / EXPLANATION' : 'QUESTION PROMPT';
+    if (masteryEl) {
+      masteryEl.textContent = current.mastered ? '✓ Mastered' : 'In Review';
+      masteryEl.className = current.mastered ? 'text-emerald-300' : 'text-amber-300';
+    }
+    if (contentEl) {
+      contentEl.textContent = state.flashcardShowingAnswer ? current.answer : current.question;
+    }
+  }
+
+  function updateScratchpadStats() {
+    const text = (state.scratchpad || '').trim();
+    const words = text ? text.split(/\s+/).length : 0;
+    const chars = (state.scratchpad || '').length;
+    const countEl = document.getElementById('scratchpad-word-count');
+    if (countEl) {
+      countEl.textContent = words + ' words · ' + chars + ' chars';
+    }
+  }
+
   function renderSessionsTracker() {
     const totalMins = state.sessions.reduce((acc, s) => acc + (Number(s.durationMinutes) || 0), 0);
     const totalHoursStr = (totalMins / 60).toFixed(1) + ' hrs';
-    const goalPct = Math.min(100, Math.round((totalMins / (state.timer.dailyGoalMinutes || 180)) * 100));
+    const goalMins = Math.max(15, Number(state.timer.dailyGoalMinutes) || 180);
+    const goalPct = Math.min(100, Math.round((totalMins / goalMins) * 100));
+
+    // Calculate Vigilante Rank & XP (10 XP per minute)
+    const xp = totalMins * 10;
+    const level = Math.max(1, Math.floor(xp / 400) + 1);
+    const ranks = ['Initiate', 'GothamWatcher', 'Night Watcher', 'Silent Detective', 'Dark Knight Scholar', 'Master of Focus'];
+    const rankName = ranks[Math.min(ranks.length - 1, level - 1)];
 
     const statTotalEl = document.getElementById('stat-total-time');
     const statCountEl = document.getElementById('stat-sessions-count');
     const statStreakEl = document.getElementById('stat-streak-days');
     const statGoalEl = document.getElementById('stat-goal-pct');
     const goalBarEl = document.getElementById('daily-goal-bar-fill');
+    const xpEl = document.getElementById('stat-xp-level');
+    const headerRankEl = document.getElementById('header-rank-pill');
+    const dailyGoalInput = document.getElementById('daily-goal-input');
 
     if (statTotalEl) statTotalEl.textContent = totalMins + 'm (' + totalHoursStr + ')';
     if (statCountEl) statCountEl.textContent = String(state.sessions.length);
     if (statStreakEl) statStreakEl.textContent = state.streakDays + ' Days';
-    if (statGoalEl) statGoalEl.textContent = goalPct + '% of ' + state.timer.dailyGoalMinutes + 'm goal';
+    if (statGoalEl) statGoalEl.textContent = goalPct + '% of ' + goalMins + 'm goal';
     if (goalBarEl) goalBarEl.style.width = goalPct + '%';
+    if (xpEl) xpEl.textContent = xp.toLocaleString() + ' XP · Lv.' + level + ' ' + rankName;
+    if (headerRankEl) headerRankEl.textContent = 'Lv.' + level + ' ' + rankName;
+    if (dailyGoalInput && document.activeElement !== dailyGoalInput) {
+      dailyGoalInput.value = String(goalMins);
+    }
+
+    // 7-Day Consistency Chart
+    const weeklyEl = document.getElementById('weekly-heatmap-bars');
+    if (weeklyEl) {
+      const days = ['Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Today'];
+      const vals = Array.isArray(state.weeklyMinutes) && state.weeklyMinutes.length === 7
+        ? state.weeklyMinutes
+        : [0, 0, 0, 0, 0, 0, totalMins];
+      const maxVal = Math.max(60, ...vals);
+      weeklyEl.innerHTML = vals.map((v, idx) => {
+        const hPct = Math.max(8, Math.round((v / maxVal) * 100));
+        return (
+          '<div class="flex flex-col items-center gap-1.5 h-full justify-end">' +
+            '<span class="text-[10px] font-mono text-zinc-400">' + v + 'm</span>' +
+            '<div class="w-full max-w-[28px] rounded-t-lg bg-white/80 transition-all" style="height:' + hPct + '%"></div>' +
+            '<span class="text-[10px] text-zinc-500">' + days[idx] + '</span>' +
+          '</div>'
+        );
+      }).join('');
+    }
 
     // Category Breakdown Bars
     const catBreakdownEl = document.getElementById('category-breakdown-bars');
     if (catBreakdownEl) {
       const totalsByCat = {};
       state.sessions.forEach((s) => {
-        const c = s.category || 'Core Study';
+        const c = s.category || 'Deep Study';
         totalsByCat[c] = (totalsByCat[c] || 0) + (Number(s.durationMinutes) || 0);
       });
       const entries = Object.entries(totalsByCat);
-      catBreakdownEl.innerHTML = entries.map(([cat, mins]) => {
-        const pct = totalMins > 0 ? Math.round((mins / totalMins) * 100) : 0;
-        return (
-          '<div class="space-y-1">' +
-            '<div class="flex justify-between text-xs">' +
-              '<span class="font-medium text-zinc-200">' + escapeHtml(cat) + '</span>' +
-              '<span class="font-mono text-amber-400">' + mins + 'm (' + pct + '%)</span>' +
-            '</div>' +
-            '<div class="w-full h-2 rounded-full bg-zinc-900 overflow-hidden border border-white/5">' +
-              '<div class="h-full rounded-full bg-white/85" style="width:' + pct + '%"></div>' +
-            '</div>' +
-          '</div>'
-        );
-      }).join('');
+      if (entries.length === 0) {
+        catBreakdownEl.innerHTML = '<div class="text-xs text-zinc-500 py-3">No category data yet.</div>';
+      } else {
+        catBreakdownEl.innerHTML = entries.map(([cat, mins]) => {
+          const pct = totalMins > 0 ? Math.round((mins / totalMins) * 100) : 0;
+          return (
+            '<div class="space-y-1">' +
+              '<div class="flex justify-between text-xs">' +
+                '<span class="font-medium text-zinc-200">' + escapeHtml(cat) + '</span>' +
+                '<span class="font-mono text-zinc-300">' + mins + 'm (' + pct + '%)</span>' +
+              '</div>' +
+              '<div class="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">' +
+                '<div class="h-full rounded-full bg-white/85" style="width:' + pct + '%"></div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+      }
     }
 
     // Sessions History Table
     const tbody = document.getElementById('session-history-tbody');
     if (tbody) {
       if (state.sessions.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-xs text-zinc-500">No study sessions recorded yet. Start the timer or log a block manually!</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-xs text-zinc-500">Session history is clean (0 sessions). Start the timer or log a study block above!</td></tr>';
       } else {
         tbody.innerHTML = state.sessions.map((s) => {
           const stars = '★'.repeat(Math.max(1, Math.min(5, s.rating || 5)));
           return (
             '<tr class="border-b border-white/5 hover:bg-white/[0.02] transition">' +
-              '<td class="py-3 px-3 text-xs font-semibold text-zinc-100">' + escapeHtml(s.subject) + '</td>' +
+              '<td class="py-3 px-3 text-xs font-medium text-zinc-100">' + escapeHtml(s.subject) + '</td>' +
               '<td class="py-3 px-3 text-xs text-zinc-400">' + escapeHtml(s.category) + '</td>' +
-              '<td class="py-3 px-3 text-xs font-mono text-amber-400 font-semibold">' + s.durationMinutes + ' min</td>' +
+              '<td class="py-3 px-3 text-xs font-mono text-white">' + s.durationMinutes + ' min</td>' +
               '<td class="py-3 px-3 text-xs text-amber-300">' + stars + '</td>' +
               '<td class="py-3 px-3 text-xs text-zinc-400 flex items-center justify-between gap-2">' +
                 '<span>' + escapeHtml(s.timestamp) + '</span>' +
@@ -1948,7 +2659,11 @@ input[type="range"]::-webkit-slider-thumb {
 
   function renderAudioEqualizerBadge() {
     const isPlayingAny = !state.audio.masterMuted && (
-      state.audio.rainLevel > 0 || state.audio.saxPadLevel > 0 || state.audio.brownNoiseLevel > 0
+      state.audio.rainLevel > 0 ||
+      state.audio.saxPadLevel > 0 ||
+      state.audio.brownNoiseLevel > 0 ||
+      state.audio.binauralLevel > 0 ||
+      state.audio.vinylLevel > 0
     );
     const badge = document.getElementById('audio-status-label');
     if (badge) {
@@ -1957,7 +2672,7 @@ input[type="range"]::-webkit-slider-thumb {
   }
 
   function renderTabs() {
-    const tabs = ['studio', 'sessions'];
+    const tabs = ['studio', 'tasks', 'toolkit', 'ambience', 'sessions'];
     tabs.forEach((tabId) => {
       const section = document.getElementById('view-' + tabId);
       if (section) {
@@ -1966,8 +2681,7 @@ input[type="range"]::-webkit-slider-thumb {
     });
     document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
       const target = btn.getAttribute('data-nav-tab');
-      const active = target === state.activeTab;
-      btn.classList.toggle('active', active);
+      btn.classList.toggle('active', target === state.activeTab);
     });
   }
 
@@ -1976,18 +2690,19 @@ input[type="range"]::-webkit-slider-thumb {
     renderTimerSection();
     renderDynamicIsland();
     renderTasksList();
+    renderExamsList();
+    renderFlashcardsSection();
     renderSessionsTracker();
     renderAudioEqualizerBadge();
 
     const speechEl = document.getElementById('character-speech-text');
-    if (speechEl) {
-      speechEl.textContent = state.character.lastMessage;
-    }
+    if (speechEl) speechEl.textContent = state.character.lastMessage;
 
     const scratchEl = document.getElementById('noir-scratchpad');
     if (scratchEl && scratchEl.value !== state.scratchpad) {
       scratchEl.value = state.scratchpad;
     }
+    updateScratchpadStats();
   }
 
   function escapeHtml(str) {
@@ -1999,7 +2714,70 @@ input[type="range"]::-webkit-slider-thumb {
   }
 
   // =========================================================================
-  // 7. EVENT WIRING & INITIALIZATION
+  // 7. RESET DATA MODAL LOGIC (WITH "MAKE SURE" SAFETY CHECK)
+  // =========================================================================
+  function openResetModal() {
+    const modal = document.getElementById('reset-confirm-modal');
+    const checkbox = document.getElementById('reset-safety-checkbox');
+    if (checkbox) checkbox.checked = false;
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  }
+
+  function closeResetModal() {
+    const modal = document.getElementById('reset-confirm-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  function handleResetSessionsOnly() {
+    const checkbox = document.getElementById('reset-safety-checkbox');
+    if (!checkbox || !checkbox.checked) {
+      showToast('Please Confirm First', 'Check the "Yes, I am sure" box to reset your data');
+      return;
+    }
+    state.sessions = [];
+    state.weeklyMinutes = [0, 0, 0, 0, 0, 0, 0];
+    state.streakDays = 0;
+    state.timer.completedPomodorosToday = 0;
+    state.tasks.forEach((t) => { t.completedMinutes = 0; });
+    saveState();
+    closeResetModal();
+    renderAll();
+    showToast('Session History Reset', 'All study hours and session logs cleared to 0');
+  }
+
+  function handleResetAllData() {
+    const checkbox = document.getElementById('reset-safety-checkbox');
+    if (!checkbox || !checkbox.checked) {
+      showToast('Please Confirm First', 'Check the "Yes, I am sure" box to reset everything');
+      return;
+    }
+    stopTimerInterval();
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (e) {}
+    state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    state.sessions = [];
+    state.tasks = [];
+    state.exams = [];
+    state.weeklyMinutes = [0, 0, 0, 0, 0, 0, 0];
+    state.streakDays = 0;
+    state.scratchpad = '';
+    state.timer.distractionsResisted = 0;
+    state.activeTab = 'sessions';
+    saveState();
+    closeResetModal();
+    renderAll();
+    showToast('Factory Reset Complete', 'All sessions, tasks, and notes have been wiped');
+  }
+
+  // =========================================================================
+  // 8. EVENT WIRING & INITIALIZATION
   // =========================================================================
   function bindEvents() {
     window.addEventListener('resize', initSkyline);
@@ -2008,7 +2786,20 @@ input[type="range"]::-webkit-slider-thumb {
       mouseY = e.clientY / Math.max(1, window.innerHeight);
     });
 
-    // Navigation Tabs (Top bar + macOS Dock)
+    // Keyboard Shortcuts (when not typing in an input/textarea)
+    window.addEventListener('keydown', (e) => {
+      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (state.timer.isRunning) pauseTimer();
+        else { playNoirChime('start'); startTimer(); }
+      } else if (e.key === 'r' || e.key === 'R') {
+        resetTimer();
+      }
+    });
+
+    // Navigation Tabs
     document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
       btn.addEventListener('click', () => {
         state.activeTab = btn.getAttribute('data-nav-tab') || 'studio';
@@ -2029,6 +2820,28 @@ input[type="range"]::-webkit-slider-thumb {
       });
     });
 
+    // Visual Weather Sliders
+    const visualRainSlider = document.getElementById('slider-visual-rain');
+    if (visualRainSlider) {
+      visualRainSlider.addEventListener('input', () => {
+        state.rainIntensity = parseInt(visualRainSlider.value, 10) || 0;
+        const vEl = document.getElementById('val-visual-rain');
+        if (vEl) vEl.textContent = state.rainIntensity + '%';
+        saveState();
+      });
+    }
+
+    const opacitySlider = document.getElementById('slider-canvas-opacity');
+    if (opacitySlider) {
+      opacitySlider.addEventListener('input', () => {
+        state.canvasOpacity = parseInt(opacitySlider.value, 10) || 72;
+        if (canvas) canvas.style.opacity = String(state.canvasOpacity / 100);
+        const vEl = document.getElementById('val-canvas-opacity');
+        if (vEl) vEl.textContent = state.canvasOpacity + '%';
+        saveState();
+      });
+    }
+
     // Bat-Signal Toggle
     const batSignalBtn = document.getElementById('toggle-batsignal-btn');
     if (batSignalBtn) {
@@ -2039,7 +2852,7 @@ input[type="range"]::-webkit-slider-thumb {
       });
     }
 
-    // Character Quick Subject Chips
+    // Character Quick Chips
     document.querySelectorAll('[data-char-subject]').forEach((chip) => {
       chip.addEventListener('click', () => {
         const val = chip.getAttribute('data-char-subject') || '';
@@ -2050,7 +2863,6 @@ input[type="range"]::-webkit-slider-thumb {
       });
     });
 
-    // Character Quick Duration Chips
     document.querySelectorAll('[data-char-mins]').forEach((chip) => {
       chip.addEventListener('click', () => {
         const val = chip.getAttribute('data-char-mins') || '45';
@@ -2061,7 +2873,6 @@ input[type="range"]::-webkit-slider-thumb {
       });
     });
 
-    // Character Lock-In Form
     const charForm = document.getElementById('character-checkin-form');
     if (charForm) {
       charForm.addEventListener('submit', (e) => {
@@ -2070,7 +2881,6 @@ input[type="range"]::-webkit-slider-thumb {
       });
     }
 
-    // Character Pep Talk Button
     const pepBtn = document.getElementById('character-peptalk-btn');
     if (pepBtn) {
       pepBtn.addEventListener('click', () => {
@@ -2080,30 +2890,87 @@ input[type="range"]::-webkit-slider-thumb {
       });
     }
 
-    // Timer Controls
-    const startPauseBtn = document.getElementById('timer-start-pause-btn');
-    if (startPauseBtn) {
-      startPauseBtn.addEventListener('click', () => {
-        if (state.timer.isRunning) {
-          pauseTimer();
+    // Mindful Box Breathing Pacer
+    const breatheBtn = document.getElementById('toggle-breathing-btn');
+    if (breatheBtn) {
+      breatheBtn.addEventListener('click', () => {
+        const orb = document.getElementById('breathing-visual-orb');
+        const statusText = document.getElementById('breathing-status-text');
+        if (breathingActive) {
+          breathingActive = false;
+          if (breathingInterval) clearInterval(breathingInterval);
+          breatheBtn.textContent = 'Start Pacer';
+          if (orb) {
+            orb.classList.remove('breathing-orb-active');
+            orb.textContent = '4s';
+          }
+          if (statusText) statusText.textContent = 'Calm your nervous system before deep study (4s inhale · 4s hold · 4s exhale).';
         } else {
-          playNoirChime('start');
-          startTimer();
+          breathingActive = true;
+          breatheBtn.textContent = 'Stop Pacer';
+          if (orb) orb.classList.add('breathing-orb-active');
+          const phases = ['Inhale slowly (4s)...', 'Hold breath gently (4s)...', 'Exhale completely (4s)...', 'Rest & reset (4s)...'];
+          let phaseIdx = 0;
+          if (statusText) statusText.textContent = phases[0];
+          breathingInterval = setInterval(() => {
+            phaseIdx = (phaseIdx + 1) % phases.length;
+            if (statusText) statusText.textContent = phases[phaseIdx];
+          }, 4000);
         }
       });
     }
 
-    const resetBtn = document.getElementById('timer-reset-btn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', resetTimer);
+    // Timer Controls
+    const startPauseBtn = document.getElementById('timer-start-pause-btn');
+    if (startPauseBtn) {
+      startPauseBtn.addEventListener('click', () => {
+        if (state.timer.isRunning) pauseTimer();
+        else { playNoirChime('start'); startTimer(); }
+      });
     }
+
+    const minus5Btn = document.getElementById('timer-minus-5-btn');
+    if (minus5Btn) minus5Btn.addEventListener('click', () => adjustTimerMinutes(-5));
+
+    const plus5Btn = document.getElementById('timer-plus-5-btn');
+    if (plus5Btn) plus5Btn.addEventListener('click', () => adjustTimerMinutes(5));
+
+    const swModeBtn = document.getElementById('toggle-stopwatch-mode-btn');
+    if (swModeBtn) {
+      swModeBtn.addEventListener('click', () => {
+        pauseTimer();
+        state.timer.isStopwatch = !state.timer.isStopwatch;
+        saveState();
+        renderTimerSection();
+        renderDynamicIsland();
+      });
+    }
+
+    const autoChainBtn = document.getElementById('toggle-autochain-btn');
+    if (autoChainBtn) {
+      autoChainBtn.addEventListener('click', () => {
+        state.timer.autoChainCycles = !state.timer.autoChainCycles;
+        saveState();
+        renderTimerSection();
+      });
+    }
+
+    const resistBtn = document.getElementById('resist-distraction-btn');
+    if (resistBtn) {
+      resistBtn.addEventListener('click', () => {
+        state.timer.distractionsResisted = (state.timer.distractionsResisted || 0) + 1;
+        saveState();
+        renderTimerSection();
+        showToast('Distraction Shield +1', 'Urge resisted—keep your eyes on the mission');
+      });
+    }
+
+    const resetBtn = document.getElementById('timer-reset-btn');
+    if (resetBtn) resetBtn.addEventListener('click', resetTimer);
 
     const logNowBtn = document.getElementById('timer-log-checkpoint-btn');
-    if (logNowBtn) {
-      logNowBtn.addEventListener('click', logElapsedSessionNow);
-    }
+    if (logNowBtn) logNowBtn.addEventListener('click', logElapsedSessionNow);
 
-    // Timer Preset Buttons
     document.querySelectorAll('[data-timer-preset]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const mode = btn.getAttribute('data-timer-preset') || 'focus';
@@ -2112,7 +2979,6 @@ input[type="range"]::-webkit-slider-thumb {
       });
     });
 
-    // Custom Timer Apply Button
     const applyCustomBtn = document.getElementById('apply-custom-timer-btn');
     if (applyCustomBtn) {
       applyCustomBtn.addEventListener('click', () => {
@@ -2124,7 +2990,6 @@ input[type="range"]::-webkit-slider-thumb {
       });
     }
 
-    // Spotlight Mode Toggle
     const spotBtn = document.getElementById('toggle-spotlight-btn');
     if (spotBtn) {
       spotBtn.addEventListener('click', () => {
@@ -2133,12 +2998,40 @@ input[type="range"]::-webkit-slider-thumb {
         renderTimerSection();
         showToast(
           state.spotlightMode ? 'Knightfall Spotlight Active' : 'Standard Studio View',
-          state.spotlightMode ? 'Secondary panels dimmed for maximum focus' : 'All panels restored'
+          state.spotlightMode ? 'Secondary panels dimmed for pure focus' : 'All panels restored'
         );
       });
     }
 
-    // Add Task Form
+    // Tasks Search & Filter
+    document.querySelectorAll('[data-task-filter]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.taskFilter = btn.getAttribute('data-task-filter') || 'all';
+        document.querySelectorAll('[data-task-filter]').forEach((b) => {
+          b.classList.toggle('active', b.getAttribute('data-task-filter') === state.taskFilter);
+        });
+        renderTasksList();
+      });
+    });
+
+    const taskSearchInput = document.getElementById('task-search-input');
+    if (taskSearchInput) {
+      taskSearchInput.addEventListener('input', () => {
+        state.taskSearchQuery = taskSearchInput.value;
+        renderTasksList();
+      });
+    }
+
+    const clearCompletedTasksBtn = document.getElementById('clear-completed-tasks-btn');
+    if (clearCompletedTasksBtn) {
+      clearCompletedTasksBtn.addEventListener('click', () => {
+        state.tasks = state.tasks.filter((t) => !t.completed);
+        saveState();
+        renderTasksList();
+        showToast('Completed Tasks Cleared', 'Active tasks remain in your queue');
+      });
+    }
+
     const addTaskForm = document.getElementById('add-task-form');
     if (addTaskForm) {
       addTaskForm.addEventListener('submit', (e) => {
@@ -2151,26 +3044,23 @@ input[type="range"]::-webkit-slider-thumb {
         const title = titleInput ? titleInput.value.trim() : '';
         if (!title) return;
 
-        const newTask = {
+        state.tasks.unshift({
           id: 'tsk-' + Date.now(),
           title: title,
-          category: catSelect ? catSelect.value : 'Software Architecture',
+          category: catSelect ? catSelect.value : 'Deep Study',
           priority: prioSelect ? prioSelect.value : 'High',
           estMinutes: Math.max(5, parseInt(minsInput ? minsInput.value : '45', 10) || 45),
           completedMinutes: 0,
           completed: false,
           pinned: false
-        };
-
-        state.tasks.unshift(newTask);
+        });
         if (titleInput) titleInput.value = '';
         saveState();
         renderTasksList();
-        showToast('Task Added to Blueprint', title);
+        showToast('Task Added', title);
       });
     }
 
-    // Delegated Task List Actions
     const tasksContainer = document.getElementById('tasks-list-container');
     if (tasksContainer) {
       tasksContainer.addEventListener('click', (e) => {
@@ -2188,6 +3078,7 @@ input[type="range"]::-webkit-slider-thumb {
         } else if (action === 'focus') {
           state.tasks.forEach((t) => { t.pinned = (t.id === taskId); });
           state.timer.currentSubject = task.title;
+          state.activeTab = 'studio';
           setTimerPreset('custom', task.estMinutes || 45);
           setCharacterMessage(CHARACTER_QUOTES.lockedIn(task.title, task.estMinutes || 45));
           saveState();
@@ -2198,6 +3089,140 @@ input[type="range"]::-webkit-slider-thumb {
           saveState();
           renderTasksList();
         }
+      });
+    }
+
+    // Exam Countdown Form & List
+    const addExamForm = document.getElementById('add-exam-form');
+    if (addExamForm) {
+      addExamForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const titleEl = document.getElementById('exam-title-input');
+        const daysEl = document.getElementById('exam-days-input');
+        const title = titleEl ? titleEl.value.trim() : '';
+        if (!title) return;
+        const days = Math.max(1, parseInt(daysEl ? daysEl.value : '14', 10) || 14);
+        state.exams.push({ id: 'ex-' + Date.now(), title: title, daysLeft: days });
+        state.exams.sort((a, b) => a.daysLeft - b.daysLeft);
+        if (titleEl) titleEl.value = '';
+        saveState();
+        renderExamsList();
+        showToast('Countdown Added', title + ' (' + days + ' days)');
+      });
+    }
+
+    const examsContainer = document.getElementById('exams-list-container');
+    if (examsContainer) {
+      examsContainer.addEventListener('click', (e) => {
+        const delBtn = e.target.closest('[data-exam-delete]');
+        if (!delBtn) return;
+        const id = delBtn.getAttribute('data-exam-delete');
+        state.exams = state.exams.filter((ex) => ex.id !== id);
+        saveState();
+        renderExamsList();
+      });
+    }
+
+    // Flashcards Deck Controls
+    const fcBox = document.getElementById('flashcard-Active-box');
+    const fcFlipBtn = document.getElementById('flashcard-flip-btn');
+    const fcPrevBtn = document.getElementById('flashcard-prev-btn');
+    const fcNextBtn = document.getElementById('flashcard-next-btn');
+    const fcGotItBtn = document.getElementById('flashcard-gotit-btn');
+    const fcShuffleBtn = document.getElementById('flashcard-shuffle-btn');
+    const addFcForm = document.getElementById('add-flashcard-form');
+
+    function flipCurrentCard() {
+      state.flashcardShowingAnswer = !state.flashcardShowingAnswer;
+      renderFlashcardsSection();
+    }
+    if (fcBox) fcBox.addEventListener('click', flipCurrentCard);
+    if (fcFlipBtn) fcFlipBtn.addEventListener('click', flipCurrentCard);
+    if (fcPrevBtn) {
+      fcPrevBtn.addEventListener('click', () => {
+        if (!state.flashcards.length) return;
+        state.activeFlashcardIndex = (state.activeFlashcardIndex - 1 + state.flashcards.length) % state.flashcards.length;
+        state.flashcardShowingAnswer = false;
+        renderFlashcardsSection();
+      });
+    }
+    if (fcNextBtn) {
+      fcNextBtn.addEventListener('click', () => {
+        if (!state.flashcards.length) return;
+        state.activeFlashcardIndex = (state.activeFlashcardIndex + 1) % state.flashcards.length;
+        state.flashcardShowingAnswer = false;
+        renderFlashcardsSection();
+      });
+    }
+    if (fcGotItBtn) {
+      fcGotItBtn.addEventListener('click', () => {
+        const card = state.flashcards[state.activeFlashcardIndex];
+        if (!card) return;
+        card.mastered = !card.mastered;
+        saveState();
+        renderFlashcardsSection();
+      });
+    }
+    if (fcShuffleBtn) {
+      fcShuffleBtn.addEventListener('click', () => {
+        state.flashcards.sort(() => Math.random() - 0.5);
+        state.activeFlashcardIndex = 0;
+        state.flashcardShowingAnswer = false;
+        saveState();
+        renderFlashcardsSection();
+        showToast('Deck Shuffled', 'Flashcards randomized for active recall');
+      });
+    }
+    if (addFcForm) {
+      addFcForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const qEl = document.getElementById('new-card-question');
+        const aEl = document.getElementById('new-card-answer');
+        const q = qEl ? qEl.value.trim() : '';
+        const a = aEl ? aEl.value.trim() : '';
+        if (!q || !a) return;
+        state.flashcards.push({ id: 'fc-' + Date.now(), question: q, answer: a, mastered: false });
+        state.activeFlashcardIndex = state.flashcards.length - 1;
+        state.flashcardShowingAnswer = false;
+        if (qEl) qEl.value = '';
+        if (aEl) aEl.value = '';
+        saveState();
+        renderFlashcardsSection();
+        showToast('Flashcard Added', 'Saved to your Study Lab deck');
+      });
+    }
+
+    // Note Templates & Download
+    document.querySelectorAll('[data-note-template]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const kind = btn.getAttribute('data-note-template');
+        const scratchEl = document.getElementById('noir-scratchpad');
+        if (!scratchEl) return;
+        const snippet = kind === 'cornell'
+          ? "\n\n--- CORNELL STUDY NOTES ---\n• Key Cues / Questions:\n• Main Lecture Notes:\n• 2-Sentence Bottom Summary:\n"
+          : kind === 'feynman'
+          ? "\n\n--- FEYNMAN CONCEPT BREAKDOWN ---\n1. Concept Name:\n2. Plain-English Explanation:\n3. Where My Understanding Stalled:\n4. Simplified Analogy:\n"
+          : "\n\n--- TONIGHT'S STUDY CHECKLIST ---\n[ ] Primary chapter review\n[ ] 2x 45m focus blocks\n[ ] Active recall flashcard pass\n";
+        scratchEl.value = (scratchEl.value || '') + snippet;
+        state.scratchpad = scratchEl.value;
+        saveState();
+        updateScratchpadStats();
+      });
+    });
+
+    const downloadNotesBtn = document.getElementById('download-notes-btn');
+    if (downloadNotesBtn) {
+      downloadNotesBtn.addEventListener('click', () => {
+        const blob = new Blob([state.scratchpad || ''], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'wayne_os_study_notes.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Notes Saved', 'Downloaded wayne_os_study_notes.txt');
       });
     }
 
@@ -2212,25 +3237,40 @@ input[type="range"]::-webkit-slider-thumb {
         const ratingEl = document.getElementById('log-session-rating');
         const notesEl = document.getElementById('log-session-notes');
 
-        const subject = subjEl && subjEl.value.trim() ? subjEl.value.trim() : 'Architecture Study Block';
+        const subject = subjEl && subjEl.value.trim() ? subjEl.value.trim() : 'Deep Study Session';
         const duration = Math.max(1, parseInt(minsEl ? minsEl.value : '45', 10) || 45);
         const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         state.sessions.unshift({
           id: 'ses-' + Date.now(),
           subject: subject,
-          category: catEl ? catEl.value : 'Software Architecture',
+          category: catEl ? catEl.value : 'Deep Study',
           durationMinutes: duration,
           timestamp: 'Today • ' + nowStr,
           rating: parseInt(ratingEl ? ratingEl.value : '5', 10) || 5,
           notes: notesEl ? notesEl.value.trim() : ''
         });
 
+        if (Array.isArray(state.weeklyMinutes) && state.weeklyMinutes.length === 7) {
+          state.weeklyMinutes[6] += duration;
+        }
+
         if (subjEl) subjEl.value = '';
         if (notesEl) notesEl.value = '';
         saveState();
         renderSessionsTracker();
         showToast('Study Session Recorded', subject + ' (' + duration + 'm)');
+      });
+    }
+
+    // Daily Goal Input
+    const dailyGoalInput = document.getElementById('daily-goal-input');
+    if (dailyGoalInput) {
+      dailyGoalInput.addEventListener('change', () => {
+        state.timer.dailyGoalMinutes = Math.max(15, Math.min(720, parseInt(dailyGoalInput.value, 10) || 180));
+        saveState();
+        renderSessionsTracker();
+        showToast('Daily Goal Updated', state.timer.dailyGoalMinutes + ' minutes target set');
       });
     }
 
@@ -2247,7 +3287,7 @@ input[type="range"]::-webkit-slider-thumb {
       });
     }
 
-    // Export Study Sessions CSV
+    // Export CSV & JSON Backup
     const exportCsvBtn = document.getElementById('export-sessions-csv-btn');
     if (exportCsvBtn) {
       exportCsvBtn.addEventListener('click', () => {
@@ -2274,41 +3314,51 @@ input[type="range"]::-webkit-slider-thumb {
       });
     }
 
-    // Audio Sliders
-    const rainSlider = document.getElementById('slider-gotham-rain');
-    if (rainSlider) {
-      rainSlider.addEventListener('input', () => {
-        ensureAudioContext();
-        state.audio.rainLevel = parseInt(rainSlider.value, 10) || 0;
-        const valEl = document.getElementById('val-gotham-rain');
-        if (valEl) valEl.textContent = state.audio.rainLevel + '%';
-        updateAudioLevels();
+    const exportJsonBtn = document.getElementById('export-backup-json-btn');
+    if (exportJsonBtn) {
+      exportJsonBtn.addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'wayne_os_backup.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Backup Saved', 'Downloaded wayne_os_backup.json');
       });
     }
 
-    const saxSlider = document.getElementById('slider-nyc-sax');
-    if (saxSlider) {
-      saxSlider.addEventListener('input', () => {
+    // Reset Data Modal Buttons
+    const openResetBtn = document.getElementById('open-reset-modal-btn');
+    const cancelResetBtn = document.getElementById('cancel-reset-modal-btn');
+    const confirmSessionsResetBtn = document.getElementById('confirm-reset-sessions-only-btn');
+    const confirmAllResetBtn = document.getElementById('confirm-reset-all-data-btn');
+
+    if (openResetBtn) openResetBtn.addEventListener('click', openResetModal);
+    if (cancelResetBtn) cancelResetBtn.addEventListener('click', closeResetModal);
+    if (confirmSessionsResetBtn) confirmSessionsResetBtn.addEventListener('click', handleResetSessionsOnly);
+    if (confirmAllResetBtn) confirmAllResetBtn.addEventListener('click', handleResetAllData);
+
+    // 5-Channel Audio Sliders
+    const bindAudioSlider = (sliderId, valId, key) => {
+      const el = document.getElementById(sliderId);
+      if (!el) return;
+      el.addEventListener('input', () => {
         ensureAudioContext();
-        state.audio.saxPadLevel = parseInt(saxSlider.value, 10) || 0;
-        const valEl = document.getElementById('val-nyc-sax');
-        if (valEl) valEl.textContent = state.audio.saxPadLevel + '%';
+        state.audio[key] = parseInt(el.value, 10) || 0;
+        const valEl = document.getElementById(valId);
+        if (valEl) valEl.textContent = state.audio[key] + '%';
         updateAudioLevels();
       });
-    }
+    };
+    bindAudioSlider('slider-gotham-rain', 'val-gotham-rain', 'rainLevel');
+    bindAudioSlider('slider-nyc-sax', 'val-nyc-sax', 'saxPadLevel');
+    bindAudioSlider('slider-batcave-brown', 'val-batcave-brown', 'brownNoiseLevel');
+    bindAudioSlider('slider-binaural-hum', 'val-binaural-hum', 'binauralLevel');
+    bindAudioSlider('slider-vinyl-crackle', 'val-vinyl-crackle', 'vinylLevel');
 
-    const brownSlider = document.getElementById('slider-batcave-brown');
-    if (brownSlider) {
-      brownSlider.addEventListener('input', () => {
-        ensureAudioContext();
-        state.audio.brownNoiseLevel = parseInt(brownSlider.value, 10) || 0;
-        const valEl = document.getElementById('val-batcave-brown');
-        if (valEl) valEl.textContent = state.audio.brownNoiseLevel + '%';
-        updateAudioLevels();
-      });
-    }
-
-    // Quick Sound Preset Button ("Engage Midnight Mix")
     const quickMixBtn = document.getElementById('engage-midnight-mix-btn');
     if (quickMixBtn) {
       quickMixBtn.addEventListener('click', () => {
@@ -2318,23 +3368,52 @@ input[type="range"]::-webkit-slider-thumb {
           state.audio.rainLevel = 0;
           state.audio.saxPadLevel = 0;
           state.audio.brownNoiseLevel = 0;
+          state.audio.binauralLevel = 0;
+          state.audio.vinylLevel = 0;
           quickMixBtn.textContent = 'Play Gotham & NYC Sax Mix';
         } else {
           state.audio.rainLevel = 65;
           state.audio.saxPadLevel = 45;
-          state.audio.brownNoiseLevel = 30;
+          state.audio.brownNoiseLevel = 25;
+          state.audio.binauralLevel = 15;
+          state.audio.vinylLevel = 20;
           quickMixBtn.textContent = 'Mute Midnight Mix';
         }
-        if (rainSlider) rainSlider.value = String(state.audio.rainLevel);
-        if (saxSlider) saxSlider.value = String(state.audio.saxPadLevel);
-        if (brownSlider) brownSlider.value = String(state.audio.brownNoiseLevel);
-        const rVal = document.getElementById('val-gotham-rain');
-        const sVal = document.getElementById('val-nyc-sax');
-        const bVal = document.getElementById('val-batcave-brown');
-        if (rVal) rVal.textContent = state.audio.rainLevel + '%';
-        if (sVal) sVal.textContent = state.audio.saxPadLevel + '%';
-        if (bVal) bVal.textContent = state.audio.brownNoiseLevel + '%';
+        syncAudioSlidersUI();
         updateAudioLevels();
+      });
+    }
+
+    const saveMixBtn = document.getElementById('save-custom-mix-btn');
+    if (saveMixBtn) {
+      saveMixBtn.addEventListener('click', () => {
+        state.savedAudioPreset = {
+          rainLevel: state.audio.rainLevel,
+          saxPadLevel: state.audio.saxPadLevel,
+          brownNoiseLevel: state.audio.brownNoiseLevel,
+          binauralLevel: state.audio.binauralLevel,
+          vinylLevel: state.audio.vinylLevel,
+          scenePreset: state.scenePreset
+        };
+        saveState();
+        showToast('Custom Mix Saved', 'Your audio & skyline preset is stored');
+      });
+    }
+
+    const loadMixBtn = document.getElementById('load-custom-mix-btn');
+    if (loadMixBtn) {
+      loadMixBtn.addEventListener('click', () => {
+        ensureAudioContext();
+        const p = state.savedAudioPreset || DEFAULT_STATE.savedAudioPreset;
+        state.audio.rainLevel = p.rainLevel || 0;
+        state.audio.saxPadLevel = p.saxPadLevel || 0;
+        state.audio.brownNoiseLevel = p.brownNoiseLevel || 0;
+        state.audio.binauralLevel = p.binauralLevel || 0;
+        state.audio.vinylLevel = p.vinylLevel || 0;
+        if (p.scenePreset) state.scenePreset = p.scenePreset;
+        syncAudioSlidersUI();
+        updateAudioLevels();
+        showToast('Saved Mix Loaded', 'Restored your custom nocturnal soundscape');
       });
     }
 
@@ -2344,6 +3423,7 @@ input[type="range"]::-webkit-slider-thumb {
       scratchEl.addEventListener('input', () => {
         state.scratchpad = scratchEl.value;
         saveState();
+        updateScratchpadStats();
       });
     }
 
@@ -2353,11 +3433,10 @@ input[type="range"]::-webkit-slider-thumb {
         state.scratchpad = '';
         scratchEl.value = '';
         saveState();
+        updateScratchpadStats();
         showToast('Scratchpad Cleared', 'Ready for fresh midnight notes');
       });
     }
-
-
 
     // Live macOS Clock
     function updateClock() {
@@ -2369,19 +3448,6 @@ input[type="range"]::-webkit-slider-thumb {
     }
     updateClock();
     setInterval(updateClock, 15000);
-  }
-
-  function fallbackCopy(text) {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    try {
-      document.execCommand('copy');
-    } catch (e) {}
-    document.body.removeChild(ta);
   }
 
   window.addEventListener('DOMContentLoaded', () => {
