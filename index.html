@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#090A0F" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="WayneOS" />
+  <meta name="description" content="WayneOS Midnight Focus Studio — Precision Pomodoro, Gotham Soundscape, Vance AI" />
+
+  <title>WayneOS // Midnight Focus</title>
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Background orbs -->
+  <div id="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════ HEADER ════════════ -->
+  <header id="header">
+    <div class="logo">
+      <div class="logo-icon">⬡</div>
+      <div>
+        <div class="logo-text shimmer">WayneOS</div>
+        <div class="logo-sub">Midnight Focus Studio</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="audio-power-btn" class="btn btn-ghost btn-sm">▶ Play</button>
+      <button class="btn btn-ghost btn-icon" title="Settings" onclick="toast('Settings coming soon')">⚙️</button>
+    </div>
+  </header>
+
+  <!-- ═══════════ MAIN GRID ════════════ -->
+  <main id="main">
+
+    <!-- ── POMODORO PANEL ── -->
+    <section class="panel glass col-span-1" id="pomodoro-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-title-icon">⏱</span>
+          PRECISION FOCUS ENGINE
+        </div>
+        <div id="session-dots" class="session-counter"></div>
+      </div>
+
+      <!-- Timer Ring -->
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring-svg" viewBox="0 0 200 200" width="220" height="220">
+          <circle class="ring-track"    cx="100" cy="100" r="90" />
+          <circle class="ring-progress" cx="100" cy="100" r="90" id="ring-progress"
+            stroke-dasharray="565.49" stroke-dashoffset="0" />
+        </svg>
+        <div class="timer-center">
+          <div class="timer-display tabular" id="timer-display">25:00</div>
+          <div class="timer-state-label" id="timer-state">READY</div>
+        </div>
+      </div>
+
+      <!-- Main control -->
+      <div class="timer-controls">
+        <button class="btn btn-ghost btn-icon" id="btn-reset" title="Reset">↺</button>
+        <button class="btn-play" id="play-btn" title="Play/Pause (Space)">
+          <span id="play-icon">▶</span>
+        </button>
+        <button class="btn btn-ghost btn-icon" id="btn-break" title="Take Break">☕</button>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="pomodoro-quick-actions">
+        <button class="btn btn-ghost btn-sm" id="btn-plus5">+5 Min</button>
+      </div>
+
+      <!-- Cycle presets -->
+      <div class="cycle-presets">
+        <button class="preset-chip" data-preset="Deep Sprint">Deep Sprint 50/10</button>
+        <button class="preset-chip active" data-preset="Standard">Standard 25/5</button>
+        <button class="preset-chip" data-preset="Ultradian">Ultradian 90/20</button>
+      </div>
+    </section>
+
+    <!-- ── SOUNDSCAPE PANEL ── -->
+    <section class="panel glass col-span-1" id="audio-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-title-icon">🎚️</span>
+          GOTHAM SOUNDSCAPE
+        </div>
+      </div>
+
+      <!-- Stem grid (built by audio.js) -->
+      <div id="stem-grid" class="stem-grid"></div>
+
+      <!-- Master volume -->
+      <div class="master-row">
+        <div class="master-label">Master</div>
+        <input type="range" class="stem-slider" id="master-slider"
+          min="0" max="1" step="0.01" value="0.65" />
+        <div class="stem-vol-label" id="master-vol-label">65%</div>
+      </div>
+
+      <!-- Scene presets -->
+      <div class="preset-buttons">
+        <button class="btn btn-glass btn-sm scene-preset-btn" data-preset="Rainy Study">🌧 Rainy Study</button>
+        <button class="btn btn-glass btn-sm scene-preset-btn" data-preset="Late Night Code">💻 Late Night Code</button>
+        <button class="btn btn-glass btn-sm scene-preset-btn" data-preset="Subway Drizzle">🚇 Subway Drizzle</button>
+      </div>
+    </section>
+
+    <!-- ── TASK QUEUE PANEL ── -->
+    <section class="panel glass col-span-1" id="tasks-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-title-icon">✦</span>
+          FOCUS TASKS
+        </div>
+        <div style="display:flex;gap:var(--space-2);align-items:center;">
+          <span class="task-limit-badge" id="task-count-badge">0/3</span>
+          <button class="btn btn-ghost btn-sm" id="clear-done-btn">Clear done</button>
+        </div>
+      </div>
+
+      <!-- Task list (rendered by tasks.js) -->
+      <div id="task-list" class="task-list"></div>
+
+      <!-- Add task -->
+      <div class="task-add-row" style="margin-top:var(--space-3)">
+        <span style="color:var(--text-tertiary);font-size:14px">+</span>
+        <input type="text" class="task-add-input" id="task-add-input"
+          placeholder="Add a focus task… (Enter)" maxlength="80" />
+      </div>
+
+      <!-- 3-task rule explainer -->
+      <div style="margin-top:var(--space-4);padding:var(--space-3);background:rgba(229,193,88,0.05);border-radius:var(--radius-md);border:1px solid rgba(229,193,88,0.1);">
+        <div class="label-xs" style="color:var(--accent-gold);margin-bottom:4px">3-TASK COGNITIVE LIMIT</div>
+        <div style="font-size:11px;color:var(--text-tertiary);line-height:1.6">
+          WayneOS enforces a strict 3-task ceiling. Complete or remove an active task to add a new one.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FLOW TELEMETRY PANEL ── -->
+    <section class="panel glass col-span-2" id="telemetry-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-title-icon">📊</span>
+          FLOW TELEMETRY
+        </div>
+      </div>
+
+      <!-- Weekly chart -->
+      <div id="chart-wrap" class="chart-wrap"></div>
+
+      <!-- Stats row -->
+      <div class="stats-row" style="margin-bottom:var(--space-5)">
+        <div class="stat-item">
+          <div class="stat-value gold tabular" id="stat-today">0h</div>
+          <div class="stat-label">Today</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value tabular" id="stat-sessions">0</div>
+          <div class="stat-label">Sessions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" style="font-size:var(--text-lg);color:var(--success)">4.0h</div>
+          <div class="stat-label">Daily goal</div>
+        </div>
+      </div>
+
+      <!-- Export / Webhook -->
+      <div class="label-xs" style="margin-bottom:var(--space-2)">INTEGRATIONS &amp; EXPORT</div>
+      <input type="url" class="webhook-input" id="webhook-url-input"
+        placeholder="https://script.google.com/macros/s/.../exec — Google Sheets webhook" />
+      <div class="export-row">
+        <button class="btn btn-glass btn-sm" id="export-json-btn">⬇ JSON</button>
+        <button class="btn btn-glass btn-sm" id="export-csv-btn">⬇ CSV</button>
+        <button class="btn btn-gold btn-sm" id="export-webhook-btn">↗ Sync Sheets</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════ STATUS BAR ════════════ -->
+  <footer id="status-bar">
+    <div class="status-item">
+      <div class="status-dot" id="vance-status-dot"></div>
+      <span>Vance AI</span>
+    </div>
+    <div class="status-item">
+      <span id="status-time">--:--</span>
+    </div>
+    <div class="status-item">
+      <span>PWA</span>
+    </div>
+  </footer>
+
+  <!-- ═══════════ VANCE AI CAPSULE FAB ════════════ -->
+  <button id="vance-fab" aria-label="Open Vance AI (Cmd+K)">
+    <span>✦</span>
+    <span>Ask Vance</span>
+    <kbd>⌘K</kbd>
+  </button>
+
+  <!-- ═══════════ VANCE DRAWER ════════════ -->
+  <div id="vance-drawer" role="dialog" aria-modal="true" aria-label="Vance AI Companion">
+    <div id="vance-backdrop"></div>
+
+    <div id="vance-panel" class="glass">
+      <!-- Header -->
+      <div class="vance-header">
+        <div class="vance-title">
+          <div class="vance-avatar">✦</div>
+          <div>
+            <div class="vance-name">Vance AI</div>
+            <div class="vance-model-badge">gemini-3.8-flash · streaming</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:var(--space-3);">
+          <!-- Mode toggles -->
+          <div class="vance-mode-tabs">
+            <button class="vance-mode-btn active" data-mode="code">Code</button>
+            <button class="vance-mode-btn" data-mode="concept">Concept</button>
+            <button class="vance-mode-btn" data-mode="sprint">Sprint</button>
+          </div>
+          <button class="btn btn-ghost btn-icon-sm" id="vance-clear-btn" title="Clear conversation">🗑</button>
+          <button class="btn btn-ghost btn-icon-sm" id="vance-close-btn" title="Close (Esc)">✕</button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="vance-messages" class="vance-messages">
+        <!-- Welcome message -->
+        <div class="msg assistant">
+          <div class="msg-bubble glass-sm">
+            <strong>Hey, I'm Vance.</strong> Your deep work companion inside WayneOS.<br><br>
+            I'm wired to help you code faster, break down complex concepts, and summarize your sprints — 
+            all without leaving this tab.<br><br>
+            <span style="color:var(--text-tertiary);font-size:0.85em">Switch modes above · <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for newline</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="vance-input-wrap">
+        <div class="vance-input-row">
+          <textarea
+            id="vance-textarea"
+            class="vance-textarea"
+            rows="1"
+            placeholder="Ask Vance anything — code, concepts, sprint recap…"
+            aria-label="Message Vance AI"
+          ></textarea>
+          <button id="vance-send-btn" class="vance-send-btn" title="Send (Enter)" aria-label="Send">↑</button>
+        </div>
+        <div class="shortcut-hint"><kbd>⌘K</kbd> toggle · <kbd>Esc</kbd> close · <kbd>Shift+Enter</kbd> newline</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOAST CONTAINER ════════════ -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+</div>
+
+<!-- JS (ES modules) -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
